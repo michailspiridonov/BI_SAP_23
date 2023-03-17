@@ -1,0 +1,429 @@
+{
+  "design": {
+    "design_info": {
+      "boundary_crc": "0x25D12094E40B560D",
+      "device": "xc7a35tcpg236-1",
+      "name": "lab3_7seg",
+      "synth_flow_mode": "Hierarchical",
+      "tool_version": "2018.3"
+    },
+    "design_tree": {
+      "adder4_vhdl_0": "",
+      "hodiny_0": "",
+      "mux_0": "",
+      "gnd_0": "",
+      "inv_0": "",
+      "decoder_7seg_0": ""
+    },
+    "ports": {
+      "an0_0": {
+        "direction": "O"
+      },
+      "f_a_0": {
+        "direction": "O"
+      },
+      "f_b_0": {
+        "direction": "O"
+      },
+      "f_c_0": {
+        "direction": "O"
+      },
+      "f_d_0": {
+        "direction": "O"
+      },
+      "f_e_0": {
+        "direction": "O"
+      },
+      "f_f_0": {
+        "direction": "O"
+      },
+      "f_g_0": {
+        "direction": "O"
+      },
+      "A0_0": {
+        "direction": "I"
+      },
+      "A1_0": {
+        "direction": "I"
+      },
+      "A2_0": {
+        "direction": "I"
+      },
+      "A3_0": {
+        "direction": "I"
+      },
+      "B0_0": {
+        "direction": "I"
+      },
+      "B1_0": {
+        "direction": "I"
+      },
+      "B2_0": {
+        "direction": "I"
+      },
+      "B3_0": {
+        "direction": "I"
+      },
+      "Cin_0": {
+        "direction": "I"
+      },
+      "clk_100MHz_0": {
+        "direction": "I"
+      },
+      "reset_0": {
+        "type": "rst",
+        "direction": "I",
+        "parameters": {
+          "POLARITY": {
+            "value": "ACTIVE_HIGH"
+          }
+        }
+      },
+      "an1_0": {
+        "direction": "O"
+      },
+      "an_2_0": {
+        "direction": "O"
+      },
+      "an_3_0": {
+        "direction": "O"
+      }
+    },
+    "components": {
+      "adder4_vhdl_0": {
+        "vlnv": "xilinx.com:module_ref:adder4_vhdl:1.0",
+        "xci_name": "lab3_7seg_adder4_vhdl_0_0",
+        "reference_info": {
+          "ref_type": "hdl",
+          "ref_name": "adder4_vhdl",
+          "boundary_crc": "0x0"
+        },
+        "ports": {
+          "A0": {
+            "direction": "I"
+          },
+          "A1": {
+            "direction": "I"
+          },
+          "A2": {
+            "direction": "I"
+          },
+          "A3": {
+            "direction": "I"
+          },
+          "B0": {
+            "direction": "I"
+          },
+          "B1": {
+            "direction": "I"
+          },
+          "B2": {
+            "direction": "I"
+          },
+          "B3": {
+            "direction": "I"
+          },
+          "Cin": {
+            "direction": "I"
+          },
+          "Cout": {
+            "direction": "O"
+          },
+          "S0": {
+            "direction": "O"
+          },
+          "S1": {
+            "direction": "O"
+          },
+          "S2": {
+            "direction": "O"
+          },
+          "S3": {
+            "direction": "O"
+          }
+        }
+      },
+      "hodiny_0": {
+        "vlnv": "xilinx.com:module_ref:hodiny:1.0",
+        "xci_name": "lab3_7seg_hodiny_0_0",
+        "reference_info": {
+          "ref_type": "hdl",
+          "ref_name": "hodiny",
+          "boundary_crc": "0x0"
+        },
+        "ports": {
+          "reset": {
+            "type": "rst",
+            "direction": "I"
+          },
+          "clk_100MHz": {
+            "direction": "I"
+          },
+          "mux_sel": {
+            "direction": "O"
+          }
+        }
+      },
+      "mux_0": {
+        "vlnv": "FIT:user:mux:1.0",
+        "xci_name": "lab3_7seg_mux_0_0"
+      },
+      "gnd_0": {
+        "vlnv": "FIT:user:gnd:1.0",
+        "xci_name": "lab3_7seg_gnd_0_0"
+      },
+      "inv_0": {
+        "vlnv": "FIT:user:inv:1.0",
+        "xci_name": "lab3_7seg_inv_0_0"
+      },
+      "decoder_7seg_0": {
+        "vlnv": "xilinx.com:module_ref:decoder_7seg:1.0",
+        "xci_name": "lab3_7seg_decoder_7seg_0_0",
+        "reference_info": {
+          "ref_type": "hdl",
+          "ref_name": "decoder_7seg",
+          "boundary_crc": "0x0"
+        },
+        "ports": {
+          "a": {
+            "direction": "I"
+          },
+          "b": {
+            "direction": "I"
+          },
+          "c": {
+            "direction": "I"
+          },
+          "d": {
+            "direction": "I"
+          },
+          "f_a": {
+            "direction": "O"
+          },
+          "f_b": {
+            "direction": "O"
+          },
+          "f_c": {
+            "direction": "O"
+          },
+          "f_d": {
+            "direction": "O"
+          },
+          "f_e": {
+            "direction": "O"
+          },
+          "f_f": {
+            "direction": "O"
+          },
+          "f_g": {
+            "direction": "O"
+          },
+          "an_2": {
+            "direction": "O"
+          },
+          "an_3": {
+            "direction": "O"
+          }
+        }
+      }
+    },
+    "nets": {
+      "decoder_7seg_0_f_a": {
+        "ports": [
+          "decoder_7seg_0/f_a",
+          "f_a_0"
+        ]
+      },
+      "decoder_7seg_0_f_b": {
+        "ports": [
+          "decoder_7seg_0/f_b",
+          "f_b_0"
+        ]
+      },
+      "decoder_7seg_0_f_c": {
+        "ports": [
+          "decoder_7seg_0/f_c",
+          "f_c_0"
+        ]
+      },
+      "decoder_7seg_0_f_d": {
+        "ports": [
+          "decoder_7seg_0/f_d",
+          "f_d_0"
+        ]
+      },
+      "decoder_7seg_0_f_e": {
+        "ports": [
+          "decoder_7seg_0/f_e",
+          "f_e_0"
+        ]
+      },
+      "decoder_7seg_0_f_f": {
+        "ports": [
+          "decoder_7seg_0/f_f",
+          "f_f_0"
+        ]
+      },
+      "decoder_7seg_0_f_g": {
+        "ports": [
+          "decoder_7seg_0/f_g",
+          "f_g_0"
+        ]
+      },
+      "A0_0_1": {
+        "ports": [
+          "A0_0",
+          "adder4_vhdl_0/A0"
+        ]
+      },
+      "A1_0_1": {
+        "ports": [
+          "A1_0",
+          "adder4_vhdl_0/A1"
+        ]
+      },
+      "A2_0_1": {
+        "ports": [
+          "A2_0",
+          "adder4_vhdl_0/A2"
+        ]
+      },
+      "A3_0_1": {
+        "ports": [
+          "A3_0",
+          "adder4_vhdl_0/A3"
+        ]
+      },
+      "B0_0_1": {
+        "ports": [
+          "B0_0",
+          "adder4_vhdl_0/B0"
+        ]
+      },
+      "B1_0_1": {
+        "ports": [
+          "B1_0",
+          "adder4_vhdl_0/B1"
+        ]
+      },
+      "B2_0_1": {
+        "ports": [
+          "B2_0",
+          "adder4_vhdl_0/B2"
+        ]
+      },
+      "B3_0_1": {
+        "ports": [
+          "B3_0",
+          "adder4_vhdl_0/B3"
+        ]
+      },
+      "Cin_0_1": {
+        "ports": [
+          "Cin_0",
+          "adder4_vhdl_0/Cin"
+        ]
+      },
+      "clk_100MHz_0_1": {
+        "ports": [
+          "clk_100MHz_0",
+          "hodiny_0/clk_100MHz"
+        ]
+      },
+      "reset_0_1": {
+        "ports": [
+          "reset_0",
+          "hodiny_0/reset"
+        ]
+      },
+      "adder4_vhdl_0_S0": {
+        "ports": [
+          "adder4_vhdl_0/S0",
+          "mux_0/I0_0"
+        ]
+      },
+      "adder4_vhdl_0_S1": {
+        "ports": [
+          "adder4_vhdl_0/S1",
+          "mux_0/I0_1"
+        ]
+      },
+      "adder4_vhdl_0_S2": {
+        "ports": [
+          "adder4_vhdl_0/S2",
+          "mux_0/I0_2"
+        ]
+      },
+      "adder4_vhdl_0_S3": {
+        "ports": [
+          "adder4_vhdl_0/S3",
+          "mux_0/I0_3"
+        ]
+      },
+      "adder4_vhdl_0_Cout": {
+        "ports": [
+          "adder4_vhdl_0/Cout",
+          "mux_0/I1_0"
+        ]
+      },
+      "mux_0_O_0": {
+        "ports": [
+          "mux_0/O_0",
+          "decoder_7seg_0/a"
+        ]
+      },
+      "mux_0_O_1": {
+        "ports": [
+          "mux_0/O_1",
+          "decoder_7seg_0/b"
+        ]
+      },
+      "mux_0_O_2": {
+        "ports": [
+          "mux_0/O_2",
+          "decoder_7seg_0/c"
+        ]
+      },
+      "mux_0_O_3": {
+        "ports": [
+          "mux_0/O_3",
+          "decoder_7seg_0/d"
+        ]
+      },
+      "gnd_0_O": {
+        "ports": [
+          "gnd_0/O",
+          "mux_0/I1_1",
+          "mux_0/I1_2",
+          "mux_0/I1_3"
+        ]
+      },
+      "hodiny_0_mux_sel": {
+        "ports": [
+          "hodiny_0/mux_sel",
+          "mux_0/Sel0",
+          "inv_0/I",
+          "an1_0"
+        ]
+      },
+      "inv_0_O": {
+        "ports": [
+          "inv_0/O",
+          "an0_0"
+        ]
+      },
+      "decoder_7seg_0_an_2": {
+        "ports": [
+          "decoder_7seg_0/an_2",
+          "an_2_0"
+        ]
+      },
+      "decoder_7seg_0_an_3": {
+        "ports": [
+          "decoder_7seg_0/an_3",
+          "an_3_0"
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,272 @@
+{
+  "design": {
+    "design_info": {
+      "boundary_crc": "0xF60925D3F60925D3",
+      "device": "xc7a35tcpg236-1",
+      "name": "adder4",
+      "synth_flow_mode": "Hierarchical",
+      "tool_version": "2018.3",
+      "validated": "true"
+    },
+    "design_tree": {
+      "adder_vhdl_0": "",
+      "adder_vhdl_1": "",
+      "adder_vhdl_2": "",
+      "adder_vhdl_3": ""
+    },
+    "ports": {
+      "A0": {
+        "direction": "I"
+      },
+      "B0": {
+        "direction": "I"
+      },
+      "Cin": {
+        "direction": "I"
+      },
+      "S0": {
+        "direction": "O"
+      },
+      "A1": {
+        "direction": "I"
+      },
+      "B1": {
+        "direction": "I"
+      },
+      "S1": {
+        "direction": "O"
+      },
+      "A2": {
+        "direction": "I"
+      },
+      "B2": {
+        "direction": "I"
+      },
+      "S2": {
+        "direction": "O"
+      },
+      "A3": {
+        "direction": "I"
+      },
+      "B3": {
+        "direction": "I"
+      },
+      "Cout": {
+        "direction": "O"
+      },
+      "S3": {
+        "direction": "O"
+      }
+    },
+    "components": {
+      "adder_vhdl_0": {
+        "vlnv": "xilinx.com:module_ref:adder_vhdl:1.0",
+        "xci_name": "adder4_adder_vhdl_0_0",
+        "reference_info": {
+          "ref_type": "hdl",
+          "ref_name": "adder_vhdl",
+          "boundary_crc": "0x0"
+        },
+        "ports": {
+          "A": {
+            "direction": "I"
+          },
+          "B": {
+            "direction": "I"
+          },
+          "Cin": {
+            "direction": "I"
+          },
+          "Cout": {
+            "direction": "O"
+          },
+          "S": {
+            "direction": "O"
+          }
+        }
+      },
+      "adder_vhdl_1": {
+        "vlnv": "xilinx.com:module_ref:adder_vhdl:1.0",
+        "xci_name": "adder4_adder_vhdl_0_1",
+        "reference_info": {
+          "ref_type": "hdl",
+          "ref_name": "adder_vhdl",
+          "boundary_crc": "0x0"
+        },
+        "ports": {
+          "A": {
+            "direction": "I"
+          },
+          "B": {
+            "direction": "I"
+          },
+          "Cin": {
+            "direction": "I"
+          },
+          "Cout": {
+            "direction": "O"
+          },
+          "S": {
+            "direction": "O"
+          }
+        }
+      },
+      "adder_vhdl_2": {
+        "vlnv": "xilinx.com:module_ref:adder_vhdl:1.0",
+        "xci_name": "adder4_adder_vhdl_0_2",
+        "reference_info": {
+          "ref_type": "hdl",
+          "ref_name": "adder_vhdl",
+          "boundary_crc": "0x0"
+        },
+        "ports": {
+          "A": {
+            "direction": "I"
+          },
+          "B": {
+            "direction": "I"
+          },
+          "Cin": {
+            "direction": "I"
+          },
+          "Cout": {
+            "direction": "O"
+          },
+          "S": {
+            "direction": "O"
+          }
+        }
+      },
+      "adder_vhdl_3": {
+        "vlnv": "xilinx.com:module_ref:adder_vhdl:1.0",
+        "xci_name": "adder4_adder_vhdl_0_3",
+        "reference_info": {
+          "ref_type": "hdl",
+          "ref_name": "adder_vhdl",
+          "boundary_crc": "0x0"
+        },
+        "ports": {
+          "A": {
+            "direction": "I"
+          },
+          "B": {
+            "direction": "I"
+          },
+          "Cin": {
+            "direction": "I"
+          },
+          "Cout": {
+            "direction": "O"
+          },
+          "S": {
+            "direction": "O"
+          }
+        }
+      }
+    },
+    "nets": {
+      "adder_vhdl_0_Cout": {
+        "ports": [
+          "adder_vhdl_0/Cout",
+          "adder_vhdl_1/Cin"
+        ]
+      },
+      "adder_vhdl_1_Cout": {
+        "ports": [
+          "adder_vhdl_1/Cout",
+          "adder_vhdl_2/Cin"
+        ]
+      },
+      "adder_vhdl_2_Cout": {
+        "ports": [
+          "adder_vhdl_2/Cout",
+          "adder_vhdl_3/Cin"
+        ]
+      },
+      "A_0_1": {
+        "ports": [
+          "A0",
+          "adder_vhdl_0/A"
+        ]
+      },
+      "B_0_1": {
+        "ports": [
+          "B0",
+          "adder_vhdl_0/B"
+        ]
+      },
+      "Cin_0_1": {
+        "ports": [
+          "Cin",
+          "adder_vhdl_0/Cin"
+        ]
+      },
+      "adder_vhdl_0_S": {
+        "ports": [
+          "adder_vhdl_0/S",
+          "S0"
+        ]
+      },
+      "A_1_1": {
+        "ports": [
+          "A1",
+          "adder_vhdl_1/A"
+        ]
+      },
+      "B_1_1": {
+        "ports": [
+          "B1",
+          "adder_vhdl_1/B"
+        ]
+      },
+      "adder_vhdl_1_S": {
+        "ports": [
+          "adder_vhdl_1/S",
+          "S1"
+        ]
+      },
+      "A_2_1": {
+        "ports": [
+          "A2",
+          "adder_vhdl_2/A"
+        ]
+      },
+      "B_2_1": {
+        "ports": [
+          "B2",
+          "adder_vhdl_2/B"
+        ]
+      },
+      "adder_vhdl_2_S": {
+        "ports": [
+          "adder_vhdl_2/S",
+          "S2"
+        ]
+      },
+      "A_3_1": {
+        "ports": [
+          "A3",
+          "adder_vhdl_3/A"
+        ]
+      },
+      "B_3_1": {
+        "ports": [
+          "B3",
+          "adder_vhdl_3/B"
+        ]
+      },
+      "adder_vhdl_3_Cout": {
+        "ports": [
+          "adder_vhdl_3/Cout",
+          "Cout"
+        ]
+      },
+      "adder_vhdl_3_S": {
+        "ports": [
+          "adder_vhdl_3/S",
+          "S3"
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,7 @@
+# compile vhdl design source files
+vhdl xil_defaultlib  \
+"//drive.fit.cvut.cz/home/spirimi2/Downloads/l2_algebra_4.vhd" \
+"//drive.fit.cvut.cz/home/spirimi2/Downloads/l2_algebra_4_test.vhd" \
+
+# Do not sort compile order
+nosort

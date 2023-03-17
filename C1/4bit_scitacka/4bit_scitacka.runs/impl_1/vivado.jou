@@ -1,0 +1,12 @@
+#-----------------------------------------------------------
+# Vivado v2018.3 (64-bit)
+# SW Build 2405991 on Thu Dec  6 23:38:27 MST 2018
+# IP Build 2404404 on Fri Dec  7 01:43:56 MST 2018
+# Start of session at: Fri Feb 24 15:52:40 2023
+# Process ID: 9060
+# Current directory: X:/SAP/C1/4bit_scitacka/4bit_scitacka.runs/impl_1
+# Command line: vivado.exe -log adder4_vhdl.vdi -applog -product Vivado -messageDb vivado.pb -mode batch -source adder4_vhdl.tcl -notrace
+# Log file: X:/SAP/C1/4bit_scitacka/4bit_scitacka.runs/impl_1/adder4_vhdl.vdi
+# Journal file: X:/SAP/C1/4bit_scitacka/4bit_scitacka.runs/impl_1\vivado.jou
+#-----------------------------------------------------------
+source adder4_vhdl.tcl -notrace
