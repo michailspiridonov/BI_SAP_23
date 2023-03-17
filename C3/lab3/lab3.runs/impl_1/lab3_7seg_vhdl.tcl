@@ -65,6 +65,7 @@ start_step init_design
 set ACTIVE_STEP init_design
 set rc [catch {
   create_msg_db init_design.pb
+  set_param xicom.use_bs_reader 1
   reset_param project.defaultXPMLibraries 
   open_checkpoint X:/SAP/C3/lab3/lab3.runs/impl_1/lab3_7seg_vhdl.dcp
   set_property webtalk.parent_dir X:/SAP/C3/lab3/lab3.cache/wt [current_project]

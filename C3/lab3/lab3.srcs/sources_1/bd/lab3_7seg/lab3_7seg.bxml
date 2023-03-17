@@ -2,7 +2,7 @@
 <Root MajorVersion="0" MinorVersion="36">
   <CompositeFile CompositeFileTopName="lab3_7seg" CanBeSetAsTop="false" CanDisplayChildGraph="true">
     <Description>Composite Fileset</Description>
-    <Generation Name="SYNTHESIS" State="STALE" Timestamp="1679062840"/>
+    <Generation Name="SYNTHESIS" State="STALE" Timestamp="1679064263"/>
     <Generation Name="IMPLEMENTATION" State="STALE" Timestamp="1679062840"/>
     <Generation Name="SIMULATION" State="STALE" Timestamp="1679062840"/>
     <Generation Name="HW_HANDOFF" State="STALE" Timestamp="1679062840"/>

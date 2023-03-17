@@ -19,7 +19,8 @@ entity lab3_7seg_vhdl is
       reset_0      :  in  std_logic;
       an0_0        :  out std_logic;
       an1_0        :  out std_logic;
-      Cout_0       :  out std_logic;
+      an_2_0       :  out std_logic;
+      an_3_0       :  out std_logic;
       f_a_0        :  out std_logic;
       f_b_0        :  out std_logic;
       f_c_0        :  out std_logic;
@@ -78,36 +79,38 @@ architecture Behavioral of lab3_7seg_vhdl is
 
 
 
-      signal A0_0_1             :    std_logic;      
-      signal A1_0_1             :    std_logic;      
-      signal A2_0_1             :    std_logic;      
-      signal A3_0_1             :    std_logic;      
-      signal adder4_vhdl_0_Cout :    std_logic;      
-      signal adder4_vhdl_0_S0   :    std_logic;      
-      signal adder4_vhdl_0_S1   :    std_logic;      
-      signal adder4_vhdl_0_S2   :    std_logic;      
-      signal adder4_vhdl_0_S3   :    std_logic;      
-      signal B0_0_1             :    std_logic;      
-      signal B1_0_1             :    std_logic;      
-      signal B2_0_1             :    std_logic;      
-      signal B3_0_1             :    std_logic;      
-      signal Cin_0_1            :    std_logic;      
-      signal clk_100MHz_0_1     :    std_logic;      
-      signal decoder_7seg_0_f_a :    std_logic;      
-      signal decoder_7seg_0_f_b :    std_logic;      
-      signal decoder_7seg_0_f_c :    std_logic;      
-      signal decoder_7seg_0_f_d :    std_logic;      
-      signal decoder_7seg_0_f_e :    std_logic;      
-      signal decoder_7seg_0_f_f :    std_logic;      
-      signal decoder_7seg_0_f_g :    std_logic;      
-      signal gnd_0_O            :    std_logic;      
-      signal hodiny_0_mux_sel   :    std_logic;      
-      signal inv_0_O            :    std_logic;      
-      signal mux_0_O_0          :    std_logic;      
-      signal mux_0_O_1          :    std_logic;      
-      signal mux_0_O_2          :    std_logic;      
-      signal mux_0_O_3          :    std_logic;      
-      signal reset_0_1          :    std_logic;      
+      signal A0_0_1              :    std_logic;       
+      signal A1_0_1              :    std_logic;       
+      signal A2_0_1              :    std_logic;       
+      signal A3_0_1              :    std_logic;       
+      signal adder4_vhdl_0_Cout  :    std_logic;       
+      signal adder4_vhdl_0_S0    :    std_logic;       
+      signal adder4_vhdl_0_S1    :    std_logic;       
+      signal adder4_vhdl_0_S2    :    std_logic;       
+      signal adder4_vhdl_0_S3    :    std_logic;       
+      signal B0_0_1              :    std_logic;       
+      signal B1_0_1              :    std_logic;       
+      signal B2_0_1              :    std_logic;       
+      signal B3_0_1              :    std_logic;       
+      signal Cin_0_1             :    std_logic;       
+      signal clk_100MHz_0_1      :    std_logic;       
+      signal decoder_7seg_0_an_2 :    std_logic;       
+      signal decoder_7seg_0_an_3 :    std_logic;       
+      signal decoder_7seg_0_f_a  :    std_logic;       
+      signal decoder_7seg_0_f_b  :    std_logic;       
+      signal decoder_7seg_0_f_c  :    std_logic;       
+      signal decoder_7seg_0_f_d  :    std_logic;       
+      signal decoder_7seg_0_f_e  :    std_logic;       
+      signal decoder_7seg_0_f_f  :    std_logic;       
+      signal decoder_7seg_0_f_g  :    std_logic;       
+      signal gnd_0_O             :    std_logic;       
+      signal hodiny_0_mux_sel    :    std_logic;       
+      signal inv_0_O             :    std_logic;       
+      signal mux_0_O_0           :    std_logic;       
+      signal mux_0_O_1           :    std_logic;       
+      signal mux_0_O_2           :    std_logic;       
+      signal mux_0_O_3           :    std_logic;       
+      signal reset_0_1           :    std_logic;       
 begin
 	A0_0_1 <= A0_0;
 	A1_0_1 <= A1_0;
@@ -120,8 +123,10 @@ begin
 	Cin_0_1 <= Cin_0;
 	clk_100MHz_0_1 <= clk_100MHz_0;
 	reset_0_1 <= reset_0;
-	an0_0 <= inv_0_O;
-	an1_0 <= hodiny_0_mux_sel;
+	an0_0 <= hodiny_0_mux_sel;
+	an1_0 <= inv_0_O;
+	an_2_0 <= decoder_7seg_0_an_2;
+	an_3_0 <= decoder_7seg_0_an_3;
 	f_a_0 <= decoder_7seg_0_f_a;
 	f_b_0 <= decoder_7seg_0_f_b;
 	f_c_0 <= decoder_7seg_0_f_c;
@@ -157,8 +162,8 @@ begin
 			b    =>  mux_0_O_1,
 			c    =>  mux_0_O_2,
 			d    =>  mux_0_O_3,
-			an_2 =>  open,
-			an_3 =>  open,
+			an_2 =>  decoder_7seg_0_an_2,
+			an_3 =>  decoder_7seg_0_an_3,
 			f_a  =>  decoder_7seg_0_f_a,
 			f_b  =>  decoder_7seg_0_f_b,
 			f_c  =>  decoder_7seg_0_f_c,
@@ -183,9 +188,9 @@ begin
 	inv_0_O <= not(hodiny_0_mux_sel);
 
 	-- mux_0
-	mux_0_O_0 <= adder4_vhdl_0_Cout when (hodiny_0_mux_sel = '1') else adder4_vhdl_0_S0;
-	mux_0_O_1 <= gnd_0_O when (hodiny_0_mux_sel = '1') else adder4_vhdl_0_S1;
-	mux_0_O_2 <= gnd_0_O when (hodiny_0_mux_sel = '1') else adder4_vhdl_0_S2;
-	mux_0_O_3 <= gnd_0_O when (hodiny_0_mux_sel = '1') else adder4_vhdl_0_S3;
+	mux_0_O_0 <= gnd_0_O when (hodiny_0_mux_sel = '1') else adder4_vhdl_0_S3;
+	mux_0_O_1 <= gnd_0_O when (hodiny_0_mux_sel = '1') else adder4_vhdl_0_S2;
+	mux_0_O_2 <= gnd_0_O when (hodiny_0_mux_sel = '1') else adder4_vhdl_0_S1;
+	mux_0_O_3 <= adder4_vhdl_0_Cout when (hodiny_0_mux_sel = '1') else adder4_vhdl_0_S0;
 
 end Behavioral;

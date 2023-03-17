@@ -107,3 +107,8 @@ set_property PACKAGE_PIN W5 [get_ports clk_100MHz_0]
 set_property IOSTANDARD LVCMOS33 [get_ports clk_100MHz_0]
 set_property PACKAGE_PIN W19 [get_ports reset_0]
 set_property IOSTANDARD LVCMOS33 [get_ports reset_0]
+
+set_property IOSTANDARD LVCMOS33 [get_ports an_2_0]
+set_property IOSTANDARD LVCMOS33 [get_ports an_3_0]
+set_property PACKAGE_PIN V4 [get_ports an_2_0]
+set_property PACKAGE_PIN W4 [get_ports an_3_0]

@@ -1,11 +1,12 @@
 {
   "design": {
     "design_info": {
-      "boundary_crc": "0x25D12094E40B560D",
+      "boundary_crc": "0xCB3379051394CDEC",
       "device": "xc7a35tcpg236-1",
       "name": "lab3_7seg",
       "synth_flow_mode": "Hierarchical",
-      "tool_version": "2018.3"
+      "tool_version": "2018.3",
+      "validated": "true"
     },
     "design_tree": {
       "adder4_vhdl_0": "",
@@ -74,6 +75,10 @@
         "type": "rst",
         "direction": "I",
         "parameters": {
+          "INSERT_VIP": {
+            "value": "0",
+            "value_src": "default"
+          },
           "POLARITY": {
             "value": "ACTIVE_HIGH"
           }
@@ -154,7 +159,13 @@
         "ports": {
           "reset": {
             "type": "rst",
-            "direction": "I"
+            "direction": "I",
+            "parameters": {
+              "POLARITY": {
+                "value": "ACTIVE_HIGH",
+                "value_src": "constant"
+              }
+            }
           },
           "clk_100MHz": {
             "direction": "I"
@@ -336,34 +347,16 @@
           "hodiny_0/reset"
         ]
       },
-      "adder4_vhdl_0_S0": {
+      "decoder_7seg_0_an_2": {
         "ports": [
-          "adder4_vhdl_0/S0",
-          "mux_0/I0_0"
+          "decoder_7seg_0/an_2",
+          "an_2_0"
         ]
       },
-      "adder4_vhdl_0_S1": {
+      "decoder_7seg_0_an_3": {
         "ports": [
-          "adder4_vhdl_0/S1",
-          "mux_0/I0_1"
-        ]
-      },
-      "adder4_vhdl_0_S2": {
-        "ports": [
-          "adder4_vhdl_0/S2",
-          "mux_0/I0_2"
-        ]
-      },
-      "adder4_vhdl_0_S3": {
-        "ports": [
-          "adder4_vhdl_0/S3",
-          "mux_0/I0_3"
-        ]
-      },
-      "adder4_vhdl_0_Cout": {
-        "ports": [
-          "adder4_vhdl_0/Cout",
-          "mux_0/I1_0"
+          "decoder_7seg_0/an_3",
+          "an_3_0"
         ]
       },
       "mux_0_O_0": {
@@ -390,38 +383,56 @@
           "decoder_7seg_0/d"
         ]
       },
+      "adder4_vhdl_0_S0": {
+        "ports": [
+          "adder4_vhdl_0/S0",
+          "mux_0/I0_3"
+        ]
+      },
+      "adder4_vhdl_0_S1": {
+        "ports": [
+          "adder4_vhdl_0/S1",
+          "mux_0/I0_2"
+        ]
+      },
+      "adder4_vhdl_0_S2": {
+        "ports": [
+          "adder4_vhdl_0/S2",
+          "mux_0/I0_1"
+        ]
+      },
+      "adder4_vhdl_0_S3": {
+        "ports": [
+          "adder4_vhdl_0/S3",
+          "mux_0/I0_0"
+        ]
+      },
       "gnd_0_O": {
         "ports": [
           "gnd_0/O",
+          "mux_0/I1_0",
           "mux_0/I1_1",
-          "mux_0/I1_2",
-          "mux_0/I1_3"
+          "mux_0/I1_2"
         ]
       },
-      "hodiny_0_mux_sel": {
+      "adder4_vhdl_0_Cout": {
         "ports": [
-          "hodiny_0/mux_sel",
-          "mux_0/Sel0",
-          "inv_0/I",
-          "an1_0"
+          "adder4_vhdl_0/Cout",
+          "mux_0/I1_3"
         ]
       },
       "inv_0_O": {
         "ports": [
           "inv_0/O",
+          "an1_0"
+        ]
+      },
+      "hodiny_0_mux_sel": {
+        "ports": [
+          "hodiny_0/mux_sel",
+          "inv_0/I",
+          "mux_0/Sel0",
           "an0_0"
-        ]
-      },
-      "decoder_7seg_0_an_2": {
-        "ports": [
-          "decoder_7seg_0/an_2",
-          "an_2_0"
-        ]
-      },
-      "decoder_7seg_0_an_3": {
-        "ports": [
-          "decoder_7seg_0/an_3",
-          "an_3_0"
         ]
       }
     }
