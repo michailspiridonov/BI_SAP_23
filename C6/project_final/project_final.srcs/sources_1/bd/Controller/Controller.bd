@@ -1,0 +1,59 @@
+{
+  "design": {
+    "design_info": {
+      "boundary_crc": "0x0",
+      "device": "xc7a35tcpg236-1",
+      "name": "Controller",
+      "synth_flow_mode": "Hierarchical",
+      "tool_version": "2018.3"
+    },
+    "design_tree": {
+      "dff_0": "",
+      "dff_1": ""
+    },
+    "ports": {
+      "Roll": {
+        "type": "data",
+        "direction": "I"
+      },
+      "reset": {
+        "direction": "I"
+      },
+      "clk": {
+        "direction": "I"
+      }
+    },
+    "components": {
+      "dff_0": {
+        "vlnv": "FIT:user:dff:1.0",
+        "xci_name": "Controller_dff_0_0"
+      },
+      "dff_1": {
+        "vlnv": "FIT:user:dff:1.0",
+        "xci_name": "Controller_dff_1_0"
+      }
+    },
+    "nets": {
+      "d_0_1": {
+        "ports": [
+          "Roll",
+          "dff_0/d"
+        ]
+      },
+      "reset_0_1": {
+        "ports": [
+          "reset",
+          "dff_0/reset",
+          "dff_1/reset"
+        ]
+      },
+      "clk_0_1": {
+        "ports": [
+          "clk",
+          "dff_0/clk",
+          "dff_1/clk"
+        ]
+      }
+    }
+  }
+}

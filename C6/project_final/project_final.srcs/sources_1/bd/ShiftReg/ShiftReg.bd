@@ -1,0 +1,203 @@
+{
+  "design": {
+    "design_info": {
+      "boundary_crc": "0x1B0554221B055422",
+      "device": "xc7a35tcpg236-1",
+      "name": "ShiftReg",
+      "synth_flow_mode": "Hierarchical",
+      "tool_version": "2018.3",
+      "validated": "true"
+    },
+    "design_tree": {
+      "or_0": "",
+      "dff_0": "",
+      "dff_1": "",
+      "dff_2": "",
+      "dff_3": "",
+      "xor_0": ""
+    },
+    "ports": {
+      "Shift_Init": {
+        "type": "data",
+        "direction": "I",
+        "parameters": {
+          "LAYERED_METADATA": {
+            "value": "undef",
+            "value_src": "default"
+          }
+        }
+      },
+      "clk": {
+        "direction": "I"
+      },
+      "Count": {
+        "direction": "I"
+      },
+      "reset": {
+        "direction": "I"
+      },
+      "A": {
+        "type": "data",
+        "direction": "O",
+        "parameters": {
+          "LAYERED_METADATA": {
+            "value": "undef",
+            "value_src": "default"
+          }
+        }
+      },
+      "B": {
+        "type": "data",
+        "direction": "O",
+        "parameters": {
+          "LAYERED_METADATA": {
+            "value": "undef",
+            "value_src": "default"
+          }
+        }
+      },
+      "C": {
+        "type": "data",
+        "direction": "O",
+        "parameters": {
+          "LAYERED_METADATA": {
+            "value": "undef",
+            "value_src": "default"
+          }
+        }
+      },
+      "D": {
+        "type": "data",
+        "direction": "O",
+        "parameters": {
+          "LAYERED_METADATA": {
+            "value": "undef",
+            "value_src": "default"
+          }
+        }
+      }
+    },
+    "components": {
+      "or_0": {
+        "vlnv": "FIT:user:or:1.0",
+        "xci_name": "ShiftReg_or_0_0"
+      },
+      "dff_0": {
+        "vlnv": "FIT:user:dff:1.0",
+        "xci_name": "ShiftReg_dff_0_0",
+        "parameters": {
+          "CE": {
+            "value": "true"
+          }
+        }
+      },
+      "dff_1": {
+        "vlnv": "FIT:user:dff:1.0",
+        "xci_name": "ShiftReg_dff_0_1",
+        "parameters": {
+          "CE": {
+            "value": "true"
+          }
+        }
+      },
+      "dff_2": {
+        "vlnv": "FIT:user:dff:1.0",
+        "xci_name": "ShiftReg_dff_0_2",
+        "parameters": {
+          "CE": {
+            "value": "true"
+          }
+        }
+      },
+      "dff_3": {
+        "vlnv": "FIT:user:dff:1.0",
+        "xci_name": "ShiftReg_dff_0_3",
+        "parameters": {
+          "CE": {
+            "value": "true"
+          }
+        }
+      },
+      "xor_0": {
+        "vlnv": "FIT:user:xor:1.0",
+        "xci_name": "ShiftReg_xor_0_0"
+      }
+    },
+    "nets": {
+      "I0_0_1": {
+        "ports": [
+          "Shift_Init",
+          "or_0/I0"
+        ]
+      },
+      "or_0_O": {
+        "ports": [
+          "or_0/O",
+          "dff_0/d"
+        ]
+      },
+      "clk_0_1": {
+        "ports": [
+          "clk",
+          "dff_0/clk",
+          "dff_1/clk",
+          "dff_2/clk",
+          "dff_3/clk"
+        ]
+      },
+      "ce_0_1": {
+        "ports": [
+          "Count",
+          "dff_0/ce",
+          "dff_1/ce",
+          "dff_2/ce",
+          "dff_3/ce"
+        ]
+      },
+      "reset_0_1": {
+        "ports": [
+          "reset",
+          "dff_0/reset",
+          "dff_1/reset",
+          "dff_2/reset",
+          "dff_3/reset"
+        ]
+      },
+      "dff_0_q": {
+        "ports": [
+          "dff_0/q",
+          "A",
+          "dff_1/d"
+        ]
+      },
+      "dff_1_q": {
+        "ports": [
+          "dff_1/q",
+          "B",
+          "dff_2/d"
+        ]
+      },
+      "xor_0_O": {
+        "ports": [
+          "xor_0/O",
+          "or_0/I1"
+        ]
+      },
+      "dff_2_q": {
+        "ports": [
+          "dff_2/q",
+          "dff_3/d",
+          "C",
+          "xor_0/I0"
+        ]
+      },
+      "dff_3_q": {
+        "ports": [
+          "dff_3/q",
+          "D",
+          "xor_0/I1"
+        ]
+      }
+    }
+  }
+}
