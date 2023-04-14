@@ -1,0 +1,321 @@
+{
+  "design": {
+    "design_info": {
+      "boundary_crc": "0x0",
+      "device": "xc7a35tcpg236-1",
+      "name": "TheDesign",
+      "synth_flow_mode": "Hierarchical",
+      "tool_version": "2018.3"
+    },
+    "design_tree": {
+      "debounce_0": "",
+      "counter_0": "",
+      "Controller_vhdl_0": "",
+      "inv_0": "",
+      "ShiftReg_vhdl_0": "",
+      "decoder_7seg_f_0": ""
+    },
+    "ports": {
+      "Roll": {
+        "direction": "I"
+      },
+      "clk": {
+        "direction": "I"
+      },
+      "reset": {
+        "type": "rst",
+        "direction": "I",
+        "parameters": {
+          "POLARITY": {
+            "value": "ACTIVE_HIGH"
+          }
+        }
+      },
+      "f_a_0": {
+        "direction": "O"
+      },
+      "f_b_0": {
+        "direction": "O"
+      },
+      "f_c_0": {
+        "direction": "O"
+      },
+      "f_d_0": {
+        "direction": "O"
+      },
+      "f_e_0": {
+        "direction": "O"
+      },
+      "f_f_0": {
+        "direction": "O"
+      },
+      "f_g_0": {
+        "direction": "O"
+      }
+    },
+    "components": {
+      "debounce_0": {
+        "vlnv": "FIT:user:debounce:1.0",
+        "xci_name": "TheDesign_debounce_0_0"
+      },
+      "counter_0": {
+        "vlnv": "xilinx.com:module_ref:counter:1.0",
+        "xci_name": "TheDesign_counter_0_0",
+        "reference_info": {
+          "ref_type": "hdl",
+          "ref_name": "counter",
+          "boundary_crc": "0x0"
+        },
+        "ports": {
+          "clk": {
+            "type": "clk",
+            "direction": "I"
+          },
+          "rst": {
+            "type": "rst",
+            "direction": "I"
+          },
+          "enable": {
+            "direction": "I"
+          },
+          "en_out": {
+            "direction": "O"
+          }
+        }
+      },
+      "Controller_vhdl_0": {
+        "vlnv": "xilinx.com:module_ref:Controller_vhdl:1.0",
+        "xci_name": "TheDesign_Controller_vhdl_0_0",
+        "reference_info": {
+          "ref_type": "hdl",
+          "ref_name": "Controller_vhdl",
+          "boundary_crc": "0x0"
+        },
+        "ports": {
+          "clk": {
+            "type": "clk",
+            "direction": "I"
+          },
+          "reset": {
+            "type": "rst",
+            "direction": "I"
+          },
+          "Roll": {
+            "direction": "I"
+          },
+          "Shift": {
+            "direction": "I"
+          },
+          "Count_En": {
+            "direction": "O"
+          },
+          "Shift_Init": {
+            "direction": "O"
+          }
+        }
+      },
+      "inv_0": {
+        "vlnv": "FIT:user:inv:1.0",
+        "xci_name": "TheDesign_inv_0_0"
+      },
+      "ShiftReg_vhdl_0": {
+        "vlnv": "xilinx.com:module_ref:ShiftReg_vhdl:1.0",
+        "xci_name": "TheDesign_ShiftReg_vhdl_0_0",
+        "reference_info": {
+          "ref_type": "hdl",
+          "ref_name": "ShiftReg_vhdl",
+          "boundary_crc": "0x0"
+        },
+        "ports": {
+          "clk": {
+            "type": "clk",
+            "direction": "I"
+          },
+          "reset": {
+            "type": "rst",
+            "direction": "I"
+          },
+          "Count": {
+            "direction": "I"
+          },
+          "Shift_Init": {
+            "direction": "I"
+          },
+          "A": {
+            "direction": "O"
+          },
+          "B": {
+            "direction": "O"
+          },
+          "C": {
+            "direction": "O"
+          },
+          "D": {
+            "direction": "O"
+          }
+        }
+      },
+      "decoder_7seg_f_0": {
+        "vlnv": "xilinx.com:module_ref:decoder_7seg_f:1.0",
+        "xci_name": "TheDesign_decoder_7seg_f_0_0",
+        "reference_info": {
+          "ref_type": "hdl",
+          "ref_name": "decoder_7seg_f",
+          "boundary_crc": "0x0"
+        },
+        "ports": {
+          "a": {
+            "direction": "I"
+          },
+          "b": {
+            "direction": "I"
+          },
+          "c": {
+            "direction": "I"
+          },
+          "d": {
+            "direction": "I"
+          },
+          "f_a": {
+            "direction": "O"
+          },
+          "f_b": {
+            "direction": "O"
+          },
+          "f_c": {
+            "direction": "O"
+          },
+          "f_d": {
+            "direction": "O"
+          },
+          "f_e": {
+            "direction": "O"
+          },
+          "f_f": {
+            "direction": "O"
+          },
+          "f_g": {
+            "direction": "O"
+          }
+        }
+      }
+    },
+    "nets": {
+      "tl_in_0_1": {
+        "ports": [
+          "Roll",
+          "debounce_0/tl_in",
+          "Controller_vhdl_0/Roll"
+        ]
+      },
+      "clk_0_1": {
+        "ports": [
+          "clk",
+          "debounce_0/clk",
+          "counter_0/clk",
+          "Controller_vhdl_0/clk",
+          "ShiftReg_vhdl_0/clk"
+        ]
+      },
+      "reset_1": {
+        "ports": [
+          "reset",
+          "counter_0/rst",
+          "inv_0/I"
+        ]
+      },
+      "inv_0_O": {
+        "ports": [
+          "inv_0/O",
+          "Controller_vhdl_0/reset",
+          "ShiftReg_vhdl_0/reset"
+        ]
+      },
+      "counter_0_en_out": {
+        "ports": [
+          "counter_0/en_out",
+          "Controller_vhdl_0/Shift",
+          "ShiftReg_vhdl_0/Count"
+        ]
+      },
+      "Controller_vhdl_0_Shift_Init": {
+        "ports": [
+          "Controller_vhdl_0/Shift_Init",
+          "ShiftReg_vhdl_0/Shift_Init"
+        ]
+      },
+      "Controller_vhdl_0_Count_En": {
+        "ports": [
+          "Controller_vhdl_0/Count_En",
+          "counter_0/enable"
+        ]
+      },
+      "ShiftReg_vhdl_0_A": {
+        "ports": [
+          "ShiftReg_vhdl_0/A",
+          "decoder_7seg_f_0/a"
+        ]
+      },
+      "ShiftReg_vhdl_0_B": {
+        "ports": [
+          "ShiftReg_vhdl_0/B",
+          "decoder_7seg_f_0/b"
+        ]
+      },
+      "ShiftReg_vhdl_0_C": {
+        "ports": [
+          "ShiftReg_vhdl_0/C",
+          "decoder_7seg_f_0/c"
+        ]
+      },
+      "ShiftReg_vhdl_0_D": {
+        "ports": [
+          "ShiftReg_vhdl_0/D",
+          "decoder_7seg_f_0/d"
+        ]
+      },
+      "decoder_7seg_f_0_f_a": {
+        "ports": [
+          "decoder_7seg_f_0/f_a",
+          "f_a_0"
+        ]
+      },
+      "decoder_7seg_f_0_f_b": {
+        "ports": [
+          "decoder_7seg_f_0/f_b",
+          "f_b_0"
+        ]
+      },
+      "decoder_7seg_f_0_f_c": {
+        "ports": [
+          "decoder_7seg_f_0/f_c",
+          "f_c_0"
+        ]
+      },
+      "decoder_7seg_f_0_f_d": {
+        "ports": [
+          "decoder_7seg_f_0/f_d",
+          "f_d_0"
+        ]
+      },
+      "decoder_7seg_f_0_f_e": {
+        "ports": [
+          "decoder_7seg_f_0/f_e",
+          "f_e_0"
+        ]
+      },
+      "decoder_7seg_f_0_f_f": {
+        "ports": [
+          "decoder_7seg_f_0/f_f",
+          "f_f_0"
+        ]
+      },
+      "decoder_7seg_f_0_f_g": {
+        "ports": [
+          "decoder_7seg_f_0/f_g",
+          "f_g_0"
+        ]
+      }
+    }
+  }
+}

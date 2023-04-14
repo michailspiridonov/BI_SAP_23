@@ -1,0 +1,81 @@
+{
+  "design": {
+    "design_info": {
+      "boundary_crc": "0x241621CC241621CC",
+      "device": "xc7a35tcpg236-1",
+      "name": "S_out",
+      "synth_flow_mode": "Hierarchical",
+      "tool_version": "2018.3",
+      "validated": "true"
+    },
+    "design_tree": {
+      "and_0": ""
+    },
+    "ports": {
+      "b": {
+        "type": "data",
+        "direction": "I",
+        "parameters": {
+          "LAYERED_METADATA": {
+            "value": "undef",
+            "value_src": "default"
+          }
+        }
+      },
+      "a": {
+        "type": "data",
+        "direction": "I",
+        "parameters": {
+          "LAYERED_METADATA": {
+            "value": "undef",
+            "value_src": "default"
+          }
+        }
+      },
+      "S": {
+        "type": "data",
+        "direction": "O",
+        "parameters": {
+          "LAYERED_METADATA": {
+            "value": "undef",
+            "value_src": "default"
+          }
+        }
+      }
+    },
+    "components": {
+      "and_0": {
+        "vlnv": "FIT:user:and:1.0",
+        "xci_name": "S_out_and_0_0",
+        "parameters": {
+          "I0_Inverted": {
+            "value": "true"
+          },
+          "I1_inverted": {
+            "value": "false"
+          }
+        }
+      }
+    },
+    "nets": {
+      "I0_0_1": {
+        "ports": [
+          "b",
+          "and_0/I0"
+        ]
+      },
+      "I1_0_1": {
+        "ports": [
+          "a",
+          "and_0/I1"
+        ]
+      },
+      "and_0_O": {
+        "ports": [
+          "and_0/O",
+          "S"
+        ]
+      }
+    }
+  }
+}

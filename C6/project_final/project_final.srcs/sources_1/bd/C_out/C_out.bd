@@ -1,0 +1,73 @@
+{
+  "design": {
+    "design_info": {
+      "boundary_crc": "0x39A131A839A131A8",
+      "device": "xc7a35tcpg236-1",
+      "name": "C_out",
+      "synth_flow_mode": "Hierarchical",
+      "tool_version": "2018.3",
+      "validated": "true"
+    },
+    "design_tree": {
+      "or_0": ""
+    },
+    "ports": {
+      "b": {
+        "type": "data",
+        "direction": "I",
+        "parameters": {
+          "LAYERED_METADATA": {
+            "value": "undef",
+            "value_src": "default"
+          }
+        }
+      },
+      "a": {
+        "type": "data",
+        "direction": "I",
+        "parameters": {
+          "LAYERED_METADATA": {
+            "value": "undef",
+            "value_src": "default"
+          }
+        }
+      },
+      "C": {
+        "type": "data",
+        "direction": "O",
+        "parameters": {
+          "LAYERED_METADATA": {
+            "value": "undef",
+            "value_src": "default"
+          }
+        }
+      }
+    },
+    "components": {
+      "or_0": {
+        "vlnv": "FIT:user:or:1.0",
+        "xci_name": "C_out_or_0_0"
+      }
+    },
+    "nets": {
+      "I0_0_1": {
+        "ports": [
+          "b",
+          "or_0/I0"
+        ]
+      },
+      "I1_0_1": {
+        "ports": [
+          "a",
+          "or_0/I1"
+        ]
+      },
+      "or_0_O": {
+        "ports": [
+          "or_0/O",
+          "C"
+        ]
+      }
+    }
+  }
+}

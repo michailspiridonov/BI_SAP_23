@@ -1,57 +1,279 @@
 {
   "design": {
     "design_info": {
-      "boundary_crc": "0x0",
+      "boundary_crc": "0x9DB79B759DB79B75",
       "device": "xc7a35tcpg236-1",
       "name": "Controller",
       "synth_flow_mode": "Hierarchical",
-      "tool_version": "2018.3"
+      "tool_version": "2018.3",
+      "validated": "true"
     },
     "design_tree": {
+      "D0_vhdl_0": "",
+      "D1_vhdl_0": "",
       "dff_0": "",
-      "dff_1": ""
+      "dff_1": "",
+      "C_out_vhdl_0": "",
+      "S_out_vhdl_0": ""
     },
     "ports": {
       "Roll": {
         "type": "data",
-        "direction": "I"
+        "direction": "I",
+        "parameters": {
+          "LAYERED_METADATA": {
+            "value": "undef",
+            "value_src": "default"
+          }
+        }
       },
       "reset": {
         "direction": "I"
       },
       "clk": {
         "direction": "I"
+      },
+      "Shift": {
+        "direction": "I"
+      },
+      "Count_En": {
+        "direction": "O"
+      },
+      "Shift_Init": {
+        "direction": "O"
       }
     },
     "components": {
+      "D0_vhdl_0": {
+        "vlnv": "xilinx.com:module_ref:D0_vhdl:1.0",
+        "xci_name": "Controller_D0_vhdl_0_0",
+        "reference_info": {
+          "ref_type": "hdl",
+          "ref_name": "D0_vhdl",
+          "boundary_crc": "0x0"
+        },
+        "ports": {
+          "Qa": {
+            "direction": "I",
+            "parameters": {
+              "LAYERED_METADATA": {
+                "value": "undef",
+                "value_src": "default_prop"
+              }
+            }
+          },
+          "Qb": {
+            "direction": "I",
+            "parameters": {
+              "LAYERED_METADATA": {
+                "value": "undef",
+                "value_src": "default_prop"
+              }
+            }
+          },
+          "R": {
+            "direction": "I",
+            "parameters": {
+              "LAYERED_METADATA": {
+                "value": "undef",
+                "value_src": "default_prop"
+              }
+            }
+          },
+          "S": {
+            "direction": "I"
+          },
+          "a": {
+            "direction": "O"
+          }
+        }
+      },
+      "D1_vhdl_0": {
+        "vlnv": "xilinx.com:module_ref:D1_vhdl:1.0",
+        "xci_name": "Controller_D1_vhdl_0_0",
+        "reference_info": {
+          "ref_type": "hdl",
+          "ref_name": "D1_vhdl",
+          "boundary_crc": "0x0"
+        },
+        "ports": {
+          "Qa": {
+            "direction": "I",
+            "parameters": {
+              "LAYERED_METADATA": {
+                "value": "undef",
+                "value_src": "default_prop"
+              }
+            }
+          },
+          "Qb": {
+            "direction": "I",
+            "parameters": {
+              "LAYERED_METADATA": {
+                "value": "undef",
+                "value_src": "default_prop"
+              }
+            }
+          },
+          "R": {
+            "direction": "I",
+            "parameters": {
+              "LAYERED_METADATA": {
+                "value": "undef",
+                "value_src": "default_prop"
+              }
+            }
+          },
+          "S": {
+            "direction": "I"
+          },
+          "b": {
+            "direction": "O"
+          }
+        }
+      },
       "dff_0": {
         "vlnv": "FIT:user:dff:1.0",
-        "xci_name": "Controller_dff_0_0"
+        "xci_name": "Controller_dff_0_1"
       },
       "dff_1": {
         "vlnv": "FIT:user:dff:1.0",
-        "xci_name": "Controller_dff_1_0"
+        "xci_name": "Controller_dff_0_2"
+      },
+      "C_out_vhdl_0": {
+        "vlnv": "xilinx.com:module_ref:C_out_vhdl:1.0",
+        "xci_name": "Controller_C_out_vhdl_0_0",
+        "reference_info": {
+          "ref_type": "hdl",
+          "ref_name": "C_out_vhdl",
+          "boundary_crc": "0x0"
+        },
+        "ports": {
+          "a": {
+            "direction": "I",
+            "parameters": {
+              "LAYERED_METADATA": {
+                "value": "undef",
+                "value_src": "default_prop"
+              }
+            }
+          },
+          "b": {
+            "direction": "I",
+            "parameters": {
+              "LAYERED_METADATA": {
+                "value": "undef",
+                "value_src": "default_prop"
+              }
+            }
+          },
+          "C": {
+            "direction": "O"
+          }
+        }
+      },
+      "S_out_vhdl_0": {
+        "vlnv": "xilinx.com:module_ref:S_out_vhdl:1.0",
+        "xci_name": "Controller_S_out_vhdl_0_0",
+        "reference_info": {
+          "ref_type": "hdl",
+          "ref_name": "S_out_vhdl",
+          "boundary_crc": "0x0"
+        },
+        "ports": {
+          "a": {
+            "direction": "I",
+            "parameters": {
+              "LAYERED_METADATA": {
+                "value": "undef",
+                "value_src": "default_prop"
+              }
+            }
+          },
+          "b": {
+            "direction": "I",
+            "parameters": {
+              "LAYERED_METADATA": {
+                "value": "undef",
+                "value_src": "default_prop"
+              }
+            }
+          },
+          "S": {
+            "direction": "O"
+          }
+        }
       }
     },
     "nets": {
-      "d_0_1": {
+      "Roll_1": {
         "ports": [
           "Roll",
+          "D0_vhdl_0/R",
+          "D1_vhdl_0/R"
+        ]
+      },
+      "S_0_1": {
+        "ports": [
+          "Shift",
+          "D0_vhdl_0/S",
+          "D1_vhdl_0/S"
+        ]
+      },
+      "D0_vhdl_0_a": {
+        "ports": [
+          "D0_vhdl_0/a",
           "dff_0/d"
         ]
       },
-      "reset_0_1": {
+      "D1_vhdl_0_b": {
         "ports": [
-          "reset",
-          "dff_0/reset",
-          "dff_1/reset"
+          "D1_vhdl_0/b",
+          "dff_1/d"
         ]
       },
-      "clk_0_1": {
+      "dff_0_q": {
+        "ports": [
+          "dff_0/q",
+          "D0_vhdl_0/Qa",
+          "D1_vhdl_0/Qa",
+          "S_out_vhdl_0/a",
+          "C_out_vhdl_0/a"
+        ]
+      },
+      "dff_1_q": {
+        "ports": [
+          "dff_1/q",
+          "D0_vhdl_0/Qb",
+          "D1_vhdl_0/Qb",
+          "C_out_vhdl_0/b",
+          "S_out_vhdl_0/b"
+        ]
+      },
+      "C_out_vhdl_0_C": {
+        "ports": [
+          "C_out_vhdl_0/C",
+          "Count_En"
+        ]
+      },
+      "S_out_vhdl_0_S": {
+        "ports": [
+          "S_out_vhdl_0/S",
+          "Shift_Init"
+        ]
+      },
+      "clk_1": {
         "ports": [
           "clk",
           "dff_0/clk",
           "dff_1/clk"
+        ]
+      },
+      "reset_1": {
+        "ports": [
+          "reset",
+          "dff_0/reset",
+          "dff_1/reset"
         ]
       }
     }

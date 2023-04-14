@@ -1,0 +1,42 @@
+{
+   "ExpandedHierarchyInLayout":"",
+   "guistr":"# # String gsaved with Nlview 6.8.11  2018-08-07 bk=1.4403 VDI=40 GEI=35 GUI=JA:9.0 non-TLS
+#  -string -flagsOSRD
+preplace port f_g_0 -pg 1 -y 160 -defaultsOSRD
+preplace port f_d_0 -pg 1 -y 100 -defaultsOSRD
+preplace port f_c_0 -pg 1 -y 80 -defaultsOSRD
+preplace port Roll -pg 1 -y -70 -defaultsOSRD
+preplace port f_b_0 -pg 1 -y 60 -defaultsOSRD
+preplace port f_a_0 -pg 1 -y 40 -defaultsOSRD
+preplace port f_e_0 -pg 1 -y 120 -defaultsOSRD
+preplace port clk -pg 1 -y -90 -defaultsOSRD
+preplace port f_f_0 -pg 1 -y 140 -defaultsOSRD
+preplace port reset -pg 1 -y 60 -defaultsOSRD
+preplace inst decoder_7seg_f_0 -pg 1 -lvl 3 -y 100 -defaultsOSRD
+preplace inst ShiftReg_vhdl_0 -pg 1 -lvl 2 -y 100 -defaultsOSRD
+preplace inst debounce_0 -pg 1 -lvl 1 -y -110 -defaultsOSRD
+preplace inst Controller_vhdl_0 -pg 1 -lvl 2 -y -110 -defaultsOSRD
+preplace inst counter_0 -pg 1 -lvl 1 -y 30 -defaultsOSRD
+preplace inst inv_0 -pg 1 -lvl 1 -y 150 -defaultsOSRD
+preplace netloc Controller_vhdl_0_Shift_Init 1 1 2 310 0 560
+preplace netloc Controller_vhdl_0_Count_En 1 0 3 -50 -210 NJ -210 560
+preplace netloc clk_0_1 1 0 2 -60 -200 290
+preplace netloc decoder_7seg_f_0_f_a 1 3 1 NJ
+preplace netloc decoder_7seg_f_0_f_b 1 3 1 NJ
+preplace netloc ShiftReg_vhdl_0_A 1 2 1 N
+preplace netloc counter_0_en_out 1 1 1 300
+preplace netloc decoder_7seg_f_0_f_c 1 3 1 NJ
+preplace netloc ShiftReg_vhdl_0_B 1 2 1 N
+preplace netloc inv_0_O 1 1 1 270
+preplace netloc decoder_7seg_f_0_f_d 1 3 1 NJ
+preplace netloc ShiftReg_vhdl_0_C 1 2 1 N
+preplace netloc decoder_7seg_f_0_f_e 1 3 1 NJ
+preplace netloc ShiftReg_vhdl_0_D 1 2 1 N
+preplace netloc decoder_7seg_f_0_f_f 1 3 1 NJ
+preplace netloc reset_1 1 0 1 -70
+preplace netloc decoder_7seg_f_0_f_g 1 3 1 NJ
+preplace netloc tl_in_0_1 1 0 2 -70 -190 280
+levelinfo -pg 1 -90 110 450 710 830 -top -300 -bot 410
+"
+}
+

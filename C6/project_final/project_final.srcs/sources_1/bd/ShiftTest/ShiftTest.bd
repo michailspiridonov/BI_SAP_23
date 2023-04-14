@@ -5,25 +5,20 @@
       "device": "xc7a35tcpg236-1",
       "name": "ShiftTest",
       "synth_flow_mode": "Hierarchical",
-      "tool_version": "2018.3",
-      "validated": "true"
+      "tool_version": "2018.3"
     },
     "design_tree": {
-      "decoder_7seg_f_0": "",
       "ShiftReg_vhdl_0": "",
       "counter_0": "",
       "debounce_0": "",
-      "debounce_1": ""
+      "debounce_1": "",
+      "decoder_7seg_f_0": ""
     },
     "ports": {
       "reset": {
         "type": "rst",
         "direction": "I",
         "parameters": {
-          "INSERT_VIP": {
-            "value": "0",
-            "value_src": "default"
-          },
           "POLARITY": {
             "value": "ACTIVE_HIGH"
           }
@@ -61,6 +56,76 @@
       }
     },
     "components": {
+      "ShiftReg_vhdl_0": {
+        "vlnv": "xilinx.com:module_ref:ShiftReg_vhdl:1.0",
+        "xci_name": "ShiftTest_ShiftReg_vhdl_0_0",
+        "reference_info": {
+          "ref_type": "hdl",
+          "ref_name": "ShiftReg_vhdl",
+          "boundary_crc": "0x0"
+        },
+        "ports": {
+          "clk": {
+            "type": "clk",
+            "direction": "I"
+          },
+          "reset": {
+            "type": "rst",
+            "direction": "I"
+          },
+          "Count": {
+            "direction": "I"
+          },
+          "Shift_Init": {
+            "direction": "I"
+          },
+          "A": {
+            "direction": "O"
+          },
+          "B": {
+            "direction": "O"
+          },
+          "C": {
+            "direction": "O"
+          },
+          "D": {
+            "direction": "O"
+          }
+        }
+      },
+      "counter_0": {
+        "vlnv": "xilinx.com:module_ref:counter:1.0",
+        "xci_name": "ShiftTest_counter_0_0",
+        "reference_info": {
+          "ref_type": "hdl",
+          "ref_name": "counter",
+          "boundary_crc": "0x0"
+        },
+        "ports": {
+          "clk": {
+            "type": "clk",
+            "direction": "I"
+          },
+          "rst": {
+            "type": "rst",
+            "direction": "I"
+          },
+          "enable": {
+            "direction": "I"
+          },
+          "en_out": {
+            "direction": "O"
+          }
+        }
+      },
+      "debounce_0": {
+        "vlnv": "FIT:user:debounce:1.0",
+        "xci_name": "ShiftTest_debounce_0_0"
+      },
+      "debounce_1": {
+        "vlnv": "FIT:user:debounce:1.0",
+        "xci_name": "ShiftTest_debounce_1_0"
+      },
       "decoder_7seg_f_0": {
         "vlnv": "xilinx.com:module_ref:decoder_7seg_f:1.0",
         "xci_name": "ShiftTest_decoder_7seg_f_0_0",
@@ -104,100 +169,6 @@
             "direction": "O"
           }
         }
-      },
-      "ShiftReg_vhdl_0": {
-        "vlnv": "xilinx.com:module_ref:ShiftReg_vhdl:1.0",
-        "xci_name": "ShiftTest_ShiftReg_vhdl_0_0",
-        "reference_info": {
-          "ref_type": "hdl",
-          "ref_name": "ShiftReg_vhdl",
-          "boundary_crc": "0x0"
-        },
-        "ports": {
-          "clk": {
-            "type": "clk",
-            "direction": "I",
-            "parameters": {
-              "ASSOCIATED_RESET": {
-                "value": "reset",
-                "value_src": "constant"
-              }
-            }
-          },
-          "reset": {
-            "type": "rst",
-            "direction": "I",
-            "parameters": {
-              "POLARITY": {
-                "value": "ACTIVE_HIGH",
-                "value_src": "user_prop"
-              }
-            }
-          },
-          "Count": {
-            "direction": "I"
-          },
-          "Shift_Init": {
-            "direction": "I"
-          },
-          "A": {
-            "direction": "O"
-          },
-          "B": {
-            "direction": "O"
-          },
-          "C": {
-            "direction": "O"
-          },
-          "D": {
-            "direction": "O"
-          }
-        }
-      },
-      "counter_0": {
-        "vlnv": "xilinx.com:module_ref:counter:1.0",
-        "xci_name": "ShiftTest_counter_0_0",
-        "reference_info": {
-          "ref_type": "hdl",
-          "ref_name": "counter",
-          "boundary_crc": "0x0"
-        },
-        "ports": {
-          "clk": {
-            "type": "clk",
-            "direction": "I",
-            "parameters": {
-              "ASSOCIATED_RESET": {
-                "value": "rst",
-                "value_src": "constant"
-              }
-            }
-          },
-          "rst": {
-            "type": "rst",
-            "direction": "I",
-            "parameters": {
-              "POLARITY": {
-                "value": "ACTIVE_HIGH",
-                "value_src": "constant"
-              }
-            }
-          },
-          "enable": {
-            "direction": "I"
-          },
-          "en_out": {
-            "direction": "O"
-          }
-        }
-      },
-      "debounce_0": {
-        "vlnv": "FIT:user:debounce:1.0",
-        "xci_name": "ShiftTest_debounce_0_0"
-      },
-      "debounce_1": {
-        "vlnv": "FIT:user:debounce:1.0",
-        "xci_name": "ShiftTest_debounce_1_0"
       }
     },
     "nets": {

@@ -1,0 +1,127 @@
+{
+  "design": {
+    "design_info": {
+      "boundary_crc": "0x514FE897514FE897",
+      "device": "xc7a35tcpg236-1",
+      "name": "D0",
+      "synth_flow_mode": "Hierarchical",
+      "tool_version": "2018.3",
+      "validated": "true"
+    },
+    "design_tree": {
+      "or_0": "",
+      "and_0": ""
+    },
+    "ports": {
+      "Qa": {
+        "type": "data",
+        "direction": "I",
+        "parameters": {
+          "LAYERED_METADATA": {
+            "value": "undef",
+            "value_src": "default"
+          }
+        }
+      },
+      "Qb": {
+        "type": "data",
+        "direction": "I",
+        "parameters": {
+          "LAYERED_METADATA": {
+            "value": "undef",
+            "value_src": "default"
+          }
+        }
+      },
+      "S": {
+        "type": "data",
+        "direction": "I",
+        "parameters": {
+          "LAYERED_METADATA": {
+            "value": "undef",
+            "value_src": "default"
+          }
+        }
+      },
+      "R": {
+        "type": "data",
+        "direction": "I",
+        "parameters": {
+          "LAYERED_METADATA": {
+            "value": "undef",
+            "value_src": "default"
+          }
+        }
+      },
+      "a": {
+        "type": "data",
+        "direction": "O",
+        "parameters": {
+          "LAYERED_METADATA": {
+            "value": "undef",
+            "value_src": "default"
+          }
+        }
+      }
+    },
+    "components": {
+      "or_0": {
+        "vlnv": "FIT:user:or:1.0",
+        "xci_name": "D0_or_0_0"
+      },
+      "and_0": {
+        "vlnv": "FIT:user:and:1.0",
+        "xci_name": "D0_and_0_0",
+        "parameters": {
+          "I1_inverted": {
+            "value": "true"
+          },
+          "I2_inverted": {
+            "value": "true"
+          },
+          "Inputs": {
+            "value": "3"
+          }
+        }
+      }
+    },
+    "nets": {
+      "I0_0_1": {
+        "ports": [
+          "Qa",
+          "and_0/I0"
+        ]
+      },
+      "I1_0_1": {
+        "ports": [
+          "Qb",
+          "and_0/I1"
+        ]
+      },
+      "I2_0_1": {
+        "ports": [
+          "S",
+          "and_0/I2"
+        ]
+      },
+      "and_0_O": {
+        "ports": [
+          "and_0/O",
+          "or_0/I0"
+        ]
+      },
+      "I1_0_2": {
+        "ports": [
+          "R",
+          "or_0/I1"
+        ]
+      },
+      "or_0_O": {
+        "ports": [
+          "or_0/O",
+          "a"
+        ]
+      }
+    }
+  }
+}

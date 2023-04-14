@@ -3,14 +3,28 @@
    "guistr":"# # String gsaved with Nlview 6.8.11  2018-08-07 bk=1.4403 VDI=40 GEI=35 GUI=JA:9.0 non-TLS
 #  -string -flagsOSRD
 preplace port Roll -pg 1 -y -30 -defaultsOSRD
+preplace port Shift -pg 1 -y -10 -defaultsOSRD
+preplace port Count_En -pg 1 -y -160 -defaultsOSRD
+preplace port Shift_Init -pg 1 -y -280 -defaultsOSRD
 preplace port clk -pg 1 -y 110 -defaultsOSRD
 preplace port reset -pg 1 -y 130 -defaultsOSRD
-preplace inst dff_0 -pg 1 -lvl 1 -y -10 -defaultsOSRD
-preplace inst dff_1 -pg 1 -lvl 2 -y -10 -defaultsOSRD
-preplace netloc clk_0_1 1 0 2 10 70 160
-preplace netloc d_0_1 1 0 1 N
-preplace netloc reset_0_1 1 0 2 20 80 170
-levelinfo -pg 1 -10 90 260 420 -top -90 -bot 210
+preplace inst D1_vhdl_0 -pg 1 -lvl 1 -y 90 -defaultsOSRD
+preplace inst D0_vhdl_0 -pg 1 -lvl 1 -y -90 -defaultsOSRD
+preplace inst C_out_vhdl_0 -pg 1 -lvl 2 -y -160 -defaultsOSRD
+preplace inst dff_0 -pg 1 -lvl 2 -y -20 -defaultsOSRD
+preplace inst S_out_vhdl_0 -pg 1 -lvl 2 -y -280 -defaultsOSRD
+preplace inst dff_1 -pg 1 -lvl 2 -y 120 -defaultsOSRD
+preplace netloc Roll_1 1 0 1 20
+preplace netloc S_0_1 1 0 1 30
+preplace netloc dff_1_q 1 0 3 50 -180 350J 210 550
+preplace netloc D0_vhdl_0_a 1 1 1 370
+preplace netloc clk_1 1 0 2 10J 0 360
+preplace netloc dff_0_q 1 0 3 40 -190 340J 200 560
+preplace netloc S_out_vhdl_0_S 1 2 1 N
+preplace netloc reset_1 1 0 2 30J 180 370
+preplace netloc C_out_vhdl_0_C 1 2 1 N
+preplace netloc D1_vhdl_0_b 1 1 1 330
+levelinfo -pg 1 -10 250 460 580 -top -350 -bot 350
 "
 }
-
+0
