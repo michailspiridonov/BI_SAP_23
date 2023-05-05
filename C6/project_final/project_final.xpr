@@ -3,7 +3,7 @@
 <!--                                                         -->
 <!-- Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.   -->
 
-<Project Version="7" Minor="39" Path="D:/School/SAP/C6/project_final/project_final.xpr">
+<Project Version="7" Minor="39" Path="X:/SAP/C6/project_final/project_final.xpr">
   <DefaultLaunch Dir="$PRUNDIR"/>
   <Configuration>
     <Option Name="Id" Val="b5b64e8bcac84588ae5556da4d414fd2"/>
@@ -63,26 +63,50 @@
   <FileSets Version="1" Minor="31">
     <FileSet Name="sources_1" Type="DesignSrcs" RelSrcDir="$PSRCDIR/sources_1">
       <Filter Type="Srcs"/>
+      <File Path="$PSRCDIR/sources_1/imports/tmp/C_out.vhd">
+        <FileInfo>
+          <Attr Name="ImportPath" Val="$PPRDIR/tmp/C_out.vhd"/>
+          <Attr Name="ImportTime" Val="1681410859"/>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PSRCDIR/sources_1/imports/tmp/Controller.vhd">
+        <FileInfo>
+          <Attr Name="ImportPath" Val="$PPRDIR/tmp/Controller.vhd"/>
+          <Attr Name="ImportTime" Val="1681411889"/>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PSRCDIR/sources_1/imports/tmp/D0.vhd">
+        <FileInfo>
+          <Attr Name="ImportPath" Val="$PPRDIR/tmp/D0.vhd"/>
+          <Attr Name="ImportTime" Val="1681410176"/>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PSRCDIR/sources_1/imports/tmp/D1.vhd">
+        <FileInfo>
+          <Attr Name="ImportPath" Val="$PPRDIR/tmp/D1.vhd"/>
+          <Attr Name="ImportTime" Val="1681410143"/>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PSRCDIR/sources_1/imports/tmp/S_out.vhd">
+        <FileInfo>
+          <Attr Name="ImportPath" Val="$PPRDIR/tmp/S_out.vhd"/>
+          <Attr Name="ImportTime" Val="1681410883"/>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
       <File Path="$PSRCDIR/sources_1/imports/tmp/ShiftReg.vhd">
         <FileInfo>
           <Attr Name="ImportPath" Val="$PPRDIR/tmp/ShiftReg.vhd"/>
           <Attr Name="ImportTime" Val="1680268407"/>
-          <Attr Name="UsedIn" Val="synthesis"/>
-          <Attr Name="UsedIn" Val="simulation"/>
-        </FileInfo>
-      </File>
-      <File Path="$PSRCDIR/sources_1/imports/Downloads/decoder_filled.vhd">
-        <FileInfo>
-          <Attr Name="ImportPath" Val="C:/Users/Michail/Downloads/decoder_filled.vhd"/>
-          <Attr Name="ImportTime" Val="1681412310"/>
-          <Attr Name="UsedIn" Val="synthesis"/>
-          <Attr Name="UsedIn" Val="simulation"/>
-        </FileInfo>
-      </File>
-      <File Path="$PSRCDIR/sources_1/imports/Downloads/l6_counter.vhd">
-        <FileInfo>
-          <Attr Name="ImportPath" Val="C:/Users/Michail/Downloads/l6_counter.vhd"/>
-          <Attr Name="ImportTime" Val="1681408981"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
@@ -95,9 +119,33 @@
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
+      <File Path="$PSRCDIR/sources_1/imports/Downloads/decoder_filled.vhd">
+        <FileInfo>
+          <Attr Name="ImportPath" Val="C:/Users/Michail/Downloads/decoder_filled.vhd"/>
+          <Attr Name="ImportTime" Val="1681412310"/>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
       <File Path="//drive.fit.cvut.cz/home/spirimi2/Downloads/l6_counter.vhd">
+        <FileInfo RelPath="l6_counter.vhd">
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PSRCDIR/sources_1/imports/tmp/TheDesign.vhd">
+        <FileInfo>
+          <Attr Name="ImportPath" Val="$PPRDIR/tmp/TheDesign.vhd"/>
+          <Attr Name="ImportTime" Val="1681477630"/>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PSRCDIR/sources_1/imports/Downloads/l6_counter.vhd">
         <FileInfo>
           <Attr Name="AutoDisabled" Val="1"/>
+          <Attr Name="ImportPath" Val="C:/Users/Michail/Downloads/l6_counter.vhd"/>
+          <Attr Name="ImportTime" Val="1681408981"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
@@ -151,24 +199,6 @@
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PSRCDIR/sources_1/imports/tmp/D1.vhd">
-        <FileInfo>
-          <Attr Name="AutoDisabled" Val="1"/>
-          <Attr Name="ImportPath" Val="$PPRDIR/tmp/D1.vhd"/>
-          <Attr Name="ImportTime" Val="1681410143"/>
-          <Attr Name="UsedIn" Val="synthesis"/>
-          <Attr Name="UsedIn" Val="simulation"/>
-        </FileInfo>
-      </File>
-      <File Path="$PSRCDIR/sources_1/imports/tmp/D0.vhd">
-        <FileInfo>
-          <Attr Name="AutoDisabled" Val="1"/>
-          <Attr Name="ImportPath" Val="$PPRDIR/tmp/D0.vhd"/>
-          <Attr Name="ImportTime" Val="1681410176"/>
-          <Attr Name="UsedIn" Val="synthesis"/>
-          <Attr Name="UsedIn" Val="simulation"/>
-        </FileInfo>
-      </File>
       <File Path="$PSRCDIR/sources_1/bd/C_out/C_out.bd">
         <FileInfo>
           <Attr Name="AutoDisabled" Val="1"/>
@@ -185,24 +215,6 @@
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PSRCDIR/sources_1/imports/tmp/C_out.vhd">
-        <FileInfo>
-          <Attr Name="AutoDisabled" Val="1"/>
-          <Attr Name="ImportPath" Val="$PPRDIR/tmp/C_out.vhd"/>
-          <Attr Name="ImportTime" Val="1681410859"/>
-          <Attr Name="UsedIn" Val="synthesis"/>
-          <Attr Name="UsedIn" Val="simulation"/>
-        </FileInfo>
-      </File>
-      <File Path="$PSRCDIR/sources_1/imports/tmp/S_out.vhd">
-        <FileInfo>
-          <Attr Name="AutoDisabled" Val="1"/>
-          <Attr Name="ImportPath" Val="$PPRDIR/tmp/S_out.vhd"/>
-          <Attr Name="ImportTime" Val="1681410883"/>
-          <Attr Name="UsedIn" Val="synthesis"/>
-          <Attr Name="UsedIn" Val="simulation"/>
-        </FileInfo>
-      </File>
       <File Path="$PSRCDIR/sources_1/bd/TheDesign/TheDesign.bd">
         <FileInfo>
           <Attr Name="AutoDisabled" Val="1"/>
@@ -211,19 +223,9 @@
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PSRCDIR/sources_1/imports/tmp/Controller.vhd">
-        <FileInfo>
-          <Attr Name="AutoDisabled" Val="1"/>
-          <Attr Name="ImportPath" Val="$PPRDIR/tmp/Controller.vhd"/>
-          <Attr Name="ImportTime" Val="1681411889"/>
-          <Attr Name="UsedIn" Val="synthesis"/>
-          <Attr Name="UsedIn" Val="simulation"/>
-        </FileInfo>
-      </File>
       <Config>
         <Option Name="DesignMode" Val="RTL"/>
-        <Option Name="TopModule" Val="ShiftTest_vhdl"/>
-        <Option Name="TopAutoSet" Val="TRUE"/>
+        <Option Name="TopModule" Val="TheDesign_vhdl"/>
       </Config>
     </FileSet>
     <FileSet Name="constrs_1" Type="Constrs" RelSrcDir="$PSRCDIR/constrs_1">

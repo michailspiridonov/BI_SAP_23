@@ -34,3 +34,6 @@ set_property PACKAGE_PIN U5 [get_ports f_e_0]
 set_property PACKAGE_PIN V5 [get_ports f_f_0]
 set_property PACKAGE_PIN U7 [get_ports f_g_0]
 set_property PACKAGE_PIN R2 [get_ports reset]
+
+set_property IOSTANDARD LVCMOS33 [get_ports Roll]
+set_property PACKAGE_PIN T17 [get_ports Roll]

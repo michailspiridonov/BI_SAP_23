@@ -1,7 +1,7 @@
 {
   "design": {
     "design_info": {
-      "boundary_crc": "0x0",
+      "boundary_crc": "0x21E953E9E64D82AA",
       "device": "xc7a35tcpg236-1",
       "name": "TheDesign",
       "synth_flow_mode": "Hierarchical",
@@ -11,7 +11,6 @@
       "debounce_0": "",
       "counter_0": "",
       "Controller_vhdl_0": "",
-      "inv_0": "",
       "ShiftReg_vhdl_0": "",
       "decoder_7seg_f_0": ""
     },
@@ -114,10 +113,6 @@
           }
         }
       },
-      "inv_0": {
-        "vlnv": "FIT:user:inv:1.0",
-        "xci_name": "TheDesign_inv_0_0"
-      },
       "ShiftReg_vhdl_0": {
         "vlnv": "xilinx.com:module_ref:ShiftReg_vhdl:1.0",
         "xci_name": "TheDesign_ShiftReg_vhdl_0_0",
@@ -201,13 +196,6 @@
       }
     },
     "nets": {
-      "tl_in_0_1": {
-        "ports": [
-          "Roll",
-          "debounce_0/tl_in",
-          "Controller_vhdl_0/Roll"
-        ]
-      },
       "clk_0_1": {
         "ports": [
           "clk",
@@ -221,12 +209,6 @@
         "ports": [
           "reset",
           "counter_0/rst",
-          "inv_0/I"
-        ]
-      },
-      "inv_0_O": {
-        "ports": [
-          "inv_0/O",
           "Controller_vhdl_0/reset",
           "ShiftReg_vhdl_0/reset"
         ]
@@ -314,6 +296,18 @@
         "ports": [
           "decoder_7seg_f_0/f_g",
           "f_g_0"
+        ]
+      },
+      "Roll_1": {
+        "ports": [
+          "Roll",
+          "debounce_0/tl_in"
+        ]
+      },
+      "debounce_0_tl_out": {
+        "ports": [
+          "debounce_0/tl_out",
+          "Controller_vhdl_0/Roll"
         ]
       }
     }

@@ -40,4 +40,4 @@ EAStep()
      fi
 }
 
-EAStep vivado -log ShiftTest_vhdl.vds -m64 -product Vivado -mode batch -messageDb vivado.pb -notrace -source ShiftTest_vhdl.tcl
+EAStep vivado -log TheDesign_vhdl.vds -m64 -product Vivado -mode batch -messageDb vivado.pb -notrace -source TheDesign_vhdl.tcl
