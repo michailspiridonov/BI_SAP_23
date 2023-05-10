@@ -40,14 +40,14 @@
   <lcd_delay_us_l1><FILE>./printlib.inc</FILE><LINE>285</LINE></lcd_delay_us_l1>
   <print><FILE>test.asm</FILE><LINE>39</LINE></print>
   <init><FILE>test.asm</FILE><LINE>19</LINE></init>
-  <print_row><FILE>test.asm</FILE><LINE>22</LINE></print_row>
+  <print_row><FILE>test.asm</FILE><LINE>23</LINE></print_row>
   <p><FILE>test.asm</FILE><LINE>33</LINE></p>
-  <cekp><FILE>test.asm</FILE><LINE>54</LINE></cekp>
-  <print_down><FILE>test.asm</FILE><LINE>49</LINE></print_down>
-  <print_up><FILE>test.asm</FILE><LINE>45</LINE></print_up>
-  <cek3><FILE>test.asm</FILE><LINE>56</LINE></cek3>
-  <cek2><FILE>test.asm</FILE><LINE>58</LINE></cek2>
-  <cek><FILE>test.asm</FILE><LINE>60</LINE></cek>
-  <end><FILE>test.asm</FILE><LINE>68</LINE></end>
+  <cekp><FILE>test.asm</FILE><LINE>56</LINE></cekp>
+  <print_up><FILE>test.asm</FILE><LINE>50</LINE></print_up>
+  <print_down><FILE>test.asm</FILE><LINE>44</LINE></print_down>
+  <cek3><FILE>test.asm</FILE><LINE>58</LINE></cek3>
+  <cek2><FILE>test.asm</FILE><LINE>60</LINE></cek2>
+  <cek><FILE>test.asm</FILE><LINE>62</LINE></cek>
+  <end><FILE>test.asm</FILE><LINE>70</LINE></end>
  </LABELS>
 </ASSEMBLER_INFO>

@@ -1,14 +1,14 @@
 <ASSEMBLER_INFO>
  <VERSION>2.2.8</VERSION>
  <DEVICE>"ATmega328P"</DEVICE>
- <WORKING_DIR>X:\SAP\C9\MovingText.X</WORKING_DIR>
+ <WORKING_DIR>D:\School\SAP\C9\MovingText.X</WORKING_DIR>
  <INCLUDE_PATH>
-  <DIR>C:/Program Files/Microchip/MPLABX/v6.00/packs/Microchip/ATmega_DFP/2.4.131/avrasm/inc</DIR>
-  <DIR>C:\Program Files (x86)\Atmel\AVR Tools\AvrAssembler2\Appnotes</DIR>
+  <DIR>D:/Program Files/Microchip/MPLABX/v6.00/packs/Microchip/ATmega_DFP/2.4.131/avrasm/inc</DIR>
+  <DIR></DIR>
  </INCLUDE_PATH>
  <SOURCE_FILE>test.asm</SOURCE_FILE>
  <INCLUDED_FILES>
-  <FILE>C:/Program Files/Microchip/MPLABX/v6.00/packs/Microchip/ATmega_DFP/2.4.131/avrasm/inc\m328Pdef.inc</FILE>
+  <FILE>D:/Program Files/Microchip/MPLABX/v6.00/packs/Microchip/ATmega_DFP/2.4.131/avrasm/inc\m328Pdef.inc</FILE>
   <FILE>./printlib.inc</FILE>
  </INCLUDED_FILES>
  <OBJECT_FILES>
@@ -39,11 +39,16 @@
   <lcd_light_off><FILE>./printlib.inc</FILE><LINE>276</LINE></lcd_light_off>
   <lcd_delay_us_l0><FILE>./printlib.inc</FILE><LINE>283</LINE></lcd_delay_us_l0>
   <lcd_delay_us_l1><FILE>./printlib.inc</FILE><LINE>285</LINE></lcd_delay_us_l1>
-  <print><FILE>test.asm</FILE><LINE>17</LINE></print>
-  <end><FILE>test.asm</FILE><LINE>40</LINE></end>
-  <cekp><FILE>test.asm</FILE><LINE>26</LINE></cekp>
-  <cek3><FILE>test.asm</FILE><LINE>28</LINE></cek3>
-  <cek2><FILE>test.asm</FILE><LINE>30</LINE></cek2>
-  <cek><FILE>test.asm</FILE><LINE>32</LINE></cek>
+  <print><FILE>test.asm</FILE><LINE>39</LINE></print>
+  <init><FILE>test.asm</FILE><LINE>19</LINE></init>
+  <print_row><FILE>test.asm</FILE><LINE>22</LINE></print_row>
+  <p><FILE>test.asm</FILE><LINE>33</LINE></p>
+  <cekp><FILE>test.asm</FILE><LINE>54</LINE></cekp>
+  <print_up><FILE>test.asm</FILE><LINE>50</LINE></print_up>
+  <print_down><FILE>test.asm</FILE><LINE>44</LINE></print_down>
+  <cek3><FILE>test.asm</FILE><LINE>56</LINE></cek3>
+  <cek2><FILE>test.asm</FILE><LINE>58</LINE></cek2>
+  <cek><FILE>test.asm</FILE><LINE>60</LINE></cek>
+  <end><FILE>test.asm</FILE><LINE>68</LINE></end>
  </LABELS>
 </ASSEMBLER_INFO>

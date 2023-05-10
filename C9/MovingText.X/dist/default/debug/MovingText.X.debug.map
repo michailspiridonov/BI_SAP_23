@@ -1,5 +1,5 @@
 
-AVRASM ver. 2.2.8  test.asm Tue May 09 22:00:23 2023
+AVRASM ver. 2.2.8  test.asm Wed May 10 13:18:29 2023
 
 
 EQU  SIGNATURE_000 0000001e
@@ -712,14 +712,14 @@ CSEG lcd_light_on 000001d9
 CSEG lcd_light_off 000001db
 CSEG lcd_delay_us_l0 000001de
 CSEG lcd_delay_us_l1 000001df
-CSEG print        0000021a
+CSEG print        00000219
 CSEG init         00000208
-CSEG print_row    0000020a
-CSEG p            00000215
-CSEG cekp         00000229
-CSEG print_down   00000223
-CSEG print_up     0000021f
-CSEG cek3         0000022a
-CSEG cek2         0000022b
-CSEG cek          0000022c
-CSEG end          00000233
+CSEG print_row    0000020b
+CSEG p            00000214
+CSEG cekp         00000226
+CSEG print_up     00000220
+CSEG print_down   0000021c
+CSEG cek3         00000227
+CSEG cek2         00000228
+CSEG cek          00000229
+CSEG end          00000230

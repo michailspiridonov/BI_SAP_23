@@ -12,23 +12,23 @@ start:
     call init_disp
     ldi r30, low(2*retez)
     ldi r31, high(2*retez)
-    ldi r17, 16
-    ldi r23, 175
-    ldi r24, 80
+    ldi r17, 80
+    ldi r23, 64
+    ldi r24, 48
     jmp print
 init:
     ldi r18, 0
     ldi r19, 1
+    ldi r17, 80
 print_row:
-    ldi r17, 16
+    cp r17, r24
+    brlo init
+    ldi r17, 80
     ldi r30, low(2*retez)
     ldi r31, high(2*retez)
     sub r17, r19
     inc r19
-    cp r19, r24
-    brsh init
     jmp print
-    jmp print_row
 
 p:
     inc r17
@@ -39,18 +39,20 @@ p:
 print:
     lpm r16, Z+
     cp r17, r23
-    brsh print_down
-    jmp print_up
+    brlo print_up
+    
+print_down:
+
+    call show_char
+
+    jmp p
     
 print_up:
+    sub r17, r24
     call show_char
+    add r17, r24
     jmp p
 
-print_down:
-    sub r17, r23
-    call show_char
-    add r17, r23
-    jmp p
 cekp:
     ldi r22, 1
 cek3:
