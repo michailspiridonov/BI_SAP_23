@@ -1,5 +1,5 @@
 
-AVRASM ver. 2.2.8  test.asm Fri May 12 15:22:17 2023
+AVRASM ver. 2.2.8  test.asm Fri May 12 15:29:10 2023
 
 [builtin](2): Including file 'C:/Program Files/Microchip/MPLABX/v6.00/packs/Microchip/ATmega_DFP/2.4.131/avrasm/inc\m328Pdef.inc'
 test.asm(9): Including file 'printlib.inc'
