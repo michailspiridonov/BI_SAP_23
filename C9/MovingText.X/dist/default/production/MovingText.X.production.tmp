@@ -1,14 +1,14 @@
 <ASSEMBLER_INFO>
  <VERSION>2.2.8</VERSION>
  <DEVICE>"ATmega328P"</DEVICE>
- <WORKING_DIR>D:\School\SAP\C9\MovingText.X</WORKING_DIR>
+ <WORKING_DIR>X:\SAP\C9\MovingText.X</WORKING_DIR>
  <INCLUDE_PATH>
-  <DIR>D:/Program Files/Microchip/MPLABX/v6.00/packs/Microchip/ATmega_DFP/2.4.131/avrasm/inc</DIR>
-  <DIR></DIR>
+  <DIR>C:/Program Files/Microchip/MPLABX/v6.00/packs/Microchip/ATmega_DFP/2.4.131/avrasm/inc</DIR>
+  <DIR>C:\Program Files (x86)\Atmel\AVR Tools\AvrAssembler2\Appnotes</DIR>
  </INCLUDE_PATH>
  <SOURCE_FILE>test.asm</SOURCE_FILE>
  <INCLUDED_FILES>
-  <FILE>D:/Program Files/Microchip/MPLABX/v6.00/packs/Microchip/ATmega_DFP/2.4.131/avrasm/inc\m328Pdef.inc</FILE>
+  <FILE>C:/Program Files/Microchip/MPLABX/v6.00/packs/Microchip/ATmega_DFP/2.4.131/avrasm/inc\m328Pdef.inc</FILE>
   <FILE>./printlib.inc</FILE>
  </INCLUDED_FILES>
  <OBJECT_FILES>
@@ -39,16 +39,18 @@
   <lcd_light_off><FILE>./printlib.inc</FILE><LINE>276</LINE></lcd_light_off>
   <lcd_delay_us_l0><FILE>./printlib.inc</FILE><LINE>283</LINE></lcd_delay_us_l0>
   <lcd_delay_us_l1><FILE>./printlib.inc</FILE><LINE>285</LINE></lcd_delay_us_l1>
-  <print><FILE>test.asm</FILE><LINE>39</LINE></print>
-  <init><FILE>test.asm</FILE><LINE>19</LINE></init>
-  <print_row><FILE>test.asm</FILE><LINE>22</LINE></print_row>
-  <p><FILE>test.asm</FILE><LINE>33</LINE></p>
-  <cekp><FILE>test.asm</FILE><LINE>54</LINE></cekp>
-  <print_up><FILE>test.asm</FILE><LINE>50</LINE></print_up>
-  <print_down><FILE>test.asm</FILE><LINE>44</LINE></print_down>
-  <cek3><FILE>test.asm</FILE><LINE>56</LINE></cek3>
-  <cek2><FILE>test.asm</FILE><LINE>58</LINE></cek2>
-  <cek><FILE>test.asm</FILE><LINE>60</LINE></cek>
-  <end><FILE>test.asm</FILE><LINE>68</LINE></end>
+  <print_row><FILE>test.asm</FILE><LINE>18</LINE></print_row>
+  <cekp><FILE>test.asm</FILE><LINE>77</LINE></cekp>
+  <print><FILE>test.asm</FILE><LINE>38</LINE></print>
+  <p><FILE>test.asm</FILE><LINE>29</LINE></p>
+  <print_up><FILE>test.asm</FILE><LINE>49</LINE></print_up>
+  <print_down><FILE>test.asm</FILE><LINE>43</LINE></print_down>
+  <print_space><FILE>test.asm</FILE><LINE>71</LINE></print_space>
+  <print_space_u><FILE>test.asm</FILE><LINE>63</LINE></print_space_u>
+  <break_print><FILE>test.asm</FILE><LINE>59</LINE></break_print>
+  <cek3><FILE>test.asm</FILE><LINE>82</LINE></cek3>
+  <cek2><FILE>test.asm</FILE><LINE>84</LINE></cek2>
+  <cek><FILE>test.asm</FILE><LINE>86</LINE></cek>
+  <end><FILE>test.asm</FILE><LINE>97</LINE></end>
  </LABELS>
 </ASSEMBLER_INFO>

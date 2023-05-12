@@ -12,53 +12,77 @@ start:
     call init_disp
     ldi r30, low(2*retez)
     ldi r31, high(2*retez)
-    ldi r17, 80
-    ldi r23, 64
-    ldi r24, 48
-    jmp print
-init:
-    ldi r18, 0
-    ldi r19, 1
-    ldi r17, 80
+    ldi r17, 79
+    ldi r19, 0
+    
 print_row:
-    cp r17, r24
-    brlo init
-    ldi r17, 80
+    call cekp
+    cpi r17, 48
+    brlo start
+    ldi r17, 79
     ldi r30, low(2*retez)
     ldi r31, high(2*retez)
     sub r17, r19
     inc r19
     jmp print
 
-p:
+p: 
     inc r17
-    cp r16, r18
+    cpi r16, 0
     breq print_row
-    call cekp              ; r20-22
+    cpi r17, 80
+    breq print_row
+    cpi r17, 80
+    brsh p
     
 print:
     lpm r16, Z+
-    cp r17, r23
+    cpi r17, 64
     brlo print_up
     
 print_down:
-
+    cpi r16, 0
+    breq print_space
     call show_char
-
     jmp p
     
 print_up:
-    sub r17, r24
+    cpi r16, 0
+    breq print_space_u
+    subi r17, 48
+    cpi r17, 80
+    brsh break_print
     call show_char
-    add r17, r24
+    subi r17, -48
+    jmp p
+
+break_print:
+    subi r17, -48
+    jmp p
+    
+print_space_u:
+    ldi r16, ' '
+    subi r17, 48
+    call show_char
+    subi r17, -48
+    ldi r16, 0
+    jmp p
+    
+print_space:
+    ldi r16, ' '
+    call show_char
+    ldi r16, 0
     jmp p
 
 cekp:
-    ldi r22, 1
+    push r20
+    push r21
+    push r22
+    ldi r22, 50
 cek3:
-    ldi r21, 1
+    ldi r21, 200
 cek2: 
-    ldi r20, 10
+    ldi r20, 200
 cek: 
     dec r20
     brne cek
@@ -66,5 +90,8 @@ cek:
     brne cek2
     dec r22
     brne cek3
+    pop r22
+    pop r21
+    pop r20
     ret
 end: jmp end

@@ -1,9 +1,9 @@
 
-AVRASM ver. 2.2.8  test.asm Wed May 10 12:59:01 2023
+AVRASM ver. 2.2.8  test.asm Fri May 12 15:11:28 2023
 
-[builtin](2): Including file 'D:/Program Files/Microchip/MPLABX/v6.00/packs/Microchip/ATmega_DFP/2.4.131/avrasm/inc\m328Pdef.inc'
+[builtin](2): Including file 'C:/Program Files/Microchip/MPLABX/v6.00/packs/Microchip/ATmega_DFP/2.4.131/avrasm/inc\m328Pdef.inc'
 test.asm(9): Including file './printlib.inc'
-[builtin](2): Including file 'D:/Program Files/Microchip/MPLABX/v6.00/packs/Microchip/ATmega_DFP/2.4.131/avrasm/inc\m328Pdef.inc'
+[builtin](2): Including file 'C:/Program Files/Microchip/MPLABX/v6.00/packs/Microchip/ATmega_DFP/2.4.131/avrasm/inc\m328Pdef.inc'
 test.asm(9): Including file './printlib.inc'
                                  
                                  .cseg ; nasledujici umistit do pameti programu (implicitni)
@@ -1303,59 +1303,88 @@ test.asm(9): Including file './printlib.inc'
 0001ff 940e 010d                     call init_disp
 000201 e0e0                          ldi r30, low(2*retez)
 000202 e0f2                          ldi r31, high(2*retez)
-000203 e510                          ldi r17, 80
-000204 e470                          ldi r23, 64
-000205 e380                          ldi r24, 48
-000206 940c 021a                     jmp print
-                                 init:
-000208 e020                          ldi r18, 0
-000209 e031                          ldi r19, 1
+000203 e41f                          ldi r17, 79
+000204 e030                          ldi r19, 0
+                                     
                                  print_row:
-00020a e510                          ldi r17, 80
-00020b e0e0                          ldi r30, low(2*retez)
-00020c e0f2                          ldi r31, high(2*retez)
-00020d 1b13                          sub r17, r19
-00020e 9533                          inc r19
-00020f 1738                          cp r19, r24
-000210 f7b8                          brsh init
-000211 940c 021a                     jmp print
-000213 940c 020a                     jmp print_row
+000205 940e 023b                     call cekp
+000207 3310                          cpi r17, 48
+000208 f3b0                          brlo start
+000209 e41f                          ldi r17, 79
+00020a e0e0                          ldi r30, low(2*retez)
+00020b e0f2                          ldi r31, high(2*retez)
+00020c 1b13                          sub r17, r19
+00020d 9533                          inc r19
+00020e 940c 0217                     jmp print
                                  
-                                 p:
-000215 9513                          inc r17
-000216 1702                          cp r16, r18
-000217 f391                          breq print_row
-000218 940e 0227                     call cekp              ; r20-22
+                                 p: 
+000210 9513                          inc r17
+000211 3000                          cpi r16, 0
+000212 f391                          breq print_row
+000213 3510                          cpi r17, 80
+000214 f381                          breq print_row
+000215 3510                          cpi r17, 80
+000216 f7c8                          brsh p
                                      
                                  print:
-00021a 9105                          lpm r16, Z+
-00021b 1717                          cp r17, r23
-00021c f030                          brlo print_up
+000217 9105                          lpm r16, Z+
+000218 3410                          cpi r17, 64
+000219 f030                          brlo print_up
                                      
                                  print_down:
-00021d 1b17                          sub r17, r23
-00021e 940e 015f                     call show_char
-000220 0f17                          add r17, r23
-000221 940c 0215                     jmp p
+00021a 3000                          cpi r16, 0
+00021b f0c9                          breq print_space
+00021c 940e 015f                     call show_char
+00021e 940c 0210                     jmp p
                                      
                                  print_up:
-000223 940e 015f                     call show_char
-000225 940c 0215                     jmp p
+000220 3000                          cpi r16, 0
+000221 f059                          breq print_space_u
+000222 5310                          subi r17, 48
+000223 3510                          cpi r17, 80
+000224 f428                          brsh break_print
+000225 940e 015f                     call show_char
+000227 5d10                          subi r17, -48
+000228 940c 0210                     jmp p
+                                 
+                                 break_print:
+00022a 5d10                          subi r17, -48
+00022b 940c 0210                     jmp p
+                                     
+                                 print_space_u:
+00022d e200                          ldi r16, ' '
+00022e 5310                          subi r17, 48
+00022f 940e 015f                     call show_char
+000231 5d10                          subi r17, -48
+000232 e000                          ldi r16, 0
+000233 940c 0210                     jmp p
+                                     
+                                 print_space:
+000235 e200                          ldi r16, ' '
+000236 940e 015f                     call show_char
+000238 e000                          ldi r16, 0
+000239 940c 0210                     jmp p
                                  
                                  cekp:
-000227 e061                          ldi r22, 1
+00023b 934f                          push r20
+00023c 935f                          push r21
+00023d 936f                          push r22
+00023e e362                          ldi r22, 50
                                  cek3:
-000228 e051                          ldi r21, 1
+00023f ec58                          ldi r21, 200
                                  cek2: 
-000229 e04a                          ldi r20, 10
+000240 ec48                          ldi r20, 200
                                  cek: 
-00022a 954a                          dec r20
-00022b f7f1                          brne cek
-00022c 955a                          dec r21
-00022d f7d9                          brne cek2
-00022e 956a                          dec r22
-00022f f7c1                          brne cek3
-000230 9508                          ret
+000241 954a                          dec r20
+000242 f7f1                          brne cek
+000243 955a                          dec r21
+000244 f7d9                          brne cek2
+000245 956a                          dec r22
+000246 f7c1                          brne cek3
+000247 916f                          pop r22
+000248 915f                          pop r21
+000249 914f                          pop r20
+00024a 9508                          ret
 
 
 RESOURCE USE INFORMATION
@@ -1375,37 +1404,37 @@ counted separately from r26..r31 here.
 "ATmega328P" register use summary:
 x  :   0 y  :   0 z  :   1 r0 :   0 r1 :   0 r2 :   0 r3 :   0 r4 :   0 
 r5 :   0 r6 :   0 r7 :   0 r8 :   0 r9 :   0 r10:   0 r11:   0 r12:   0 
-r13:   0 r14:   0 r15:   0 r16:  36 r17:  18 r18:   2 r19:   4 r20:  56 
-r21:   2 r22:   2 r23:   4 r24:  19 r25:  15 r26:   0 r27:   0 r28:   0 
+r13:   0 r14:   0 r15:   0 r16:  42 r17:  25 r18:   0 r19:   3 r20:  58 
+r21:   4 r22:   4 r23:   0 r24:  17 r25:  15 r26:   0 r27:   0 r28:   0 
 r29:   0 r30:   2 r31:   2 
-Registers used: 13 out of 35 (37.1%)
+Registers used: 11 out of 35 (31.4%)
 
 "ATmega328P" instruction use summary:
-.lds  :   0 .sts  :   0 adc   :   0 add   :   1 adiw  :   0 and   :   0 
+.lds  :   0 .sts  :   0 adc   :   0 add   :   0 adiw  :   0 and   :   0 
 andi  :  13 asr   :   0 bclr  :   0 bld   :   0 brbc  :   0 brbs  :   0 
-brcc  :   0 brcs  :   0 break :   0 breq  :   1 brge  :   0 brhc  :   0 
-brhs  :   0 brid  :   0 brie  :   0 brlo  :   1 brlt  :   0 brmi  :   0 
-brne  :   5 brpl  :   0 brsh  :   1 brtc  :   0 brts  :   0 brvc  :   0 
-brvs  :   0 bset  :   0 bst   :   0 call  :  30 cbi   :   4 cbr   :   0 
+brcc  :   0 brcs  :   0 break :   0 breq  :   4 brge  :   0 brhc  :   0 
+brhs  :   0 brid  :   0 brie  :   0 brlo  :   2 brlt  :   0 brmi  :   0 
+brne  :   5 brpl  :   0 brsh  :   2 brtc  :   0 brts  :   0 brvc  :   0 
+brvs  :   0 bset  :   0 bst   :   0 call  :  32 cbi   :   4 cbr   :   0 
 clc   :   0 clh   :   0 cli   :   9 cln   :   0 clr   :   0 cls   :   0 
-clt   :   0 clv   :   0 clz   :   0 com   :   0 cp    :   3 cpc   :   0 
-cpi   :   0 cpse  :   0 dec   :   4 eor   :   0 fmul  :   0 fmuls :   0 
-fmulsu:   0 icall :   0 ijmp  :   0 in    :  12 inc   :   2 jmp   :   7 
-ld    :   0 ldd   :   0 ldi   :  33 lds   :   0 lpm   :   1 lsl   :   8 
+clt   :   0 clv   :   0 clz   :   0 com   :   0 cp    :   0 cpc   :   0 
+cpi   :   8 cpse  :   0 dec   :   4 eor   :   0 fmul  :   0 fmuls :   0 
+fmulsu:   0 icall :   0 ijmp  :   0 in    :  12 inc   :   2 jmp   :   8 
+ld    :   0 ldd   :   0 ldi   :  34 lds   :   0 lpm   :   1 lsl   :   8 
 lsr   :   0 mov   :   3 movw  :   0 mul   :   0 muls  :   0 mulsu :   0 
-neg   :   0 nop   :   0 or    :   4 ori   :   8 out   :  12 pop   :  21 
-push  :  21 rcall :   0 ret   :  13 reti  :   0 rjmp  :   1 rol   :   0 
+neg   :   0 nop   :   0 or    :   4 ori   :   8 out   :  12 pop   :  24 
+push  :  24 rcall :   0 ret   :  13 reti  :   0 rjmp  :   1 rol   :   0 
 ror   :   0 sbc   :   0 sbci  :   0 sbi   :   3 sbic  :   0 sbis  :   0 
 sbiw  :   1 sbr   :   0 sbrc  :   0 sbrs  :   0 sec   :   0 seh   :   0 
 sei   :   9 sen   :   0 ser   :   0 ses   :   0 set   :   0 sev   :   0 
 sez   :   0 sleep :   0 spm   :   0 st    :   0 std   :   0 sts   :   0 
-sub   :   2 subi  :   0 swap  :   0 tst   :   0 wdr   :   0 
+sub   :   1 subi  :   5 swap  :   0 tst   :   0 wdr   :   0 
 Instructions used: 29 out of 113 (25.7%)
 
 "ATmega328P" memory use summary [bytes]:
 Segment   Begin    End      Code   Data   Used    Size   Use%
 ---------------------------------------------------------------
-[.cseg] 0x000000 0x000466    540     26    566   32768   1.7%
+[.cseg] 0x000000 0x00049a    592     26    618   32768   1.9%
 [.dseg] 0x000100 0x000100      0      0      0    2048   0.0%
 [.eseg] 0x000000 0x000000      0      0      0    1024   0.0%
 
