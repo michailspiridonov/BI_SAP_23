@@ -1,9 +1,9 @@
 
-AVRASM ver. 2.2.8  main.asm Fri May 12 13:11:19 2023
+AVRASM ver. 2.2.8  main.asm Fri May 12 16:22:51 2023
 
-[builtin](2): Including file 'D:/Program Files/Microchip/MPLABX/v6.00/packs/Microchip/ATmega_DFP/2.4.131/avrasm/inc\m328Pdef.inc'
+[builtin](2): Including file 'C:/Program Files/Microchip/MPLABX/v6.00/packs/Microchip/ATmega_DFP/2.4.131/avrasm/inc\m328Pdef.inc'
 main.asm(9): Including file 'printlib.inc'
-[builtin](2): Including file 'D:/Program Files/Microchip/MPLABX/v6.00/packs/Microchip/ATmega_DFP/2.4.131/avrasm/inc\m328Pdef.inc'
+[builtin](2): Including file 'C:/Program Files/Microchip/MPLABX/v6.00/packs/Microchip/ATmega_DFP/2.4.131/avrasm/inc\m328Pdef.inc'
 main.asm(9): Including file 'printlib.inc'
                                  
                                  .dseg                ; prepnuti do pameti dat 1
@@ -1291,7 +1291,7 @@ main.asm(9): Including file 'printlib.inc'
                                  .org 0
 000000 940c 0108                     jmp	start
                                  .org 0x16            ; 2
-000016 940c 0260                     jmp interrupt
+000016 940c 028b                     jmp interrupt
                                  
                                  .org 0x100
 000100 4156
@@ -1306,330 +1306,378 @@ main.asm(9): Including file 'printlib.inc'
                                      ; Inicializace displeje
 000108 940e 1000                     call init_disp
                                      ; Inicializace preruseni od casovace
-00010a 940e 023d                     call init_int
+00010a 940e 0268                     call init_int
                                      ; Inicializace AD prevodniku
-00010c 940e 0255                     call init_button
+00010c 940e 0280                     call init_button
+                                 re_start:
 00010e e0e0                          ldi r30, low(2*retez)
 00010f e0f2                          ldi r31, high(2*retez)
-000110 e040                          ldi r20, 0	    ; minutes
-000111 e050                          ldi r21, 0	    ; seconds
-000112 e020                          ldi r18, 0	    ; blink counter
-000113 e030                          ldi r19, 0
+000110 e080                          ldi r24, 0      ; button state
+000111 e060                          ldi r22, 0
+000112 e040                          ldi r20, 0	    ; minutes
+000113 e050                          ldi r21, 0	    ; seconds
+000114 e020                          ldi r18, 0	    ; blink counter
+000115 e030                          ldi r19, 0
                                  
-000114 e000                          ldi r16, 0       ; 3
-000115 9300 0100                     sts flag, r16
+000116 e000                          ldi r16, 0       ; 3
+000117 9300 0100                     sts flag, r16
                                      
-000117 940e 0121                     call print_minutes
-000119 e012                          ldi r17, 2
-00011a e30a                          ldi r16, ':'
-00011b 940e 1052                     call show_char
-00011d 940e 0137                     call print_seconds
-00011f 940c 0192                     jmp set_minutes
+000119 940e 012a                     call print_minutes
+00011b e012                          ldi r17, 2
+00011c e30a                          ldi r16, ':'
+00011d 940e 1052                     call show_char
+00011f 940e 0140                     call print_seconds
+000121 940c 019b                     jmp set_minutes
+                                 print_empty:
+000123 940e 1052                     call show_char
+000125 9513                          inc r17
+000126 3110                          cpi r17, 16
+000127 f331                          breq re_start
+000128 940c 0123                     jmp print_empty
                                  
                                  print_minutes:
-000121 930f                          push r16
-000122 936f                          push r22
-000123 e000                          ldi r16, 0
-000124 2f64                          mov r22, r20
+00012a 930f                          push r16
+00012b 936f                          push r22
+00012c e000                          ldi r16, 0
+00012d 2f64                          mov r22, r20
                                  min_loop:
-000125 306a                          cpi r22, 10
-000126 f020                          brlo show_min
-000127 506a                          subi r22, 10
-000128 9503                          inc r16
-000129 940c 0125                     jmp min_loop
+00012e 306a                          cpi r22, 10
+00012f f020                          brlo show_min
+000130 506a                          subi r22, 10
+000131 9503                          inc r16
+000132 940c 012e                     jmp min_loop
                                  
                                  show_min:
-00012b e010                          ldi r17, 0
-00012c 5d00                          subi r16, -48
-00012d 940e 1052                     call show_char
-00012f 9513                          inc r17
-000130 2f06                          mov r16, r22
-000131 5d00                          subi r16, -48
-000132 940e 1052                     call show_char
-000134 916f                          pop r22
-000135 910f                          pop r16
-000136 9508                          ret
+000134 e010                          ldi r17, 0
+000135 5d00                          subi r16, -48
+000136 940e 1052                     call show_char
+000138 9513                          inc r17
+000139 2f06                          mov r16, r22
+00013a 5d00                          subi r16, -48
+00013b 940e 1052                     call show_char
+00013d 916f                          pop r22
+00013e 910f                          pop r16
+00013f 9508                          ret
                                      
                                  print_seconds:
-000137 930f                          push r16
-000138 936f                          push r22
-000139 e000                          ldi r16, 0
-00013a 2f65                          mov r22, r21
+000140 930f                          push r16
+000141 936f                          push r22
+000142 e000                          ldi r16, 0
+000143 2f65                          mov r22, r21
                                  sec_loop:
-00013b 306a                          cpi r22, 10
-00013c f020                          brlo show_sec
-00013d 506a                          subi r22, 10
-00013e 9503                          inc r16
-00013f 940c 013b                     jmp sec_loop
+000144 306a                          cpi r22, 10
+000145 f020                          brlo show_sec
+000146 506a                          subi r22, 10
+000147 9503                          inc r16
+000148 940c 0144                     jmp sec_loop
                                  
                                  show_sec:
-000141 e013                          ldi r17, 3
-000142 5d00                          subi r16, -48
-000143 940e 1052                     call show_char
-000145 9513                          inc r17
-000146 2f06                          mov r16, r22
-000147 5d00                          subi r16, -48
-000148 940e 1052                     call show_char
-00014a 916f                          pop r22
-00014b 910f                          pop r16
-00014c 9508                          ret
+00014a e013                          ldi r17, 3
+00014b 5d00                          subi r16, -48
+00014c 940e 1052                     call show_char
+00014e 9513                          inc r17
+00014f 2f06                          mov r16, r22
+000150 5d00                          subi r16, -48
+000151 940e 1052                     call show_char
+000153 916f                          pop r22
+000154 910f                          pop r16
+000155 9508                          ret
                                      
                                  is_down:
-00014d 930f                          push r16
-00014e e060                          ldi r22, 0
-00014f 940e 0174                     call convert
-000151 9100 0079                     lds r16, ADCH
-000153 9502                          swap r16
-000154 700f                          andi r16, 0b00001111
-000155 3003                          cpi r16, 3
-000156 f0d1                          breq is_succ
-000157 910f                          pop r16
-000158 9508                          ret
+000156 930f                          push r16
+000157 e060                          ldi r22, 0
+000158 940e 017d                     call convert
+00015a 9100 0079                     lds r16, ADCH
+00015c 9502                          swap r16
+00015d 700f                          andi r16, 0b00001111
+00015e 3003                          cpi r16, 3
+00015f f0d1                          breq is_succ
+000160 910f                          pop r16
+000161 9508                          ret
                                      
                                  is_up:
-000159 930f                          push r16
-00015a e060                          ldi r22, 0
-00015b 940e 0174                     call convert
-00015d 9100 0079                     lds r16, ADCH
-00015f 9502                          swap r16
-000160 700f                          andi r16, 0b00001111
-000161 3001                          cpi r16, 1
-000162 f071                          breq is_succ
-000163 910f                          pop r16
-000164 9508                          ret
+000162 930f                          push r16
+000163 e060                          ldi r22, 0
+000164 940e 017d                     call convert
+000166 9100 0079                     lds r16, ADCH
+000168 9502                          swap r16
+000169 700f                          andi r16, 0b00001111
+00016a 3001                          cpi r16, 1
+00016b f071                          breq is_succ
+00016c 910f                          pop r16
+00016d 9508                          ret
                                      
                                  is_select:
-000165 930f                          push r16
-000166 e060                          ldi r22, 0
-000167 940e 0174                     call convert
-000169 9100 0079                     lds r16, ADCH
-00016b 9502                          swap r16
-00016c 700f                          andi r16, 0b00001111
-00016d 3009                          cpi r16, 9
-00016e f011                          breq is_succ
-00016f 910f                          pop r16
-000170 9508                          ret
+00016e 930f                          push r16
+00016f e060                          ldi r22, 0
+000170 940e 017d                     call convert
+000172 9100 0079                     lds r16, ADCH
+000174 9502                          swap r16
+000175 700f                          andi r16, 0b00001111
+000176 3009                          cpi r16, 9
+000177 f011                          breq is_succ
+000178 910f                          pop r16
+000179 9508                          ret
                                  is_succ:
-000171 e061                          ldi r22, 1
-000172 910f                          pop r16
-000173 9508                          ret
+00017a e061                          ldi r22, 1
+00017b 910f                          pop r16
+00017c 9508                          ret
                                  convert:
-000174 930f                          push r16
-000175 931f                          push r17
-000176 9110 0040                     lds r17, (1<<ADSC)
-000178 9100 007a                     lds r16, ADCSRA
-00017a 6400                          ori r16, (1<<ADSC)
-00017b 9300 007a                     sts ADCSRA, r16
+00017d 930f                          push r16
+00017e 931f                          push r17
+00017f 9110 0040                     lds r17, (1<<ADSC)
+000181 9100 007a                     lds r16, ADCSRA
+000183 6400                          ori r16, (1<<ADSC)
+000184 9300 007a                     sts ADCSRA, r16
                                  conv_wait:
-00017d 9100 007a                     lds r16, ADCSRA
-00017f 2310                          and r17, r16
-000180 3010                          cpi r17, 0
-000181 f7d9                          brne conv_wait
-000182 911f                          pop r17
-000183 910f                          pop r16
-000184 9508                          ret
+000186 9100 007a                     lds r16, ADCSRA
+000188 2310                          and r17, r16
+000189 3010                          cpi r17, 0
+00018a f7d9                          brne conv_wait
+00018b 911f                          pop r17
+00018c 910f                          pop r16
+00018d 9508                          ret
                                      
                                  min_print:
-000185 933f                          push r19
-000186 2f32                          mov r19, r18
-000187 7031                          andi r19, 0b00000001
-000188 3030                          cpi r19, 0
-000189 f021                          breq min_print_0
-00018a 940e 0121                     call print_minutes
-00018c 913f                          pop r19
-00018d 9508                          ret
+00018e 933f                          push r19
+00018f 2f32                          mov r19, r18
+000190 7031                          andi r19, 0b00000001
+000191 3030                          cpi r19, 0
+000192 f021                          breq min_print_0
+000193 940e 012a                     call print_minutes
+000195 913f                          pop r19
+000196 9508                          ret
                                  min_print_0:
-00018e 940e 01f2                     call print_empty_min
-000190 913f                          pop r19
-000191 9508                          ret
+000197 940e 0219                     call print_empty_min
+000199 913f                          pop r19
+00019a 9508                          ret
                                  
                                  set_minutes:
-000192 9170 0100                     lds r23, flag
-000194 3070                          cpi r23, 0
-000195 f3e1                          breq set_minutes
-000196 e070                          ldi r23, 0  
-000197 9370 0100                     sts flag, r23
-000199 9523                          inc r18
-00019a 940e 0185                     call min_print
-00019c 940e 0165                     call is_select
-00019e 3061                          cpi r22, 1
-00019f f121                          breq ssp
-0001a0 940e 014d                     call is_down
-0001a2 3061                          cpi r22, 1
-0001a3 f069                          breq dec_min
-0001a4 940e 0159                     call is_up
-0001a6 3061                          cpi r22, 1
-0001a7 f061                          breq inc_min
-0001a8 940e 026a                     call cekp
-0001aa 940c 0192                     jmp set_minutes
+00019b 940e 01b4                     call set_sel_btn_flag
+00019d 940e 01bc                     call set_up_btn_flag
+00019f 940e 01c4                     call set_down_btn_flag
+0001a1 9170 0100                     lds r23, flag
+0001a3 3070                          cpi r23, 0
+0001a4 f3b1                          breq set_minutes
+0001a5 e070                          ldi r23, 0  
+0001a6 9370 0100                     sts flag, r23
+0001a8 9523                          inc r18
+0001a9 940e 018e                     call min_print
+0001ab 3081                          cpi r24, 1
+0001ac f1d1                          breq ssp
+0001ad 3083                          cpi r24, 3
+0001ae f119                          breq dec_min
+0001af 3082                          cpi r24, 2
+0001b0 f129                          breq inc_min
+0001b1 e080                          ldi r24, 0
+0001b2 940c 019b                     jmp set_minutes
                                      
-                                 sub_min:
-0001ac 334c                          cpi r20, 60
-0001ad f320                          brlo set_minutes
-0001ae 534c                          subi r20, 60
-0001af 940c 01ac                     jmp sub_min
-                                 
-                                 dec_min:
-0001b1 954a                          dec r20
-0001b2 940c 01ac                     jmp sub_min
+                                 set_sel_btn_flag:
+0001b4 940e 016e                     call is_select
+0001b6 3061                          cpi r22, 1
+0001b7 f4a1                          brne return2
+0001b8 3080                          cpi r24, 0
+0001b9 f491                          brne return2
+0001ba e081                          ldi r24, 1
+0001bb 9508                          ret
                                      
-                                 inc_min:
-0001b4 9543                          inc r20
-0001b5 940c 01ac                     jmp sub_min
-                                 
-                                 sec_print:
-0001b7 933f                          push r19
-0001b8 2f32                          mov r19, r18
-0001b9 7031                          andi r19, 0b00000001
-0001ba 3030                          cpi r19, 0
-0001bb f021                          breq sec_print_0
-0001bc 940e 0137                     call print_seconds
-0001be 913f                          pop r19
-0001bf 9508                          ret
-                                 sec_print_0:
-0001c0 940e 01fe                     call print_empty_sec
-0001c2 913f                          pop r19
+                                 set_up_btn_flag:
+0001bc 940e 0162                     call is_up
+0001be 3061                          cpi r22, 1
+0001bf f461                          brne return2
+0001c0 3080                          cpi r24, 0
+0001c1 f451                          brne return2
+0001c2 e082                          ldi r24, 2
 0001c3 9508                          ret
                                      
+                                 set_down_btn_flag:
+0001c4 940e 0156                     call is_down
+0001c6 3061                          cpi r22, 1
+0001c7 f421                          brne return2
+0001c8 3080                          cpi r24, 0
+0001c9 f411                          brne return2
+0001ca e083                          ldi r24, 3
+0001cb 9508                          ret
+                                     
+0001cc 9508                      return2: ret
+                                     
+                                 sub_min:
+0001cd 334c                          cpi r20, 60
+0001ce f260                          brlo set_minutes
+0001cf 534c                          subi r20, 60
+0001d0 940c 01cd                     jmp sub_min
+                                 
+                                 dec_min:
+0001d2 954a                          dec r20
+0001d3 e080                          ldi r24, 0
+0001d4 940c 01cd                     jmp sub_min
+                                     
+                                 inc_min:
+0001d6 9543                          inc r20
+0001d7 e080                          ldi r24, 0
+0001d8 940c 01cd                     jmp sub_min
+                                 
+                                 sec_print:
+0001da 933f                          push r19
+0001db 2f32                          mov r19, r18
+0001dc 7031                          andi r19, 0b00000001
+0001dd 3030                          cpi r19, 0
+0001de f021                          breq sec_print_0
+0001df 940e 0140                     call print_seconds
+0001e1 913f                          pop r19
+0001e2 9508                          ret
+                                 sec_print_0:
+0001e3 940e 0225                     call print_empty_sec
+0001e5 913f                          pop r19
+0001e6 9508                          ret
+                                     
                                  ssp:
-0001c4 940e 0121                     call print_minutes
+0001e7 e080                          ldi r24, 0
+0001e8 940e 012a                     call print_minutes
                                  set_seconds:
-0001c6 9170 0100                     lds r23, flag
-0001c8 3070                          cpi r23, 0
-0001c9 f3e1                          breq set_seconds
-0001ca e070                          ldi r23, 0  
-0001cb 9370 0100                     sts flag, r23
-0001cd 9523                          inc r18
-0001ce 940e 01b7                     call sec_print
-0001d0 940e 0165                     call is_select
-0001d2 3061                          cpi r22, 1
-0001d3 f1c1                          breq main_loop
-0001d4 940e 0159                     call is_up
-0001d6 3061                          cpi r22, 1
-0001d7 f031                          breq inc_sec
-0001d8 940e 014d                     call is_down
-0001da 3061                          cpi r22, 1
-0001db f029                          breq dec_sec
-0001dc 940c 01c6                     jmp set_seconds
+0001ea 940e 01b4                     call set_sel_btn_flag
+0001ec 940e 01bc                     call set_up_btn_flag
+0001ee 940e 01c4                     call set_down_btn_flag
+0001f0 9170 0100                     lds r23, flag
+0001f2 3070                          cpi r23, 0
+0001f3 f3b1                          breq set_seconds
+0001f4 e070                          ldi r23, 0  
+0001f5 9370 0100                     sts flag, r23
+0001f7 9523                          inc r18
+0001f8 940e 01da                     call sec_print
+0001fa 3081                          cpi r24, 1
+0001fb f1c9                          breq main_loop
+0001fc 3082                          cpi r24, 2
+0001fd f029                          breq inc_sec
+0001fe 3083                          cpi r24, 3
+0001ff f039                          breq dec_sec
+000200 e080                          ldi r24, 0
+000201 940c 01ea                     jmp set_seconds
                                      
                                  inc_sec:
-0001de 9553                          inc r21
-0001df 940c 01e4                     jmp sub_sec
+000203 9553                          inc r21
+000204 e080                          ldi r24, 0
+000205 940c 020b                     jmp sub_sec
                                  
                                  dec_sec:
-0001e1 955a                          dec r21
-0001e2 940c 01e4                     jmp sub_sec
+000207 955a                          dec r21
+000208 e080                          ldi r24, 0
+000209 940c 020b                     jmp sub_sec
                                  
                                  sub_sec:
-0001e4 335c                          cpi r21, 60
-0001e5 f300                          brlo set_seconds
-0001e6 535c                          subi r21, 60
-0001e7 940c 01e4                     jmp sub_sec
+00020b 335c                          cpi r21, 60
+00020c f2e8                          brlo set_seconds
+00020d 535c                          subi r21, 60
+00020e 940c 020b                     jmp sub_sec
                                  
                                  dec_sec_r:
-0001e9 955a                          dec r21
-0001ea 3f5f                          cpi r21, 255
-0001eb f009                          breq dec_min_r
-0001ec 9508                          ret
+000210 955a                          dec r21
+000211 3f5f                          cpi r21, 255
+000212 f009                          breq dec_min_r
+000213 9508                          ret
                                  
                                  dec_min_r:
-0001ed 3040                          cpi r20, 0
-0001ee f161                          breq three_zero_blink
-0001ef 954a                          dec r20
-0001f0 e35b                          ldi r21, 59
-0001f1 9508                          ret
+000214 3040                          cpi r20, 0
+000215 f171                          breq three_zero_blink
+000216 954a                          dec r20
+000217 e35b                          ldi r21, 59
+000218 9508                          ret
                                  
                                  print_empty_min:
-0001f2 930f                          push r16
-0001f3 931f                          push r17
-0001f4 e000                          ldi r16, 0
-0001f5 e010                          ldi r17, 0
-0001f6 940e 1052                     call show_char
-0001f8 9513                          inc r17
-0001f9 940e 1052                     call show_char
-0001fb 911f                          pop r17
-0001fc 910f                          pop r16
-0001fd 9508                          ret
+000219 930f                          push r16
+00021a 931f                          push r17
+00021b e200                          ldi r16, ' '
+00021c e010                          ldi r17, 0
+00021d 940e 1052                     call show_char
+00021f 9513                          inc r17
+000220 940e 1052                     call show_char
+000222 911f                          pop r17
+000223 910f                          pop r16
+000224 9508                          ret
                                  
                                  print_empty_sec:
-0001fe 930f                          push r16
-0001ff 931f                          push r17
-000200 e000                          ldi r16, 0
-000201 e013                          ldi r17, 3
-000202 940e 1052                     call show_char
-000204 9513                          inc r17
-000205 940e 1052                     call show_char
-000207 911f                          pop r17
-000208 910f                          pop r16
-000209 9508                          ret
+000225 930f                          push r16
+000226 931f                          push r17
+000227 e200                          ldi r16, ' '
+000228 e013                          ldi r17, 3
+000229 940e 1052                     call show_char
+00022b 9513                          inc r17
+00022c 940e 1052                     call show_char
+00022e 911f                          pop r17
+00022f 910f                          pop r16
+000230 9508                          ret
                                  
                                  s:
-00020a 940c 0108                     jmp start
+000231 e200                          ldi r16, ' '
+000232 e010                          ldi r17, 0
+000233 940c 0123                     jmp print_empty
                                      
                                  main_loop:
-00020c 9170 0100                     lds r23, flag
-00020e 3070                          cpi r23, 0       ; nacteni a otestovani hodnoty flag-u
-00020f f3e1                          breq main_loop   ; pokud neni flag -> navrat na zacatek
+000235 9170 0100                     lds r23, flag
+000237 3070                          cpi r23, 0       ; nacteni a otestovani hodnoty flag-u
+000238 f3e1                          breq main_loop   ; pokud neni flag -> navrat na zacatek
                                                       ; je flag
-000210 e070                          ldi r23, 0       ; vycisteni flag-u
-000211 9370 0100                     sts flag, r23
+000239 e070                          ldi r23, 0       ; vycisteni flag-u
+00023a 9370 0100                     sts flag, r23
                                  
                                      ; akce provedena 1x za sekundu 4
-000213 940e 0121                     call print_minutes
-000215 940e 0137                     call print_seconds
-000217 940e 01e9                     call dec_sec_r
+00023c 940e 012a                     call print_minutes
+00023e 940e 0140                     call print_seconds
+000240 940e 0210                     call dec_sec_r
                                      
                                  
-000219 940c 020c                     jmp main_loop
+000242 940c 0235                     jmp main_loop
                                  
                                  three_zero_blink:
-00021b e010                          ldi r17, 0
-00021c e040                          ldi r20, 0
-00021d e050                          ldi r21, 0
-00021e 9170 0100                     lds r23, flag
-000220 3070                          cpi r23, 0
-000221 f3c9                          breq three_zero_blink
-000222 e070                          ldi r23, 0  
-000223 9370 0100                     sts flag, r23
-000225 9523                          inc r18
-000226 940e 01b7                     call sec_print
-000228 940e 0185                     call min_print
-00022a 9533                          inc r19
-00022b 3039                          cpi r19, 9
-00022c f011                          breq print_string
-00022d 940c 021b                     jmp three_zero_blink
+000244 e010                          ldi r17, 0
+000245 e040                          ldi r20, 0
+000246 e050                          ldi r21, 0
+000247 9170 0100                     lds r23, flag
+000249 3070                          cpi r23, 0
+00024a f3c9                          breq three_zero_blink
+00024b e070                          ldi r23, 0  
+00024c 9370 0100                     sts flag, r23
+00024e 9523                          inc r18
+00024f 940e 01da                     call sec_print
+000251 940e 018e                     call min_print
+000253 9533                          inc r19
+000254 3039                          cpi r19, 9
+000255 f011                          breq print_string
+000256 940c 0244                     jmp three_zero_blink
                                      
                                  print_string:
-00022f 9105                          lpm r16, Z+
-000230 940e 1052                     call show_char
-000232 9513                          inc r17
-000233 3000                          cpi r16, 0
-000234 f011                          breq end
-000235 940c 022f                     jmp print_string
+000258 e060                          ldi r22, 0
+000259 9105                          lpm r16, Z+
+00025a 940e 1052                     call show_char
+00025c 9513                          inc r17
+00025d 3000                          cpi r16, 0
+00025e f011                          breq end
+00025f 940c 0258                     jmp print_string
                                  
-                                 end: 
-000237 940e 0165                     call is_select
-000239 3061                          cpi r22, 1
-00023a f279                          breq s
-00023b 940c 0237                     jmp end
+                                 end:
+000261 e060                          ldi r22, 0
+000262 940e 016e                     call is_select
+000264 3061                          cpi r22, 1
+000265 f259                          breq s
+000266 940c 0261                     jmp end
                                  init_int:            ; 5
-00023d 930f                          push r16
-00023e 94f8                          cli ; globalni zakazani preruseni
+000268 930f                          push r16
+000269 94f8                          cli ; globalni zakazani preruseni
                                  
                                      ; vycisteni aktualni hodnoty citace TCNT1 (aby prvni sekunda nezacala nekde "od pulky")
-00023f 2700                          clr r16
+00026a 2700                          clr r16
                                      ; Neprehazujte poradi nahravani TCNT1H a TCNT1L - hodnota by se nemusela spravne ulozit!
-000240 9300 0085                     sts TCNT1H, r16
-000242 9300 0084                     sts TCNT1L, r16
+00026b 9300 0085                     sts TCNT1H, r16
+00026d 9300 0084                     sts TCNT1L, r16
                                  
                                      ; povoleni preruseni ve chvili, kdy citac TCNT1 dosahne hodnoty OCR1A
-000244 e002                          ldi r16, (1<<OCIE1A)
-000245 9300 006f                     sts TIMSK1, r16
+00026f e002                          ldi r16, (1<<OCIE1A)
+000270 9300 006f                     sts TIMSK1, r16
                                  
                                      ; nastaveni cisteni citace TCNT1 ve chvili, kdy dosahne hodnoty OCR1A (1<<WGM12)
                                      ; nastaveni preddelicky na 1024 (0b101<<CS10 - bity CS12, CS11 a CS10 jsou za sebou)
-000247 e00a                          ldi r16, (1<<WGM12) | (0b010<<CS10)
-000248 9300 0081                     sts TCCR1B, r16
+000272 e00d                          ldi r16, (1<<WGM12) | (0b101<<CS10)
+000273 9300 0081                     sts TCCR1B, r16
                                  
                                      ; nastaveni OCR1A, tj. vysledne frekvence preruseni
                                      ; frekvence preruseni = frekvence cipu 328P / preddelicka / (OCR1A+1)
@@ -1642,69 +1690,49 @@ main.asm(9): Including file 'printlib.inc'
                                      ; 16bitovou hodnotu je treba nastavit do dvou registru OCR1AH:OCR1AL
                                      ; 15624 = 61 * 256 + 8
                                      ; Neprehazujte poradi nahravani OCR1AH a OCR1AL - hodnota by se nemusela spravne ulozit!
-00024a e30d                          ldi r16, 61
-00024b 9300 0089                     sts OCR1AH, r16
-00024d e008                          ldi r16, 8
-00024e 9300 0088                     sts OCR1AL, r16
+000275 e30d                          ldi r16, 61
+000276 9300 0089                     sts OCR1AH, r16
+000278 e008                          ldi r16, 8
+000279 9300 0088                     sts OCR1AL, r16
                                  
                                      ; zakazani preruseni od tlacitek
-000250 2700                          clr r16
-000251 bb0d                          out EIMSK, r16
+00027b 2700                          clr r16
+00027c bb0d                          out EIMSK, r16
                                  
-000252 9478                          sei ; globalni povoleni preruseni
-000253 910f                          pop r16
-000254 9508                          ret
+00027d 9478                          sei ; globalni povoleni preruseni
+00027e 910f                          pop r16
+00027f 9508                          ret
                                      
                                  init_button:
-000255 930f                          push r16
+000280 930f                          push r16
                                      ; povoleni AD prevodniku (nastaveni bitu ADEN v pameti na adrese ADCSRA bez ovlivneni ostatnich bitu) 1
-000256 9100 007a                     lds r16, ADCSRA
-000258 6800                          ori r16, (1<<ADEN); 2
-000259 9300 007a                     sts ADCSRA, r16
+000281 9100 007a                     lds r16, ADCSRA
+000283 6800                          ori r16, (1<<ADEN); 2
+000284 9300 007a                     sts ADCSRA, r16
                                  
                                      ; nastaveni referencniho napeti (0b01<<REFS0)
                                      ; nastaveni zarovnani vystupu vlevo (1<<ADLAR); 3
-00025b e600                          ldi r16, (0b01<<REFS0) | (1<<ADLAR); 4
-00025c 9300 007c                     sts ADMUX, r16
+000286 e600                          ldi r16, (0b01<<REFS0) | (1<<ADLAR); 4
+000287 9300 007c                     sts ADMUX, r16
                                  
-00025e 910f                          pop r16
-00025f 9508                          ret
+000289 910f                          pop r16
+00028a 9508                          ret
                                  
                                  interrupt:           ; 6
                                      ; uklid registru a SREG
-000260 930f                          push r16
-000261 b70f                          in r16, SREG
-000262 930f                          push r16
+00028b 930f                          push r16
+00028c b70f                          in r16, SREG
+00028d 930f                          push r16
                                  
                                      ; nastav flag
-000263 e001                          ldi r16, 1
-000264 9300 0100                     sts flag, r16
+00028e e001                          ldi r16, 1
+00028f 9300 0100                     sts flag, r16
                                  
                                      ; obnoveni SREG a registru
-000266 910f                          pop r16
-000267 bf0f                          out SREG, r16
-000268 910f                          pop r16
-000269 9518                          reti             ; 7
-                                     
-                                 cekp:
-00026a 934f                          push r20
-00026b 935f                          push r21
-00026c 936f                          push r22
-00026d e06a                          ldi r22, 10
-                                 cek3:
-00026e e05a                          ldi r21, 10
-                                 cek2: 
-00026f e04a                          ldi r20, 10
-                                 cek: 
-000270 954a                          dec r20
-000271 f7f1                          brne cek
-000272 955a                          dec r21
-000273 f7d9                          brne cek2
-000274 956a                          dec r22
-000275 f7c1                          brne cek3
-000276 916f                          pop r22
-000277 915f                          pop r21
-000278 914f                          pop r20
+000291 910f                          pop r16
+000292 bf0f                          out SREG, r16
+000293 910f                          pop r16
+000294 9518                          reti             ; 7
 
 
 RESOURCE USE INFORMATION
@@ -1724,26 +1752,26 @@ counted separately from r26..r31 here.
 "ATmega328P" register use summary:
 x  :   0 y  :   0 z  :   1 r0 :   0 r1 :   0 r2 :   0 r3 :   0 r4 :   0 
 r5 :   0 r6 :   0 r7 :   0 r8 :   0 r9 :   0 r10:   0 r11:   0 r12:   0 
-r13:   0 r14:   0 r15:   0 r16: 115 r17:  31 r18:   6 r19:  15 r20:  67 
-r21:  14 r22:  27 r23:  16 r24:  17 r25:  15 r26:   0 r27:   0 r28:   0 
+r13:   0 r14:   0 r15:   0 r16: 116 r17:  34 r18:   6 r19:  15 r20:  63 
+r21:  10 r22:  23 r23:  16 r24:  37 r25:  15 r26:   0 r27:   0 r28:   0 
 r29:   0 r30:   1 r31:   1 
 Registers used: 13 out of 35 (37.1%)
 
 "ATmega328P" instruction use summary:
 .lds  :   0 .sts  :   0 adc   :   0 add   :   0 adiw  :   0 and   :   1 
 andi  :  18 asr   :   0 bclr  :   0 bld   :   0 brbc  :   0 brbs  :   0 
-brcc  :   0 brcs  :   0 break :   0 breq  :  20 brge  :   0 brhc  :   0 
+brcc  :   0 brcs  :   0 break :   0 breq  :  21 brge  :   0 brhc  :   0 
 brhs  :   0 brid  :   0 brie  :   0 brlo  :   4 brlt  :   0 brmi  :   0 
-brne  :   6 brpl  :   0 brsh  :   0 brtc  :   0 brts  :   0 brvc  :   0 
-brvs  :   0 bset  :   0 bst   :   0 call  :  64 cbi   :   4 cbr   :   0 
+brne  :   9 brpl  :   0 brsh  :   0 brtc  :   0 brts  :   0 brvc  :   0 
+brvs  :   0 bset  :   0 bst   :   0 call  :  67 cbi   :   4 cbr   :   0 
 clc   :   0 clh   :   0 cli   :  10 cln   :   0 clr   :   2 cls   :   0 
 clt   :   0 clv   :   0 clz   :   0 com   :   0 cp    :   0 cpc   :   0 
-cpi   :  25 cpse  :   0 dec   :   8 eor   :   0 fmul  :   0 fmuls :   0 
-fmulsu:   0 icall :   0 ijmp  :   0 in    :  13 inc   :  13 jmp   :  18 
-ld    :   0 ldd   :   0 ldi   :  58 lds   :  11 lpm   :   1 lsl   :   8 
+cpi   :  32 cpse  :   0 dec   :   5 eor   :   0 fmul  :   0 fmuls :   0 
+fmulsu:   0 icall :   0 ijmp  :   0 in    :  13 inc   :  14 jmp   :  19 
+ld    :   0 ldd   :   0 ldi   :  71 lds   :  11 lpm   :   1 lsl   :   8 
 lsr   :   0 mov   :   9 movw  :   0 mul   :   0 muls  :   0 mulsu :   0 
-neg   :   0 nop   :   0 or    :   4 ori   :  10 out   :  14 pop   :  46 
-push  :  43 rcall :   0 ret   :  30 reti  :   1 rjmp  :   1 rol   :   0 
+neg   :   0 nop   :   0 or    :   4 ori   :  10 out   :  14 pop   :  43 
+push  :  40 rcall :   0 ret   :  33 reti  :   1 rjmp  :   1 rol   :   0 
 ror   :   0 sbc   :   0 sbci  :   0 sbi   :   3 sbic  :   0 sbis  :   0 
 sbiw  :   1 sbr   :   0 sbrc  :   0 sbrs  :   0 sec   :   0 seh   :   0 
 sei   :  10 sen   :   0 ser   :   0 ses   :   0 set   :   0 sev   :   0 
@@ -1754,7 +1782,7 @@ Instructions used: 33 out of 113 (29.2%)
 "ATmega328P" memory use summary [bytes]:
 Segment   Begin    End      Code   Data   Used    Size   Use%
 ---------------------------------------------------------------
-[.cseg] 0x000000 0x0021b0   1180     16   1196   32768   3.6%
+[.cseg] 0x000000 0x0021b0   1234     16   1250   32768   3.8%
 [.dseg] 0x000100 0x000101      0      1      1    2048   0.0%
 [.eseg] 0x000000 0x000000      0      0      0    1024   0.0%
 

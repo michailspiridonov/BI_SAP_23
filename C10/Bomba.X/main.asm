@@ -26,6 +26,8 @@ start:
 re_start:
     ldi r30, low(2*retez)
     ldi r31, high(2*retez)
+    ldi r24, 0      ; button state
+    ldi r22, 0
     ldi r20, 0	    ; minutes
     ldi r21, 0	    ; seconds
     ldi r18, 0	    ; blink counter
@@ -165,6 +167,9 @@ min_print_0:
     ret
 
 set_minutes:
+    call set_sel_btn_flag
+    call set_up_btn_flag
+    call set_down_btn_flag
     lds r23, flag
     cpi r23, 0
     breq set_minutes
@@ -172,17 +177,43 @@ set_minutes:
     sts flag, r23
     inc r18
     call min_print
+    cpi r24, 1
+    breq ssp
+    cpi r24, 3
+    breq dec_min
+    cpi r24, 2
+    breq inc_min
+    ldi r24, 0
+    jmp set_minutes
+    
+set_sel_btn_flag:
     call is_select
     cpi r22, 1
-    breq ssp
-    call is_down
-    cpi r22, 1
-    breq dec_min
+    brne return2
+    cpi r24, 0
+    brne return2
+    ldi r24, 1
+    ret
+    
+set_up_btn_flag:
     call is_up
     cpi r22, 1
-    breq inc_min
-    call cekp
-    jmp set_minutes
+    brne return2
+    cpi r24, 0
+    brne return2
+    ldi r24, 2
+    ret
+    
+set_down_btn_flag:
+    call is_down
+    cpi r22, 1
+    brne return2
+    cpi r24, 0
+    brne return2
+    ldi r24, 3
+    ret
+    
+return2: ret
     
 sub_min:
     cpi r20, 60
@@ -192,10 +223,12 @@ sub_min:
 
 dec_min:
     dec r20
+    ldi r24, 0
     jmp sub_min
     
 inc_min:
     inc r20
+    ldi r24, 0
     jmp sub_min
 
 sec_print:
@@ -213,8 +246,12 @@ sec_print_0:
     ret
     
 ssp:
+    ldi r24, 0
     call print_minutes
 set_seconds:
+    call set_sel_btn_flag
+    call set_up_btn_flag
+    call set_down_btn_flag
     lds r23, flag
     cpi r23, 0
     breq set_seconds
@@ -222,23 +259,23 @@ set_seconds:
     sts flag, r23
     inc r18
     call sec_print
-    call is_select
-    cpi r22, 1
+    cpi r24, 1
     breq main_loop
-    call is_up
-    cpi r22, 1
+    cpi r24, 2
     breq inc_sec
-    call is_down
-    cpi r22, 1
+    cpi r24, 3
     breq dec_sec
+    ldi r24, 0
     jmp set_seconds
     
 inc_sec:
     inc r21
+    ldi r24, 0
     jmp sub_sec
 
 dec_sec:
     dec r21
+    ldi r24, 0
     jmp sub_sec
 
 sub_sec:
@@ -263,7 +300,7 @@ dec_min_r:
 print_empty_min:
     push r16
     push r17
-    ldi r16, 0
+    ldi r16, ' '
     ldi r17, 0
     call show_char
     inc r17
@@ -275,7 +312,7 @@ print_empty_min:
 print_empty_sec:
     push r16
     push r17
-    ldi r16, 0
+    ldi r16, ' '
     ldi r17, 3
     call show_char
     inc r17
@@ -285,7 +322,7 @@ print_empty_sec:
     ret
 
 s:
-    ldi r16, 0
+    ldi r16, ' '
     ldi r17, 0
     jmp print_empty
     
@@ -331,7 +368,8 @@ print_string:
     breq end
     jmp print_string
 
-end: 
+end:
+    ldi r22, 0
     call is_select
     cpi r22, 1
     breq s
@@ -352,7 +390,7 @@ init_int:            ; 5
 
     ; nastaveni cisteni citace TCNT1 ve chvili, kdy dosahne hodnoty OCR1A (1<<WGM12)
     ; nastaveni preddelicky na 1024 (0b101<<CS10 - bity CS12, CS11 a CS10 jsou za sebou)
-    ldi r16, (1<<WGM12) | (0b010<<CS10)
+    ldi r16, (1<<WGM12) | (0b101<<CS10)
     sts TCCR1B, r16
 
     ; nastaveni OCR1A, tj. vysledne frekvence preruseni
@@ -409,24 +447,3 @@ interrupt:           ; 6
     out SREG, r16
     pop r16
     reti             ; 7
-    
-cekp:
-    push r20
-    push r21
-    push r22
-    ldi r22, 10
-cek3:
-    ldi r21, 10
-cek2: 
-    ldi r20, 10
-cek: 
-    dec r20
-    brne cek
-    dec r21
-    brne cek2
-    dec r22
-    brne cek3
-    pop r22
-    pop r21
-    pop r20
-    ret
