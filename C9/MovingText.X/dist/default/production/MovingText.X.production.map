@@ -1,5 +1,5 @@
 
-AVRASM ver. 2.2.8  test.asm Fri May 12 15:11:28 2023
+AVRASM ver. 2.2.8  test.asm Fri May 12 15:22:17 2023
 
 
 EQU  SIGNATURE_000 0000001e
@@ -695,33 +695,33 @@ EQU  ACIaddr      0000002e
 EQU  TWIaddr      00000030
 EQU  SPMRaddr     00000032
 EQU  INT_VECTORS_SIZE 00000034
-CSEG start        000001ff
+DSEG flag         00000100
+CSEG init_disp    00001000
+CSEG lcd_delay_us 000010d0
+CSEG lcd_clock_cmd 00001072
+CSEG lcd_send_cmd 00001080
+CSEG lcd_clear    000010be
+CSEG show_char    00001052
+CSEG lcd_set_cursor 00001057
+CSEG lcd_show_char 000010bd
+CSEG lcd_set_ddram_addr 0000106c
+CSEG lcd_set_cgram_addr 0000105d
+CSEG lcd_send_data 0000109e
+CSEG lcd_light_on 000010cc
+CSEG lcd_light_off 000010ce
+CSEG lcd_delay_us_l0 000010d1
+CSEG lcd_delay_us_l1 000010d2
+CSEG start        0000010e
+CSEG interrupt    00000174
 CSEG retez        00000100
-CSEG init_disp    0000010d
-CSEG lcd_delay_us 000001dd
-CSEG lcd_clock_cmd 0000017f
-CSEG lcd_send_cmd 0000018d
-CSEG lcd_clear    000001cb
-CSEG show_char    0000015f
-CSEG lcd_set_cursor 00000164
-CSEG lcd_show_char 000001ca
-CSEG lcd_set_ddram_addr 00000179
-CSEG lcd_set_cgram_addr 0000016a
-CSEG lcd_send_data 000001ab
-CSEG lcd_light_on 000001d9
-CSEG lcd_light_off 000001db
-CSEG lcd_delay_us_l0 000001de
-CSEG lcd_delay_us_l1 000001df
-CSEG print_row    00000205
-CSEG cekp         0000023b
-CSEG print        00000217
-CSEG p            00000210
-CSEG print_up     00000220
-CSEG print_down   0000021a
-CSEG print_space  00000235
-CSEG print_space_u 0000022d
-CSEG break_print  0000022a
-CSEG cek3         0000023f
-CSEG cek2         00000240
-CSEG cek          00000241
-CSEG end          0000024b
+CSEG init_int     00000151
+CSEG print_row    00000116
+CSEG print        0000012d
+CSEG p            00000126
+CSEG print_up     00000136
+CSEG print_down   00000130
+CSEG print_space  0000014b
+CSEG print_space_u 00000143
+CSEG break_print  00000140
+CSEG init_button  00000169
+CSEG end          0000017e

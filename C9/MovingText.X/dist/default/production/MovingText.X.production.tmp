@@ -9,7 +9,7 @@
  <SOURCE_FILE>test.asm</SOURCE_FILE>
  <INCLUDED_FILES>
   <FILE>C:/Program Files/Microchip/MPLABX/v6.00/packs/Microchip/ATmega_DFP/2.4.131/avrasm/inc\m328Pdef.inc</FILE>
-  <FILE>./printlib.inc</FILE>
+  <FILE>printlib.inc</FILE>
  </INCLUDED_FILES>
  <OBJECT_FILES>
   <FILE>dist/default/production/MovingText.X.production.obj</FILE>
@@ -22,35 +22,35 @@
   <FILE>dist/default/production/MovingText.X.production.lss</FILE>
  </OUTPUT_FILES>
  <LABELS>
-  <start><FILE>test.asm</FILE><LINE>11</LINE></start>
-  <retez><FILE>test.asm</FILE><LINE>7</LINE></retez>
-  <init_disp><FILE>./printlib.inc</FILE><LINE>17</LINE></init_disp>
-  <lcd_delay_us><FILE>./printlib.inc</FILE><LINE>281</LINE></lcd_delay_us>
-  <lcd_clock_cmd><FILE>./printlib.inc</FILE><LINE>164</LINE></lcd_clock_cmd>
-  <lcd_send_cmd><FILE>./printlib.inc</FILE><LINE>179</LINE></lcd_send_cmd>
-  <lcd_clear><FILE>./printlib.inc</FILE><LINE>254</LINE></lcd_clear>
-  <show_char><FILE>./printlib.inc</FILE><LINE>119</LINE></show_char>
-  <lcd_set_cursor><FILE>./printlib.inc</FILE><LINE>128</LINE></lcd_set_cursor>
-  <lcd_show_char><FILE>./printlib.inc</FILE><LINE>249</LINE></lcd_show_char>
-  <lcd_set_ddram_addr><FILE>./printlib.inc</FILE><LINE>152</LINE></lcd_set_ddram_addr>
-  <lcd_set_cgram_addr><FILE>./printlib.inc</FILE><LINE>136</LINE></lcd_set_cgram_addr>
-  <lcd_send_data><FILE>./printlib.inc</FILE><LINE>214</LINE></lcd_send_data>
-  <lcd_light_on><FILE>./printlib.inc</FILE><LINE>271</LINE></lcd_light_on>
-  <lcd_light_off><FILE>./printlib.inc</FILE><LINE>276</LINE></lcd_light_off>
-  <lcd_delay_us_l0><FILE>./printlib.inc</FILE><LINE>283</LINE></lcd_delay_us_l0>
-  <lcd_delay_us_l1><FILE>./printlib.inc</FILE><LINE>285</LINE></lcd_delay_us_l1>
-  <print_row><FILE>test.asm</FILE><LINE>18</LINE></print_row>
-  <cekp><FILE>test.asm</FILE><LINE>77</LINE></cekp>
-  <print><FILE>test.asm</FILE><LINE>38</LINE></print>
-  <p><FILE>test.asm</FILE><LINE>29</LINE></p>
-  <print_up><FILE>test.asm</FILE><LINE>49</LINE></print_up>
-  <print_down><FILE>test.asm</FILE><LINE>43</LINE></print_down>
-  <print_space><FILE>test.asm</FILE><LINE>71</LINE></print_space>
-  <print_space_u><FILE>test.asm</FILE><LINE>63</LINE></print_space_u>
-  <break_print><FILE>test.asm</FILE><LINE>59</LINE></break_print>
-  <cek3><FILE>test.asm</FILE><LINE>82</LINE></cek3>
-  <cek2><FILE>test.asm</FILE><LINE>84</LINE></cek2>
-  <cek><FILE>test.asm</FILE><LINE>86</LINE></cek>
-  <end><FILE>test.asm</FILE><LINE>97</LINE></end>
+  <flag><FILE>test.asm</FILE><LINE>4</LINE></flag>
+  <init_disp><FILE>printlib.inc</FILE><LINE>17</LINE></init_disp>
+  <lcd_delay_us><FILE>printlib.inc</FILE><LINE>281</LINE></lcd_delay_us>
+  <lcd_clock_cmd><FILE>printlib.inc</FILE><LINE>164</LINE></lcd_clock_cmd>
+  <lcd_send_cmd><FILE>printlib.inc</FILE><LINE>179</LINE></lcd_send_cmd>
+  <lcd_clear><FILE>printlib.inc</FILE><LINE>254</LINE></lcd_clear>
+  <show_char><FILE>printlib.inc</FILE><LINE>119</LINE></show_char>
+  <lcd_set_cursor><FILE>printlib.inc</FILE><LINE>128</LINE></lcd_set_cursor>
+  <lcd_show_char><FILE>printlib.inc</FILE><LINE>249</LINE></lcd_show_char>
+  <lcd_set_ddram_addr><FILE>printlib.inc</FILE><LINE>152</LINE></lcd_set_ddram_addr>
+  <lcd_set_cgram_addr><FILE>printlib.inc</FILE><LINE>136</LINE></lcd_set_cgram_addr>
+  <lcd_send_data><FILE>printlib.inc</FILE><LINE>214</LINE></lcd_send_data>
+  <lcd_light_on><FILE>printlib.inc</FILE><LINE>271</LINE></lcd_light_on>
+  <lcd_light_off><FILE>printlib.inc</FILE><LINE>276</LINE></lcd_light_off>
+  <lcd_delay_us_l0><FILE>printlib.inc</FILE><LINE>283</LINE></lcd_delay_us_l0>
+  <lcd_delay_us_l1><FILE>printlib.inc</FILE><LINE>285</LINE></lcd_delay_us_l1>
+  <start><FILE>test.asm</FILE><LINE>20</LINE></start>
+  <interrupt><FILE>test.asm</FILE><LINE>149</LINE></interrupt>
+  <retez><FILE>test.asm</FILE><LINE>18</LINE></retez>
+  <init_int><FILE>test.asm</FILE><LINE>91</LINE></init_int>
+  <print_row><FILE>test.asm</FILE><LINE>28</LINE></print_row>
+  <print><FILE>test.asm</FILE><LINE>52</LINE></print>
+  <p><FILE>test.asm</FILE><LINE>43</LINE></p>
+  <print_up><FILE>test.asm</FILE><LINE>63</LINE></print_up>
+  <print_down><FILE>test.asm</FILE><LINE>57</LINE></print_down>
+  <print_space><FILE>test.asm</FILE><LINE>85</LINE></print_space>
+  <print_space_u><FILE>test.asm</FILE><LINE>77</LINE></print_space_u>
+  <break_print><FILE>test.asm</FILE><LINE>73</LINE></break_print>
+  <init_button><FILE>test.asm</FILE><LINE>134</LINE></init_button>
+  <end><FILE>test.asm</FILE><LINE>165</LINE></end>
  </LABELS>
 </ASSEMBLER_INFO>

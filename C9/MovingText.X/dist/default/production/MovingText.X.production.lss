@@ -1,12 +1,12 @@
 
-AVRASM ver. 2.2.8  test.asm Fri May 12 15:11:28 2023
+AVRASM ver. 2.2.8  test.asm Fri May 12 15:22:17 2023
 
 [builtin](2): Including file 'C:/Program Files/Microchip/MPLABX/v6.00/packs/Microchip/ATmega_DFP/2.4.131/avrasm/inc\m328Pdef.inc'
-test.asm(9): Including file './printlib.inc'
+test.asm(9): Including file 'printlib.inc'
 [builtin](2): Including file 'C:/Program Files/Microchip/MPLABX/v6.00/packs/Microchip/ATmega_DFP/2.4.131/avrasm/inc\m328Pdef.inc'
-test.asm(9): Including file './printlib.inc'
+test.asm(9): Including file 'printlib.inc'
                                  
-                                 .cseg ; nasledujici umistit do pameti programu (implicitni)
+                                 .dseg                ; prepnuti do pameti dat 1
                                  
                                  ;***** Created: 2011-02-09 12:03 ******* Source: ATmega328P.xml **********
                                  ;*************************************************************************
@@ -987,26 +987,14 @@ test.asm(9): Including file './printlib.inc'
                                  
                                  ; ***** END OF FILE ******************************************************
                                  
-                                 ; Zacatek programu - po resetu
-                                 .org 0
-000000 940c 01ff                     jmp start
+                                 .org 0x100           ; od adresy 0x100 (adresy 0 - 0x100 nepouzivejte)
                                  
-                                 .org 0x100
-000100 454e
-000101 5542
-000102 4544
-000103 4c2d
-000104 2049
-000105 5250
-000106 4553
-000107 2054
-000108 454e
-000109 4d5a
-00010a 4b4f
-00010b 454e
-00010c 004d                      retez: .db "NEBUDE-LI PRSET NEZMOKNEM",0 ; retezec zakonceny nulou (nikoli znakem "0") 1
+000100                           flag: .byte 1 
                                  
-                                 .include "./printlib.inc"
+                                 .cseg                ; prepnuti do pameti programu
+                                 ; podprogramy pro praci s displejem
+                                 .org 0x1000
+                                 .include "printlib.inc"
                                  
                                  ;
                                  ; for BI-SAP at FIT, CTU
@@ -1024,102 +1012,102 @@ test.asm(9): Including file './printlib.inc'
                                      
                                  ; lcd_init: setup IO ports and initialize the LCD
                                  init_disp:
-00010d 934f                          push    r20
-00010e 938f                          push    r24
-00010f 939f                          push    r25
-000110 930f                          push    r16
+001000 934f                          push    r20
+001001 938f                          push    r24
+001002 939f                          push    r25
+001003 930f                          push    r16
                                  
                                      ; set IO ports
-000111 94f8                          cli
-000112 b145                          in	    r20, PORTB
-000113 7f4c                          andi    r20, 0xfc
-000114 b945                          out	    PORTB, r20
+001004 94f8                          cli
+001005 b145                          in	    r20, PORTB
+001006 7f4c                          andi    r20, 0xfc
+001007 b945                          out	    PORTB, r20
                                  
-000115 b144                          in	    r20, DDRB
-000116 6043                          ori	    r20, 0x03	; set RS, E, backlight to output
-000117 b944                          out	    DDRB, r20
+001008 b144                          in	    r20, DDRB
+001009 6043                          ori	    r20, 0x03	; set RS, E, backlight to output
+00100a b944                          out	    DDRB, r20
                                  
-000118 b14b                          in	    r20, PORTD
-000119 704f                          andi    r20, 0x0f
-00011a b94b                          out	    PORTD, r20
+00100b b14b                          in	    r20, PORTD
+00100c 704f                          andi    r20, 0x0f
+00100d b94b                          out	    PORTD, r20
                                  
-00011b b14a                          in	    r20, DDRD
-00011c 6f40                          ori	    r20, 0xf0   ; set PD(7) - PD(4) to outputs
-00011d b94a                          out	    DDRD, r20
-00011e 9478                          sei
+00100e b14a                          in	    r20, DDRD
+00100f 6f40                          ori	    r20, 0xf0   ; set PD(7) - PD(4) to outputs
+001010 b94a                          out	    DDRD, r20
+001011 9478                          sei
                                  
-00011f e090                          ldi	    r25, 0
-000120 e684                          ldi	    r24, 100
-000121 940e 01dd                     call    lcd_delay_us
+001012 e090                          ldi	    r25, 0
+001013 e684                          ldi	    r24, 100
+001014 940e 10d0                     call    lcd_delay_us
                                  ; pokus
-000123 e491                          ldi	    r25, 65
-000124 ef8f                          ldi	    r24, 255
-000125 940e 01dd                     call    lcd_delay_us
+001016 e491                          ldi	    r25, 65
+001017 ef8f                          ldi	    r24, 255
+001018 940e 10d0                     call    lcd_delay_us
                                  
-000127 94f8                      cli
-000128 b14b                          in	    r20, PORTD
-000129 704f                          andi    r20, 0x0f
-00012a 6340                          ori	    r20, 0x30	    ; cmd: function set: 4-bit
-00012b b94b                          out	    PORTD, r20
-00012c 9478                          sei
-00012d 940e 017f                     call    lcd_clock_cmd   ; only “half” command is sent
-                                 
-                                 
-00012f e191                          ldi	    r25, 17
-000130 ef8f                          ldi	    r24, 255
-000131 940e 01dd                     call    lcd_delay_us
+00101a 94f8                      cli
+00101b b14b                          in	    r20, PORTD
+00101c 704f                          andi    r20, 0x0f
+00101d 6340                          ori	    r20, 0x30	    ; cmd: function set: 4-bit
+00101e b94b                          out	    PORTD, r20
+00101f 9478                          sei
+001020 940e 1072                     call    lcd_clock_cmd   ; only “half” command is sent
                                  
                                  
-000133 94f8                      cli
-000134 b14b                          in	    r20, PORTD
-000135 704f                          andi    r20, 0x0f
-000136 6340                          ori	    r20, 0x30	    ; cmd: function set: 4-bit
-000137 b94b                          out	    PORTD, r20
-000138 9478                          sei
-000139 940e 017f                     call    lcd_clock_cmd   ; only “half” command is sent
+001022 e191                          ldi	    r25, 17
+001023 ef8f                          ldi	    r24, 255
+001024 940e 10d0                     call    lcd_delay_us
                                  
                                  
-00013b e090                          ldi	    r25, 0
-00013c e788                          ldi	    r24, 120
-00013d 940e 01dd                     call    lcd_delay_us
+001026 94f8                      cli
+001027 b14b                          in	    r20, PORTD
+001028 704f                          andi    r20, 0x0f
+001029 6340                          ori	    r20, 0x30	    ; cmd: function set: 4-bit
+00102a b94b                          out	    PORTD, r20
+00102b 9478                          sei
+00102c 940e 1072                     call    lcd_clock_cmd   ; only “half” command is sent
                                  
-00013f 94f8                      cli
-000140 b14b                          in	    r20, PORTD
-000141 704f                          andi    r20, 0x0f
-000142 6340                          ori	    r20, 0x30	    ; cmd: function set: 4-bit
-000143 b94b                          out	    PORTD, r20
-000144 9478                          sei
-000145 940e 017f                     call    lcd_clock_cmd   ; only “half” command is sent
+                                 
+00102e e090                          ldi	    r25, 0
+00102f e788                          ldi	    r24, 120
+001030 940e 10d0                     call    lcd_delay_us
+                                 
+001032 94f8                      cli
+001033 b14b                          in	    r20, PORTD
+001034 704f                          andi    r20, 0x0f
+001035 6340                          ori	    r20, 0x30	    ; cmd: function set: 4-bit
+001036 b94b                          out	    PORTD, r20
+001037 9478                          sei
+001038 940e 1072                     call    lcd_clock_cmd   ; only “half” command is sent
                                  
                                  
                                  
                                  ; pokus end
                                  
                                      ; init display
-000147 94f8                          cli
-000148 b14b                          in	    r20, PORTD
-000149 704f                          andi    r20, 0x0f
-00014a 6240                          ori	    r20, 0x20	    ; cmd: function set: 4-bit
-00014b b94b                          out	    PORTD, r20
-00014c 9478                          sei
-00014d 940e 017f                     call    lcd_clock_cmd   ; only “half” command is sent
+00103a 94f8                          cli
+00103b b14b                          in	    r20, PORTD
+00103c 704f                          andi    r20, 0x0f
+00103d 6240                          ori	    r20, 0x20	    ; cmd: function set: 4-bit
+00103e b94b                          out	    PORTD, r20
+00103f 9478                          sei
+001040 940e 1072                     call    lcd_clock_cmd   ; only “half” command is sent
                                  
-00014f e208                          ldi	    r16, 0x28	    ; 4-bit, 2 lines, 8×5 font
-000150 940e 018d                     call    lcd_send_cmd
+001042 e208                          ldi	    r16, 0x28	    ; 4-bit, 2 lines, 8×5 font
+001043 940e 1080                     call    lcd_send_cmd
                                  
-000152 e00c                          ldi	    r16, 0x0c	    ; cursor off
-000153 940e 018d                     call    lcd_send_cmd
+001045 e00c                          ldi	    r16, 0x0c	    ; cursor off
+001046 940e 1080                     call    lcd_send_cmd
                                  
-000155 e006                          ldi	    r16, 0x06	    ; increment mode
-000156 940e 018d                     call    lcd_send_cmd
+001048 e006                          ldi	    r16, 0x06	    ; increment mode
+001049 940e 1080                     call    lcd_send_cmd
                                  
-000158 940e 01cb                     call    lcd_clear
+00104b 940e 10be                     call    lcd_clear
                                  
-00015a 910f                          pop	    r16
-00015b 919f                          pop	    r25
-00015c 918f                          pop     r24
-00015d 914f                          pop     r20
-00015e 9508                          ret
+00104d 910f                          pop	    r16
+00104e 919f                          pop	    r25
+00104f 918f                          pop     r24
+001050 914f                          pop     r20
+001051 9508                          ret
                                  
                                  ; show_char: show character in r16 at position in r17
                                  ; position format: r17 = ---rcccc
@@ -1127,264 +1115,346 @@ test.asm(9): Including file './printlib.inc'
                                  ; c ... column (0..15)
                                  show_char:
                                      ; cursor
-00015f 940e 0164                     call lcd_set_cursor
+001052 940e 1057                     call lcd_set_cursor
                                      ; show
-000161 940e 01ca                     call lcd_show_char
-000163 9508                          ret
+001054 940e 10bd                     call lcd_show_char
+001056 9508                          ret
                                  
                                  ; lcd_set_cursor: set cursor to position in r17:
                                  ; r17 = ---rcccc (row, column)
                                  lcd_set_cursor:
-000164 930f                          push r16
-000165 2f01                          mov r16, r17
-000166 940e 0179                     call lcd_set_ddram_addr
-000168 910f                          pop r16
-000169 9508                          ret
+001057 930f                          push r16
+001058 2f01                          mov r16, r17
+001059 940e 106c                     call lcd_set_ddram_addr
+00105b 910f                          pop r16
+00105c 9508                          ret
                                  
                                  ; lcd_set_cgram_addr: set cgram address (r16)
                                  lcd_set_cgram_addr:
-00016a 938f                          push r24
-00016b 939f                          push r25
-00016c 930f                          push r16
-00016d 730f                          andi r16, 0x3F
-00016e 6400                          ori r16, 0x40
-00016f 940e 018d                     call lcd_send_cmd
-000171 e090                          ldi r25, 0
-000172 e288                          ldi r24, 40
-000173 940e 01dd                     call lcd_delay_us
-000175 910f                          pop r16
-000176 919f                          pop r25
-000177 918f                          pop r24
-000178 9508                          ret
+00105d 938f                          push r24
+00105e 939f                          push r25
+00105f 930f                          push r16
+001060 730f                          andi r16, 0x3F
+001061 6400                          ori r16, 0x40
+001062 940e 1080                     call lcd_send_cmd
+001064 e090                          ldi r25, 0
+001065 e288                          ldi r24, 40
+001066 940e 10d0                     call lcd_delay_us
+001068 910f                          pop r16
+001069 919f                          pop r25
+00106a 918f                          pop r24
+00106b 9508                          ret
                                      
                                  ; lcd_set_ddram_addr: set ddram address (r16)
                                  lcd_set_ddram_addr:
-000179 930f                          push r16
-00017a 6800                          ori r16, 0x80
-00017b 940e 018d                     call lcd_send_cmd
+00106c 930f                          push r16
+00106d 6800                          ori r16, 0x80
+00106e 940e 1080                     call lcd_send_cmd
                                      ;ldi r25, 0
                                      ;ldi r24, 40
                                      ;call lcd_delay_us
-00017d 910f                          pop r16
-00017e 9508                          ret
+001070 910f                          pop r16
+001071 9508                          ret
                                      
                                  ; lcd_clock_cmd: start lcd command/write
                                  ; delay for 40 μs
                                  lcd_clock_cmd:
-00017f 938f                          push    r24
-000180 939f                          push    r25
-000181 9a29                          sbi	    PORTB, 1
-000182 e090                          ldi	    r25, 0
-000183 e184                          ldi	    r24, 20
-000184 940e 01dd                     call    lcd_delay_us
-000186 9829                          cbi	    PORTB, 1
-000187 e184                          ldi	    r24, 20
-000188 940e 01dd                     call    lcd_delay_us
-00018a 919f                          pop	    r25
-00018b 918f                          pop	    r24
-00018c 9508                          ret
+001072 938f                          push    r24
+001073 939f                          push    r25
+001074 9a29                          sbi	    PORTB, 1
+001075 e090                          ldi	    r25, 0
+001076 e184                          ldi	    r24, 20
+001077 940e 10d0                     call    lcd_delay_us
+001079 9829                          cbi	    PORTB, 1
+00107a e184                          ldi	    r24, 20
+00107b 940e 10d0                     call    lcd_delay_us
+00107d 919f                          pop	    r25
+00107e 918f                          pop	    r24
+00107f 9508                          ret
                                      
                                  ; lcd_send_cmd: send command (r16) to lcd
                                  lcd_send_cmd:
-00018d 930f                          push    r16
-00018e 931f                          push    r17
-00018f 934f                          push    r20
+001080 930f                          push    r16
+001081 931f                          push    r17
+001082 934f                          push    r20
                                  
-000190 2f10                          mov	    r17, r16
-000191 7f10                          andi    r17, 0xf0
-000192 0f00                          lsl	    r16
-000193 0f00                          lsl	    r16
-000194 0f00                          lsl	    r16
-000195 0f00                          lsl	    r16
-000196 9828                          cbi	    PORTB, 0
+001083 2f10                          mov	    r17, r16
+001084 7f10                          andi    r17, 0xf0
+001085 0f00                          lsl	    r16
+001086 0f00                          lsl	    r16
+001087 0f00                          lsl	    r16
+001088 0f00                          lsl	    r16
+001089 9828                          cbi	    PORTB, 0
                                  
-000197 94f8                          cli
-000198 b14b                          in	    r20, PORTD
-000199 704f                          andi    r20, 0x0f
-00019a 2b41                          or	    r20, r17
-00019b b94b                          out	    PORTD, r20
-00019c 9478                          sei
-00019d 940e 017f                     call    lcd_clock_cmd
+00108a 94f8                          cli
+00108b b14b                          in	    r20, PORTD
+00108c 704f                          andi    r20, 0x0f
+00108d 2b41                          or	    r20, r17
+00108e b94b                          out	    PORTD, r20
+00108f 9478                          sei
+001090 940e 1072                     call    lcd_clock_cmd
                                  
-00019f 94f8                          cli
-0001a0 b14b                          in	    r20, PORTD
-0001a1 704f                          andi    r20, 0x0f
-0001a2 2b40                          or	    r20, r16
-0001a3 b94b                          out	    PORTD, r20
-0001a4 9478                          sei
-0001a5 940e 017f                     call    lcd_clock_cmd
+001092 94f8                          cli
+001093 b14b                          in	    r20, PORTD
+001094 704f                          andi    r20, 0x0f
+001095 2b40                          or	    r20, r16
+001096 b94b                          out	    PORTD, r20
+001097 9478                          sei
+001098 940e 1072                     call    lcd_clock_cmd
                                  
-0001a7 914f                          pop	    r20
-0001a8 911f                          pop	    r17
-0001a9 910f                          pop     r16
-0001aa 9508                          ret
+00109a 914f                          pop	    r20
+00109b 911f                          pop	    r17
+00109c 910f                          pop     r16
+00109d 9508                          ret
                                  
                                  ; lcd_send_data: send data (r16) to lcd
                                  lcd_send_data:
-0001ab 930f                          push    r16
-0001ac 931f                          push    r17
-0001ad 934f                          push    r20
+00109e 930f                          push    r16
+00109f 931f                          push    r17
+0010a0 934f                          push    r20
                                  
-0001ae 2f10                          mov	    r17, r16
-0001af 7f10                          andi    r17, 0xf0
-0001b0 0f00                          lsl	    r16
-0001b1 0f00                          lsl	    r16
-0001b2 0f00                          lsl	    r16
-0001b3 0f00                          lsl	    r16
-0001b4 9a28                          sbi	    PORTB, 0
+0010a1 2f10                          mov	    r17, r16
+0010a2 7f10                          andi    r17, 0xf0
+0010a3 0f00                          lsl	    r16
+0010a4 0f00                          lsl	    r16
+0010a5 0f00                          lsl	    r16
+0010a6 0f00                          lsl	    r16
+0010a7 9a28                          sbi	    PORTB, 0
                                  
-0001b5 94f8                          cli
-0001b6 b14b                          in	    r20, PORTD
-0001b7 704f                          andi    r20, 0x0f
-0001b8 2b41                          or	    r20, r17
-0001b9 b94b                          out	    PORTD, r20
-0001ba 9478                          sei
-0001bb 940e 017f                     call    lcd_clock_cmd
+0010a8 94f8                          cli
+0010a9 b14b                          in	    r20, PORTD
+0010aa 704f                          andi    r20, 0x0f
+0010ab 2b41                          or	    r20, r17
+0010ac b94b                          out	    PORTD, r20
+0010ad 9478                          sei
+0010ae 940e 1072                     call    lcd_clock_cmd
                                  
-0001bd 94f8                          cli
-0001be b14b                          in	    r20, PORTD
-0001bf 704f                          andi    r20, 0x0f
-0001c0 2b40                          or	    r20, r16
-0001c1 b94b                          out	    PORTD, r20
-0001c2 9478                          sei
-0001c3 940e 017f                     call    lcd_clock_cmd
-0001c5 9828                          cbi	    PORTB, 0
+0010b0 94f8                          cli
+0010b1 b14b                          in	    r20, PORTD
+0010b2 704f                          andi    r20, 0x0f
+0010b3 2b40                          or	    r20, r16
+0010b4 b94b                          out	    PORTD, r20
+0010b5 9478                          sei
+0010b6 940e 1072                     call    lcd_clock_cmd
+0010b8 9828                          cbi	    PORTB, 0
                                  
-0001c6 914f                          pop	    r20
-0001c7 911f                          pop	    r17
-0001c8 910f                          pop	    r16
-0001c9 9508                          ret
+0010b9 914f                          pop	    r20
+0010ba 911f                          pop	    r17
+0010bb 910f                          pop	    r16
+0010bc 9508                          ret
                                  
                                  lcd_show_char:
-0001ca cfe0                          rjmp lcd_send_data
+0010bd cfe0                          rjmp lcd_send_data
                                      ;call lcd_send_data
                                      ;ret
                                  
                                  lcd_clear:
-0001cb 939f                          push    r25
-0001cc 938f                          push    r24
-0001cd 930f                          push    r16
-0001ce e001                          ldi	    r16, 0x01
-0001cf 940e 018d                     call    lcd_send_cmd
-0001d1 e097                          ldi	    r25, 7
-0001d2 ef8f                          ldi	    r24, 255
-0001d3 940e 01dd                     call    lcd_delay_us
-0001d5 910f                          pop	    r16
-0001d6 918f                          pop	    r24
-0001d7 919f                          pop	    r25
-0001d8 9508                          ret
+0010be 939f                          push    r25
+0010bf 938f                          push    r24
+0010c0 930f                          push    r16
+0010c1 e001                          ldi	    r16, 0x01
+0010c2 940e 1080                     call    lcd_send_cmd
+0010c4 e097                          ldi	    r25, 7
+0010c5 ef8f                          ldi	    r24, 255
+0010c6 940e 10d0                     call    lcd_delay_us
+0010c8 910f                          pop	    r16
+0010c9 918f                          pop	    r24
+0010ca 919f                          pop	    r25
+0010cb 9508                          ret
                                  
                                  ; lcd_light_on: turn on LCD backlight
                                  ; LCD backlight is on Arduino pin D10
                                  ; that translates to PORTB(2) for UNO
                                  lcd_light_on:
-0001d9 9a2a                          sbi	    PORTB, 2
-0001da 9508                          ret
+0010cc 9a2a                          sbi	    PORTB, 2
+0010cd 9508                          ret
                                  
                                  ; lcd_light_off: turn off LCD backlight
                                  lcd_light_off:
-0001db 982a                          cbi	    PORTB, 2
-0001dc 9508                          ret
+0010ce 982a                          cbi	    PORTB, 2
+0010cf 9508                          ret
                                  
                                  ; lcd_delay_us: wait (r25:r24) μs
                                  lcd_delay_us:
-0001dd 934f                          push    r20
+0010d0 934f                          push    r20
                                  lcd_delay_us_l0:
-0001de e044                          ldi	    r20, 4
+0010d1 e044                          ldi	    r20, 4
                                  lcd_delay_us_l1:
-0001df 954a                          dec	    r20
-0001e0 f7f1                          brne    lcd_delay_us_l1
-0001e1 9701                          sbiw    r24, 1
-0001e2 f7d9                          brne    lcd_delay_us_l0
-0001e3 914f                          pop	    r20
-0001e4 9508                          ret
-                                 .org 0x1FF
+0010d2 954a                          dec	    r20
+0010d3 f7f1                          brne    lcd_delay_us_l1
+0010d4 9701                          sbiw    r24, 1
+0010d5 f7d9                          brne    lcd_delay_us_l0
+0010d6 914f                          pop	    r20
+0010d7 9508                          ret
+                                  
+                                 ; Zacatek programu - po resetu
+                                 .org 0
+000000 940c 010e                     jmp	start
+                                 .org 0x16            ; 2
+000016 940c 0174                     jmp interrupt
+                                 
+                                 .org 0x100
+000100 454e
+000101 5542
+000102 4544
+000103 4c2d
+000104 2049
+000105 5250
+000106 4553
+000107 2c54
+000108 4e20
+000109 5a45
+00010a 4f4d
+00010b 4e4b
+00010c 4d45
+test.asm(18): warning: .cseg .db misalignment - padding zero byte
+00010d 0000                      retez: .db "NEBUDE-LI PRSET, NEZMOKNEM",0
+                                  
                                  start:
-0001ff 940e 010d                     call init_disp
-000201 e0e0                          ldi r30, low(2*retez)
-000202 e0f2                          ldi r31, high(2*retez)
-000203 e41f                          ldi r17, 79
-000204 e030                          ldi r19, 0
+00010e 940e 1000                     call init_disp
+000110 940e 0151                     call init_int
+000112 e0e0                          ldi r30, low(2*retez)
+000113 e0f2                          ldi r31, high(2*retez)
+000114 e41f                          ldi r17, 79
+000115 e030                          ldi r19, 0
                                      
                                  print_row:
-000205 940e 023b                     call cekp
-000207 3310                          cpi r17, 48
-000208 f3b0                          brlo start
-000209 e41f                          ldi r17, 79
-00020a e0e0                          ldi r30, low(2*retez)
-00020b e0f2                          ldi r31, high(2*retez)
-00020c 1b13                          sub r17, r19
-00020d 9533                          inc r19
-00020e 940c 0217                     jmp print
+000116 9170 0100                     lds r23, flag
+000118 3070                          cpi r23, 0
+000119 f3e1                          breq print_row
+00011a e070                          ldi r23, 0  
+00011b 9370 0100                     sts flag, r23
+00011d 3310                          cpi r17, 48
+00011e f378                          brlo start
+00011f e41f                          ldi r17, 79
+000120 e0e0                          ldi r30, low(2*retez)
+000121 e0f2                          ldi r31, high(2*retez)
+000122 1b13                          sub r17, r19
+000123 9533                          inc r19
+000124 940c 012d                     jmp print
                                  
                                  p: 
-000210 9513                          inc r17
-000211 3000                          cpi r16, 0
-000212 f391                          breq print_row
-000213 3510                          cpi r17, 80
-000214 f381                          breq print_row
-000215 3510                          cpi r17, 80
-000216 f7c8                          brsh p
+000126 9513                          inc r17
+000127 3000                          cpi r16, 0
+000128 f369                          breq print_row
+000129 3510                          cpi r17, 80
+00012a f359                          breq print_row
+00012b 3510                          cpi r17, 80
+00012c f7c8                          brsh p
                                      
                                  print:
-000217 9105                          lpm r16, Z+
-000218 3410                          cpi r17, 64
-000219 f030                          brlo print_up
+00012d 9105                          lpm r16, Z+
+00012e 3410                          cpi r17, 64
+00012f f030                          brlo print_up
                                      
                                  print_down:
-00021a 3000                          cpi r16, 0
-00021b f0c9                          breq print_space
-00021c 940e 015f                     call show_char
-00021e 940c 0210                     jmp p
+000130 3000                          cpi r16, 0
+000131 f0c9                          breq print_space
+000132 940e 1052                     call show_char
+000134 940c 0126                     jmp p
                                      
                                  print_up:
-000220 3000                          cpi r16, 0
-000221 f059                          breq print_space_u
-000222 5310                          subi r17, 48
-000223 3510                          cpi r17, 80
-000224 f428                          brsh break_print
-000225 940e 015f                     call show_char
-000227 5d10                          subi r17, -48
-000228 940c 0210                     jmp p
+000136 3000                          cpi r16, 0
+000137 f059                          breq print_space_u
+000138 5310                          subi r17, 48
+000139 3510                          cpi r17, 80
+00013a f428                          brsh break_print
+00013b 940e 1052                     call show_char
+00013d 5d10                          subi r17, -48
+00013e 940c 0126                     jmp p
                                  
                                  break_print:
-00022a 5d10                          subi r17, -48
-00022b 940c 0210                     jmp p
+000140 5d10                          subi r17, -48
+000141 940c 0126                     jmp p
                                      
                                  print_space_u:
-00022d e200                          ldi r16, ' '
-00022e 5310                          subi r17, 48
-00022f 940e 015f                     call show_char
-000231 5d10                          subi r17, -48
-000232 e000                          ldi r16, 0
-000233 940c 0210                     jmp p
+000143 e200                          ldi r16, ' '
+000144 5310                          subi r17, 48
+000145 940e 1052                     call show_char
+000147 5d10                          subi r17, -48
+000148 e000                          ldi r16, 0
+000149 940c 0126                     jmp p
                                      
                                  print_space:
-000235 e200                          ldi r16, ' '
-000236 940e 015f                     call show_char
-000238 e000                          ldi r16, 0
-000239 940c 0210                     jmp p
+00014b e200                          ldi r16, ' '
+00014c 940e 1052                     call show_char
+00014e e000                          ldi r16, 0
+00014f 940c 0126                     jmp p
+                                     
+                                  init_int:            ; 5
+000151 930f                          push r16
+000152 94f8                          cli ; globalni zakazani preruseni
                                  
-                                 cekp:
-00023b 934f                          push r20
-00023c 935f                          push r21
-00023d 936f                          push r22
-00023e e362                          ldi r22, 50
-                                 cek3:
-00023f ec58                          ldi r21, 200
-                                 cek2: 
-000240 ec48                          ldi r20, 200
-                                 cek: 
-000241 954a                          dec r20
-000242 f7f1                          brne cek
-000243 955a                          dec r21
-000244 f7d9                          brne cek2
-000245 956a                          dec r22
-000246 f7c1                          brne cek3
-000247 916f                          pop r22
-000248 915f                          pop r21
-000249 914f                          pop r20
-00024a 9508                          ret
+                                     ; vycisteni aktualni hodnoty citace TCNT1 (aby prvni sekunda nezacala nekde "od pulky")
+000153 2700                          clr r16
+                                     ; Neprehazujte poradi nahravani TCNT1H a TCNT1L - hodnota by se nemusela spravne ulozit!
+000154 9300 0085                     sts TCNT1H, r16
+000156 9300 0084                     sts TCNT1L, r16
+                                 
+                                     ; povoleni preruseni ve chvili, kdy citac TCNT1 dosahne hodnoty OCR1A
+000158 e002                          ldi r16, (1<<OCIE1A)
+000159 9300 006f                     sts TIMSK1, r16
+                                 
+                                     ; nastaveni cisteni citace TCNT1 ve chvili, kdy dosahne hodnoty OCR1A (1<<WGM12)
+                                     ; nastaveni preddelicky na 1024 (0b101<<CS10 - bity CS12, CS11 a CS10 jsou za sebou)
+00015b e00c                          ldi r16, (1<<WGM12) | (0b100<<CS10)
+00015c 9300 0081                     sts TCCR1B, r16
+                                 
+                                     ; nastaveni OCR1A, tj. vysledne frekvence preruseni
+                                     ; frekvence preruseni = frekvence cipu 328P / preddelicka / (OCR1A+1)
+                                     ; frekvence cipu 328P je 16 MHz, tj. 16000000
+                                     ; preddelicka je nastavena na 1024
+                                     ; frekvenci preruseni chceme na 1 Hz
+                                     ; OCR1A = (frekvence cipu 328P / preddelicka / frekvence preruseni) - 1
+                                     ; OCR1A = (16000000 / 1024 / 1) - 1
+                                     ; OCR1A = 15624
+                                     ; 16bitovou hodnotu je treba nastavit do dvou registru OCR1AH:OCR1AL
+                                     ; 15624 = 61 * 256 + 8
+                                     ; Neprehazujte poradi nahravani OCR1AH a OCR1AL - hodnota by se nemusela spravne ulozit!
+00015e e30d                          ldi r16, 61
+00015f 9300 0089                     sts OCR1AH, r16
+000161 e008                          ldi r16, 8
+000162 9300 0088                     sts OCR1AL, r16
+                                 
+                                     ; zakazani preruseni od tlacitek
+000164 2700                          clr r16
+000165 bb0d                          out EIMSK, r16
+                                 
+000166 9478                          sei ; globalni povoleni preruseni
+000167 910f                          pop r16
+000168 9508                          ret
+                                     
+                                 init_button:
+000169 930f                          push r16
+                                     ; povoleni AD prevodniku (nastaveni bitu ADEN v pameti na adrese ADCSRA bez ovlivneni ostatnich bitu) 1
+00016a 9100 007a                     lds r16, ADCSRA
+00016c 6800                          ori r16, (1<<ADEN); 2
+00016d 9300 007a                     sts ADCSRA, r16
+                                 
+                                     ; nastaveni referencniho napeti (0b01<<REFS0)
+                                     ; nastaveni zarovnani vystupu vlevo (1<<ADLAR); 3
+00016f e600                          ldi r16, (0b01<<REFS0) | (1<<ADLAR); 4
+000170 9300 007c                     sts ADMUX, r16
+                                 
+000172 910f                          pop r16
+000173 9508                          ret
+                                 
+                                 interrupt:           ; 6
+                                     ; uklid registru a SREG
+000174 930f                          push r16
+000175 b70f                          in r16, SREG
+000176 930f                          push r16
+                                 
+                                     ; nastav flag
+000177 e001                          ldi r16, 1
+000178 9300 0100                     sts flag, r16
+                                 
+                                     ; obnoveni SREG a registru
+00017a 910f                          pop r16
+00017b bf0f                          out SREG, r16
+00017c 910f                          pop r16
+00017d 9518                          reti             ; 7
+                                 
 
 
 RESOURCE USE INFORMATION
@@ -1404,38 +1474,38 @@ counted separately from r26..r31 here.
 "ATmega328P" register use summary:
 x  :   0 y  :   0 z  :   1 r0 :   0 r1 :   0 r2 :   0 r3 :   0 r4 :   0 
 r5 :   0 r6 :   0 r7 :   0 r8 :   0 r9 :   0 r10:   0 r11:   0 r12:   0 
-r13:   0 r14:   0 r15:   0 r16:  42 r17:  25 r18:   0 r19:   3 r20:  58 
-r21:   4 r22:   4 r23:   0 r24:  17 r25:  15 r26:   0 r27:   0 r28:   0 
+r13:   0 r14:   0 r15:   0 r16:  72 r17:  25 r18:   0 r19:   3 r20:  54 
+r21:   0 r22:   0 r23:   4 r24:  17 r25:  15 r26:   0 r27:   0 r28:   0 
 r29:   0 r30:   2 r31:   2 
-Registers used: 11 out of 35 (31.4%)
+Registers used: 10 out of 35 (28.6%)
 
 "ATmega328P" instruction use summary:
 .lds  :   0 .sts  :   0 adc   :   0 add   :   0 adiw  :   0 and   :   0 
 andi  :  13 asr   :   0 bclr  :   0 bld   :   0 brbc  :   0 brbs  :   0 
-brcc  :   0 brcs  :   0 break :   0 breq  :   4 brge  :   0 brhc  :   0 
+brcc  :   0 brcs  :   0 break :   0 breq  :   5 brge  :   0 brhc  :   0 
 brhs  :   0 brid  :   0 brie  :   0 brlo  :   2 brlt  :   0 brmi  :   0 
-brne  :   5 brpl  :   0 brsh  :   2 brtc  :   0 brts  :   0 brvc  :   0 
+brne  :   2 brpl  :   0 brsh  :   2 brtc  :   0 brts  :   0 brvc  :   0 
 brvs  :   0 bset  :   0 bst   :   0 call  :  32 cbi   :   4 cbr   :   0 
-clc   :   0 clh   :   0 cli   :   9 cln   :   0 clr   :   0 cls   :   0 
+clc   :   0 clh   :   0 cli   :  10 cln   :   0 clr   :   2 cls   :   0 
 clt   :   0 clv   :   0 clz   :   0 com   :   0 cp    :   0 cpc   :   0 
-cpi   :   8 cpse  :   0 dec   :   4 eor   :   0 fmul  :   0 fmuls :   0 
-fmulsu:   0 icall :   0 ijmp  :   0 in    :  12 inc   :   2 jmp   :   8 
-ld    :   0 ldd   :   0 ldi   :  34 lds   :   0 lpm   :   1 lsl   :   8 
+cpi   :   9 cpse  :   0 dec   :   1 eor   :   0 fmul  :   0 fmuls :   0 
+fmulsu:   0 icall :   0 ijmp  :   0 in    :  13 inc   :   2 jmp   :   9 
+ld    :   0 ldd   :   0 ldi   :  38 lds   :   2 lpm   :   1 lsl   :   8 
 lsr   :   0 mov   :   3 movw  :   0 mul   :   0 muls  :   0 mulsu :   0 
-neg   :   0 nop   :   0 or    :   4 ori   :   8 out   :  12 pop   :  24 
-push  :  24 rcall :   0 ret   :  13 reti  :   0 rjmp  :   1 rol   :   0 
+neg   :   0 nop   :   0 or    :   4 ori   :   9 out   :  14 pop   :  25 
+push  :  25 rcall :   0 ret   :  14 reti  :   1 rjmp  :   1 rol   :   0 
 ror   :   0 sbc   :   0 sbci  :   0 sbi   :   3 sbic  :   0 sbis  :   0 
 sbiw  :   1 sbr   :   0 sbrc  :   0 sbrs  :   0 sec   :   0 seh   :   0 
-sei   :   9 sen   :   0 ser   :   0 ses   :   0 set   :   0 sev   :   0 
-sez   :   0 sleep :   0 spm   :   0 st    :   0 std   :   0 sts   :   0 
+sei   :  10 sen   :   0 ser   :   0 ses   :   0 set   :   0 sev   :   0 
+sez   :   0 sleep :   0 spm   :   0 st    :   0 std   :   0 sts   :  10 
 sub   :   1 subi  :   5 swap  :   0 tst   :   0 wdr   :   0 
-Instructions used: 29 out of 113 (25.7%)
+Instructions used: 33 out of 113 (29.2%)
 
 "ATmega328P" memory use summary [bytes]:
 Segment   Begin    End      Code   Data   Used    Size   Use%
 ---------------------------------------------------------------
-[.cseg] 0x000000 0x00049a    592     26    618   32768   1.9%
-[.dseg] 0x000100 0x000100      0      0      0    2048   0.0%
+[.cseg] 0x000000 0x0021b0    668     28    696   32768   2.1%
+[.dseg] 0x000100 0x000101      0      1      1    2048   0.0%
 [.eseg] 0x000000 0x000000      0      0      0    1024   0.0%
 
-Assembly complete, 0 errors, 0 warnings
+Assembly complete, 0 errors, 1 warnings
