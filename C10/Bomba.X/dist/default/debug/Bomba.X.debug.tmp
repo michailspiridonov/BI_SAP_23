@@ -12,14 +12,13 @@
   <FILE>printlib.inc</FILE>
  </INCLUDED_FILES>
  <OBJECT_FILES>
-  <FILE>dist/default/production/Bomba.X.production.obj</FILE>
+  <FILE>dist/default/debug/Bomba.X.debug.obj</FILE>
  </OBJECT_FILES>
  <HEX_FILES>
-  <FILE>dist/default/production/Bomba.X.production.hex</FILE>
+  <FILE>main.hex</FILE>
  </HEX_FILES>
  <OUTPUT_FILES>
-  <FILE>dist/default/production/Bomba.X.production.map</FILE>
-  <FILE>dist/default/production/Bomba.X.production.lss</FILE>
+  <FILE>dist/default/debug/Bomba.X.debug.map</FILE>
  </OUTPUT_FILES>
  <LABELS>
   <flag><FILE>main.asm</FILE><LINE>4</LINE></flag>

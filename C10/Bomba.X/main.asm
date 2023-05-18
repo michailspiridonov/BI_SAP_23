@@ -17,13 +17,11 @@ flag: .byte 1        ; rezervovani mista pro 1 bajt
 .org 0x100
 retez: .db "VAJICKA UVARENA",0
 start:
-    ; Inicializace displeje
-    call init_disp
-    ; Inicializace preruseni od casovace
-    call init_int
     ; Inicializace AD prevodniku
     call init_button
 re_start:
+    ; Inicializace displeje
+    call init_disp
     ldi r30, low(2*retez)
     ldi r31, high(2*retez)
     ldi r24, 0      ; button state
@@ -31,7 +29,9 @@ re_start:
     ldi r20, 0	    ; minutes
     ldi r21, 0	    ; seconds
     ldi r18, 0	    ; blink counter
-    ldi r19, 0
+    ldi r25, 20     ; Timer "constant"
+   ; Inicializace preruseni od casovace
+    call init_int
 
     ldi r16, 0       ; 3
     sts flag, r16
@@ -42,12 +42,6 @@ re_start:
     call show_char
     call print_seconds
     jmp set_minutes
-print_empty:
-    call show_char
-    inc r17
-    cpi r17, 16
-    breq re_start
-    jmp print_empty
 
 print_minutes:
     push r16
@@ -214,18 +208,24 @@ set_down_btn_flag:
     ret
     
 return2: ret
+
+uf_min:
+    ldi r20, 59
+    jmp set_minutes
     
+dec_min:
+    dec r20
+    ldi r24, 0
+    cpi r20, 255
+    breq uf_min
+    jmp sub_min
+
 sub_min:
     cpi r20, 60
     brlo set_minutes
     subi r20, 60
     jmp sub_min
 
-dec_min:
-    dec r20
-    ldi r24, 0
-    jmp sub_min
-    
 inc_min:
     inc r20
     ldi r24, 0
@@ -260,7 +260,7 @@ set_seconds:
     inc r18
     call sec_print
     cpi r24, 1
-    breq main_loop
+    breq set_int_main
     cpi r24, 2
     breq inc_sec
     cpi r24, 3
@@ -273,10 +273,15 @@ inc_sec:
     ldi r24, 0
     jmp sub_sec
 
+uf_sec:
+    ldi r21, 59
+    jmp set_seconds
+    
 dec_sec:
     dec r21
     ldi r24, 0
-    jmp sub_sec
+    cpi r21, 255
+    breq uf_sec
 
 sub_sec:
     cpi r21, 60
@@ -324,7 +329,11 @@ print_empty_sec:
 s:
     ldi r16, ' '
     ldi r17, 0
-    jmp print_empty
+    jmp re_start
+    
+set_int_main:
+    ldi r25, 61
+    call init_int
     
 main_loop:
     lds r23, flag
@@ -365,14 +374,21 @@ print_string:
     call show_char
     inc r17
     cpi r16, 0
-    breq end
+    breq srend
     jmp print_string
 
+srend:
+    ldi r24, 0
 end:
-    ldi r22, 0
-    call is_select
-    cpi r22, 1
+    call set_sel_btn_flag
+    lds r23, flag
+    cpi r23, 0
+    breq end
+    ldi r23, 0  
+    sts flag, r23
+    cpi r24, 1
     breq s
+    ldi r24, 0
     jmp end
 init_int:            ; 5
     push r16
@@ -390,7 +406,7 @@ init_int:            ; 5
 
     ; nastaveni cisteni citace TCNT1 ve chvili, kdy dosahne hodnoty OCR1A (1<<WGM12)
     ; nastaveni preddelicky na 1024 (0b101<<CS10 - bity CS12, CS11 a CS10 jsou za sebou)
-    ldi r16, (1<<WGM12) | (0b101<<CS10)
+    ldi r16, (1<<WGM12) | (0b010<<CS10)
     sts TCCR1B, r16
 
     ; nastaveni OCR1A, tj. vysledne frekvence preruseni
@@ -404,7 +420,7 @@ init_int:            ; 5
     ; 16bitovou hodnotu je treba nastavit do dvou registru OCR1AH:OCR1AL
     ; 15624 = 61 * 256 + 8
     ; Neprehazujte poradi nahravani OCR1AH a OCR1AL - hodnota by se nemusela spravne ulozit!
-    ldi r16, 61
+    mov r16, r25
     sts OCR1AH, r16
     ldi r16, 8
     sts OCR1AL, r16
