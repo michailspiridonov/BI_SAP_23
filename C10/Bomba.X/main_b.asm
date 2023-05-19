@@ -4,7 +4,7 @@
 flag: .byte 1        ; rezervovani mista pro 1 bajt
 
 .cseg                ; prepnuti do pameti programu
-; podprogramy pro praci s displejem (Pri refactoru jsem vetsinu podprogramu dal do printlib na konec r. 293+) !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+; podprogramy pro praci s displejem
 .org 0x1000
 .include "printlib.inc"
 
@@ -19,124 +19,333 @@ retez: .db "VAJICKA UVARENA",0
 start:
     ; Inicializace AD prevodniku
     call init_button
+re_start:
+    ; Inicializace displeje
     call init_disp
     ldi r30, low(2*retez)
     ldi r31, high(2*retez)
-    ldi r20, 0 ;mins
-    ldi r21, 0 ;sec
-    ldi r29, 25
-    ldi r24, 0
+    ldi r24, 0      ; button state
+    ldi r22, 0
+    ldi r20, 0	    ; minutes
+    ldi r21, 0	    ; seconds
+    ldi r18, 0	    ; blink counter
+    ldi r25, 25     ; Timer "constant"
+   ; Inicializace preruseni od casovace
     call init_int
-    ldi r16, 0
+
+    ldi r16, 0       ; 3
     sts flag, r16
-    call print_minutes
-    ldi r16, ':'
-    ldi r17, 7
-    call show_char
-    ldi r18, 0 ;blinker
-    call print_seconds
     
+    call print_minutes
+    ldi r17, 7
+    ldi r16, ':'
+    call show_char
+    call print_seconds
+    jmp set_minutes
+
+print_minutes:
+    push r16
+    push r22
+    ldi r16, 0
+    mov r22, r20
+min_loop:
+    cpi r22, 10
+    brlo show_min
+    subi r22, 10
+    inc r16
+    jmp min_loop
+
+show_min:
+    ldi r17, 5
+    subi r16, -48
+    call show_char
+    inc r17
+    mov r16, r22
+    subi r16, -48
+    call show_char
+    pop r22
+    pop r16
+    ret
+    
+print_seconds:
+    push r16
+    push r22
+    ldi r16, 0
+    mov r22, r21
+sec_loop:
+    cpi r22, 10
+    brlo show_sec
+    subi r22, 10
+    inc r16
+    jmp sec_loop
+
+show_sec:
+    ldi r17, 8
+    subi r16, -48
+    call show_char
+    inc r17
+    mov r16, r22
+    subi r16, -48
+    call show_char
+    pop r22
+    pop r16
+    ret
+    
+is_right:
+    push r16
+    ldi r22, 0
+    call convert
+    lds r16, ADCH
+    swap r16
+    andi r16, 0b00001111
+    cpi r16, 0
+    breq is_succ
+    pop r16
+    ret
+    
+is_down:
+    push r16
+    ldi r22, 0
+    call convert
+    lds r16, ADCH
+    swap r16
+    andi r16, 0b00001111
+    cpi r16, 3
+    breq is_succ
+    pop r16
+    ret
+    
+is_up:
+    push r16
+    ldi r22, 0
+    call convert
+    lds r16, ADCH
+    swap r16
+    andi r16, 0b00001111
+    cpi r16, 1
+    breq is_succ
+    pop r16
+    ret
+    
+is_select:
+    push r16
+    ldi r22, 0
+    call convert
+    lds r16, ADCH
+    swap r16
+    andi r16, 0b00001111
+    cpi r16, 9
+    breq is_succ
+    pop r16
+    ret
+is_succ:
+    ldi r22, 1
+    pop r16
+    ret
+convert:
+    push r16
+    push r17
+    lds r17, (1<<ADSC)
+    lds r16, ADCSRA
+    ori r16, (1<<ADSC)
+    sts ADCSRA, r16
+conv_wait:
+    lds r16, ADCSRA
+    and r17, r16
+    cpi r17, 0
+    brne conv_wait
+    pop r17
+    pop r16
+    ret
+    
+min_print:
+    push r19
+    mov r19, r18
+    andi r19, 0b00000001
+    cpi r19, 0
+    breq min_print_0
+    call print_minutes
+    pop r19
+    ret
+min_print_0:
+    call print_empty_min
+    pop r19
+    ret
+
 set_minutes:
     call set_sel_btn_flag
     call set_up_btn_flag
     call set_down_btn_flag
-    call is_free; Toto blokuje vsechny tlacitka -> nejde drzet "up/down", da se vyresit kotrolou "neselectu" (misto uvolneni [0b1111??????] -> ![0b1001??????])
-    cpi r28, 1
-    brne set_minutes ;Not free, loop
-    ; int check
     lds r23, flag
     cpi r23, 0
     breq set_minutes
-    ; flag reset
     ldi r23, 0  
     sts flag, r23
-    ; logic
     inc r18
     call min_print
     cpi r24, 1
-    breq sec_set
-    cpi r24, 2
-    breq inc_min
+    breq ssp1
     cpi r24, 3
     breq dec_min
-    jmp set_minutes
-    
- inc_min:
+    cpi r24, 2
+    breq inc_min
     ldi r24, 0
-    call add_min
     jmp set_minutes
 
-dec_min:
+sub_min:
+    cpi r20, 60
+    brlo set_minutes
+    subi r20, 60
+    jmp sub_min
+
+inc_min:
+    inc r20
     ldi r24, 0
-    call sub_min
+    jmp sub_min
+    
+set_sel_btn_flag:
+    call is_select
+    cpi r22, 1
+    brne return2
+    ldi r24, 1
+    ret
+    
+set_up_btn_flag:
+    call is_up
+    cpi r22, 1
+    brne return2
+    ldi r24, 2
+    ret
+    
+set_down_btn_flag:
+    call is_down
+    cpi r22, 1
+    brne return2
+    ldi r24, 3
+    ret
+      
+return2: ret
+
+ssp1:
+    jmp ssp
+
+uf_min:
+    ldi r20, 59
     jmp set_minutes
     
-sec_set:
+dec_min:
+    dec r20
     ldi r24, 0
-    ldi r18, 0
+    cpi r20, 255
+    breq uf_min
+    jmp sub_min
+
+sec_print:
+    push r19
+    mov r19, r18
+    andi r19, 0b00000001
+    cpi r19, 0
+    breq sec_print_0
+    call print_seconds
+    pop r19
+    ret
+sec_print_0:
+    call print_empty_sec
+    pop r19
+    ret
+ 
+ssp:
+    ldi r24, 0
+    ldi r22, 0
     call print_minutes
 set_seconds:
     call set_sel_btn_flag
     call set_up_btn_flag
     call set_down_btn_flag
-    call is_free     ; Toto blokuje vsechny tlacitka -> nejde drzet "up/down", da se vyresit kotrolou "neselectu" (misto uvolneni [0b1111??????] -> ![0b1001??????])
-    cpi r28, 1
-    brne set_seconds ;Not free, loop
-    ; int check
     lds r23, flag
     cpi r23, 0
     breq set_seconds
-    ; flag reset
     ldi r23, 0  
     sts flag, r23
-    ; logic
     inc r18
     call sec_print
     cpi r24, 1
-    breq init_main
+    breq set_int_main
     cpi r24, 2
     breq inc_sec
     cpi r24, 3
     breq dec_sec
+    ldi r24, 0
     jmp set_seconds
     
 inc_sec:
+    inc r21
     ldi r24, 0
-    call add_sec
+    jmp sub_sec
+
+uf_sec:
+    ldi r21, 59
     jmp set_seconds
 
 dec_sec:
+    dec r21
     ldi r24, 0
-    call sub_sec
-    jmp set_seconds
-    
-dec_sec_r_p:
-    cpi r24, 4
-    breq pr_down
-    
+    cpi r21, 255
+    breq uf_sec
+
+sub_sec:
+    cpi r21, 60
+    brlo set_seconds
+    subi r21, 60
+    jmp sub_sec
+
 dec_sec_r:
     dec r21
     cpi r21, 255
     breq dec_min_r
-    jmp main_loop
+    ret
 
 dec_min_r:
     cpi r20, 0
-    breq blink
+    breq init_blink
     dec r20
     ldi r21, 59
-    jmp main_loop
-   
- pr_down:
-    call print_down
-    jmp dec_sec_r
+    ret
+
+print_empty_min:
+    push r16
+    push r17
+    ldi r16, ' '
+    ldi r17, 5
+    call show_char
+    inc r17
+    call show_char
+    pop r17
+    pop r16
+    ret
+
+print_empty_sec:
+    push r16
+    push r17
+    ldi r16, ' '
+    ldi r17, 8
+    call show_char
+    inc r17
+    call show_char
+    pop r17
+    pop r16
+    ret
+
+s:
+    ldi r16, ' '
+    ldi r17, 0
+    jmp re_start
     
-init_main:
-    ldi r24, 0
-    ldi r29, 61 ; Nastavime presuseni zpatky na jednou/sek
+set_int_main:
+    ldi r25, 61
     call init_int
+    
 main_loop:
-    call set_right_btn_flag
     lds r23, flag
     cpi r23, 0       ; nacteni a otestovani hodnoty flag-u
     breq main_loop   ; pokud neni flag -> navrat na zacatek
@@ -147,25 +356,26 @@ main_loop:
     ; akce provedena 1x za sekundu 4
     call print_minutes
     call print_seconds
-    jmp dec_sec_r_p
+    call dec_sec_r
     
-restart:
-    jmp start
-    
-blink:
-    ldi r29, 25
-    ldi r24, 0
-    call init_int
-    ldi r17, 0
-    ldi r18, 0
+
+    jmp main_loop
+
+s1:
+    jmp s
+
+init_blink:
+    ldi r25, 25
     ldi r19, 0
+    call init_int
+    
+three_zero_blink:
+    ldi r17, 0
     ldi r20, 0
     ldi r21, 0
-    call clear_down
-blink_loop:
     lds r23, flag
     cpi r23, 0
-    breq blink_loop
+    breq three_zero_blink
     ldi r23, 0  
     sts flag, r23
     inc r18
@@ -173,31 +383,35 @@ blink_loop:
     call min_print
     inc r19
     cpi r19, 8
-    breq print_string
-    jmp blink_loop
+    breq ps_init
+    jmp three_zero_blink
+    
+ps_init:
+    ldi r17, 0
     
 print_string:
     ldi r22, 0
     lpm r16, Z+
-    cpi r16, 0
-    breq reset_loop
     call show_char
     inc r17
+    cpi r16, 0
+    breq srend
     jmp print_string
-    
-reset_loop:
+
+srend:
+    ldi r24, 0
+    ldi r22, 0
+end:
     call set_sel_btn_flag
-    ; int check
     lds r23, flag
     cpi r23, 0
-    breq reset_loop
-    ; reset int
+    breq end
     ldi r23, 0  
     sts flag, r23
-    ; logic
     cpi r24, 1
-    breq restart
-    jmp reset_loop
+    breq s1
+    ldi r24, 0
+    jmp end
     
 init_int:            ; 5
     push r16
@@ -229,7 +443,7 @@ init_int:            ; 5
     ; 16bitovou hodnotu je treba nastavit do dvou registru OCR1AH:OCR1AL
     ; 15624 = 61 * 256 + 8
     ; Neprehazujte poradi nahravani OCR1AH a OCR1AL - hodnota by se nemusela spravne ulozit!
-    mov r16, r29
+    mov r16, r25
     sts OCR1AH, r16
     ldi r16, 8
     sts OCR1AL, r16

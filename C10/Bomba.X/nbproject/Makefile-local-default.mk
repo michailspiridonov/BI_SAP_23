@@ -24,14 +24,14 @@ OS_CURRENT="$(shell uname -s)"
 # MP_CC is not defined
 # MP_CPPC is not defined
 # MP_BC is not defined
-MP_AS="D:\School\mplab-tools\avrasm2.exe"
+MP_AS="C:\mplabx-tools\avrasm2.exe"
 # MP_LD is not defined
 # MP_AR is not defined
 DEP_GEN=${MP_JAVA_PATH}java -jar "C:/Program Files/Microchip/MPLABX/v6.00/mplab_platform/platform/../mplab_ide/modules/../../bin/extractobjectdependencies.jar"
 # MP_CC_DIR is not defined
 # MP_CPPC_DIR is not defined
 # MP_BC_DIR is not defined
-MP_AS_DIR="D:\School\mplab-tools"
+MP_AS_DIR="C:\mplabx-tools"
 # MP_LD_DIR is not defined
 # MP_AR_DIR is not defined
 # MP_BC_DIR is not defined

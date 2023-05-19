@@ -57,17 +57,17 @@ OBJECTDIR=build/${CND_CONF}/${IMAGE_TYPE}
 DISTDIR=dist/${CND_CONF}/${IMAGE_TYPE}
 
 # Source Files Quoted if spaced
-SOURCEFILES_QUOTED_IF_SPACED=main.asm
+SOURCEFILES_QUOTED_IF_SPACED=main_b.asm main.asm
 
 # Object Files Quoted if spaced
-OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/main.obj
-POSSIBLE_DEPFILES=${OBJECTDIR}/main.obj.d
+OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/main_b.obj ${OBJECTDIR}/main.obj
+POSSIBLE_DEPFILES=${OBJECTDIR}/main_b.obj.d ${OBJECTDIR}/main.obj.d
 
 # Object Files
-OBJECTFILES=${OBJECTDIR}/main.obj
+OBJECTFILES=${OBJECTDIR}/main_b.obj ${OBJECTDIR}/main.obj
 
 # Source Files
-SOURCEFILES=main.asm
+SOURCEFILES=main_b.asm main.asm
 
 # Pack Options 
 PACK_ASSEMBLER_OPTIONS=-I "${DFP_DIR}/avrasm/inc"  -i m328Pdef.inc
@@ -96,12 +96,22 @@ endif
 # ------------------------------------------------------------------------------------
 # Rules for buildStep: assemble
 ifeq ($(TYPE_IMAGE), DEBUG_RUN)
+${OBJECTDIR}/main_b.obj: main_b.asm  nbproject/Makefile-${CND_CONF}.mk 
+	@${MKDIR} ${DISTDIR} 
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/main_b.obj 
+	${MP_AS}  -fI -W+ie ${PACK_ASSEMBLER_OPTIONS} -d ${DISTDIR}/Bomba.X.${IMAGE_TYPE}.${DEBUGGABLE_SUFFIX}  -m ${DISTDIR}/Bomba.X.${IMAGE_TYPE}.map  -S ${DISTDIR}/Bomba.X.${IMAGE_TYPE}.tmp main_b.asm
 ${OBJECTDIR}/main.obj: main.asm  nbproject/Makefile-${CND_CONF}.mk 
 	@${MKDIR} ${DISTDIR} 
 	@${MKDIR} "${OBJECTDIR}" 
 	@${RM} ${OBJECTDIR}/main.obj 
 	${MP_AS}  -fI -W+ie ${PACK_ASSEMBLER_OPTIONS} -d ${DISTDIR}/Bomba.X.${IMAGE_TYPE}.${DEBUGGABLE_SUFFIX}  -m ${DISTDIR}/Bomba.X.${IMAGE_TYPE}.map  -S ${DISTDIR}/Bomba.X.${IMAGE_TYPE}.tmp main.asm
 else
+${OBJECTDIR}/main_b.obj: main_b.asm  nbproject/Makefile-${CND_CONF}.mk 
+	@${MKDIR} ${DISTDIR} 
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/main_b.obj 
+	${MP_AS}  -fI -W+ie ${PACK_ASSEMBLER_OPTIONS} -d ${DISTDIR}/Bomba.X.${IMAGE_TYPE}.${DEBUGGABLE_SUFFIX}  -S ${DISTDIR}/Bomba.X.${IMAGE_TYPE}.tmp  -o ${DISTDIR}/Bomba.X.${IMAGE_TYPE}.hex  -m ${DISTDIR}/Bomba.X.${IMAGE_TYPE}.map  -l ${DISTDIR}/Bomba.X.${IMAGE_TYPE}.lss main_b.asm
 ${OBJECTDIR}/main.obj: main.asm  nbproject/Makefile-${CND_CONF}.mk 
 	@${MKDIR} ${DISTDIR} 
 	@${MKDIR} "${OBJECTDIR}" 

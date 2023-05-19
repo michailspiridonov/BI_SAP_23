@@ -1,10 +1,10 @@
 <ASSEMBLER_INFO>
  <VERSION>2.2.8</VERSION>
  <DEVICE>"ATmega328P"</DEVICE>
- <WORKING_DIR>D:\School\SAP\C10\Bomba.X</WORKING_DIR>
+ <WORKING_DIR>X:\SAP\C10\Bomba.X</WORKING_DIR>
  <INCLUDE_PATH>
   <DIR>C:/Program Files/Microchip/MPLABX/v6.00/packs/Microchip/ATmega_DFP/2.4.131/avrasm/inc</DIR>
-  <DIR></DIR>
+  <DIR>C:\Program Files (x86)\Atmel\AVR Tools\AvrAssembler2\Appnotes</DIR>
  </INCLUDE_PATH>
  <SOURCE_FILE>main.asm</SOURCE_FILE>
  <INCLUDED_FILES>
@@ -38,53 +38,67 @@
   <lcd_light_off><FILE>printlib.inc</FILE><LINE>276</LINE></lcd_light_off>
   <lcd_delay_us_l0><FILE>printlib.inc</FILE><LINE>283</LINE></lcd_delay_us_l0>
   <lcd_delay_us_l1><FILE>printlib.inc</FILE><LINE>285</LINE></lcd_delay_us_l1>
+  <print_minutes><FILE>printlib.inc</FILE><LINE>293</LINE></print_minutes>
+  <min_loop><FILE>printlib.inc</FILE><LINE>299</LINE></min_loop>
+  <show_min><FILE>printlib.inc</FILE><LINE>306</LINE></show_min>
+  <print_seconds><FILE>printlib.inc</FILE><LINE>319</LINE></print_seconds>
+  <sec_loop><FILE>printlib.inc</FILE><LINE>325</LINE></sec_loop>
+  <show_sec><FILE>printlib.inc</FILE><LINE>332</LINE></show_sec>
+  <is_right><FILE>printlib.inc</FILE><LINE>345</LINE></is_right>
+  <convert><FILE>printlib.inc</FILE><LINE>412</LINE></convert>
+  <is_succ><FILE>printlib.inc</FILE><LINE>408</LINE></is_succ>
+  <is_down><FILE>printlib.inc</FILE><LINE>357</LINE></is_down>
+  <is_up><FILE>printlib.inc</FILE><LINE>369</LINE></is_up>
+  <is_select><FILE>printlib.inc</FILE><LINE>381</LINE></is_select>
+  <is_free><FILE>printlib.inc</FILE><LINE>393</LINE></is_free>
+  <free><FILE>printlib.inc</FILE><LINE>404</LINE></free>
+  <conv_wait><FILE>printlib.inc</FILE><LINE>419</LINE></conv_wait>
+  <set_sel_btn_flag><FILE>printlib.inc</FILE><LINE>428</LINE></set_sel_btn_flag>
+  <return2><FILE>printlib.inc</FILE><LINE>456</LINE></return2>
+  <set_up_btn_flag><FILE>printlib.inc</FILE><LINE>435</LINE></set_up_btn_flag>
+  <set_down_btn_flag><FILE>printlib.inc</FILE><LINE>442</LINE></set_down_btn_flag>
+  <set_right_btn_flag><FILE>printlib.inc</FILE><LINE>449</LINE></set_right_btn_flag>
+  <add_min><FILE>printlib.inc</FILE><LINE>458</LINE></add_min>
+  <sub_min><FILE>printlib.inc</FILE><LINE>465</LINE></sub_min>
+  <add_sec><FILE>printlib.inc</FILE><LINE>472</LINE></add_sec>
+  <sub_sec><FILE>printlib.inc</FILE><LINE>479</LINE></sub_sec>
+  <sec_print><FILE>printlib.inc</FILE><LINE>486</LINE></sec_print>
+  <sec_print_0><FILE>printlib.inc</FILE><LINE>495</LINE></sec_print_0>
+  <print_empty_sec><FILE>printlib.inc</FILE><LINE>526</LINE></print_empty_sec>
+  <min_print><FILE>printlib.inc</FILE><LINE>500</LINE></min_print>
+  <min_print_0><FILE>printlib.inc</FILE><LINE>509</LINE></min_print_0>
+  <print_empty_min><FILE>printlib.inc</FILE><LINE>514</LINE></print_empty_min>
+  <clear_down><FILE>printlib.inc</FILE><LINE>538</LINE></clear_down>
+  <cl_loop><FILE>printlib.inc</FILE><LINE>543</LINE></cl_loop>
+  <print_down><FILE>printlib.inc</FILE><LINE>552</LINE></print_down>
+  <print_minutes_down><FILE>printlib.inc</FILE><LINE>565</LINE></print_minutes_down>
+  <print_seconds_down><FILE>printlib.inc</FILE><LINE>591</LINE></print_seconds_down>
+  <mind_loop><FILE>printlib.inc</FILE><LINE>571</LINE></mind_loop>
+  <show_mind><FILE>printlib.inc</FILE><LINE>578</LINE></show_mind>
+  <secd_loop><FILE>printlib.inc</FILE><LINE>597</LINE></secd_loop>
+  <show_secd><FILE>printlib.inc</FILE><LINE>604</LINE></show_secd>
   <start><FILE>main.asm</FILE><LINE>19</LINE></start>
-  <interrupt><FILE>main.asm</FILE><LINE>451</LINE></interrupt>
+  <interrupt><FILE>main.asm</FILE><LINE>260</LINE></interrupt>
   <retez><FILE>main.asm</FILE><LINE>18</LINE></retez>
-  <init_button><FILE>main.asm</FILE><LINE>436</LINE></init_button>
-  <re_start><FILE>main.asm</FILE><LINE>22</LINE></re_start>
-  <init_int><FILE>main.asm</FILE><LINE>393</LINE></init_int>
-  <print_minutes><FILE>main.asm</FILE><LINE>46</LINE></print_minutes>
-  <print_seconds><FILE>main.asm</FILE><LINE>70</LINE></print_seconds>
-  <set_minutes><FILE>main.asm</FILE><LINE>163</LINE></set_minutes>
-  <min_loop><FILE>main.asm</FILE><LINE>51</LINE></min_loop>
-  <show_min><FILE>main.asm</FILE><LINE>58</LINE></show_min>
-  <sec_loop><FILE>main.asm</FILE><LINE>75</LINE></sec_loop>
-  <show_sec><FILE>main.asm</FILE><LINE>82</LINE></show_sec>
-  <is_down><FILE>main.asm</FILE><LINE>94</LINE></is_down>
-  <convert><FILE>main.asm</FILE><LINE>133</LINE></convert>
-  <is_succ><FILE>main.asm</FILE><LINE>129</LINE></is_succ>
-  <is_up><FILE>main.asm</FILE><LINE>106</LINE></is_up>
-  <is_select><FILE>main.asm</FILE><LINE>118</LINE></is_select>
-  <conv_wait><FILE>main.asm</FILE><LINE>140</LINE></conv_wait>
-  <min_print><FILE>main.asm</FILE><LINE>149</LINE></min_print>
-  <min_print_0><FILE>main.asm</FILE><LINE>158</LINE></min_print_0>
-  <print_empty_min><FILE>main.asm</FILE><LINE>305</LINE></print_empty_min>
-  <set_sel_btn_flag><FILE>main.asm</FILE><LINE>183</LINE></set_sel_btn_flag>
-  <set_up_btn_flag><FILE>main.asm</FILE><LINE>192</LINE></set_up_btn_flag>
-  <set_down_btn_flag><FILE>main.asm</FILE><LINE>201</LINE></set_down_btn_flag>
-  <ssp><FILE>main.asm</FILE><LINE>248</LINE></ssp>
-  <dec_min><FILE>main.asm</FILE><LINE>216</LINE></dec_min>
-  <inc_min><FILE>main.asm</FILE><LINE>229</LINE></inc_min>
-  <return2><FILE>main.asm</FILE><LINE>210</LINE></return2>
-  <uf_min><FILE>main.asm</FILE><LINE>212</LINE></uf_min>
-  <sub_min><FILE>main.asm</FILE><LINE>223</LINE></sub_min>
-  <sec_print><FILE>main.asm</FILE><LINE>234</LINE></sec_print>
-  <sec_print_0><FILE>main.asm</FILE><LINE>243</LINE></sec_print_0>
-  <print_empty_sec><FILE>main.asm</FILE><LINE>317</LINE></print_empty_sec>
-  <set_seconds><FILE>main.asm</FILE><LINE>251</LINE></set_seconds>
-  <set_int_main><FILE>main.asm</FILE><LINE>334</LINE></set_int_main>
-  <inc_sec><FILE>main.asm</FILE><LINE>271</LINE></inc_sec>
-  <dec_sec><FILE>main.asm</FILE><LINE>280</LINE></dec_sec>
-  <sub_sec><FILE>main.asm</FILE><LINE>286</LINE></sub_sec>
-  <uf_sec><FILE>main.asm</FILE><LINE>276</LINE></uf_sec>
-  <dec_sec_r><FILE>main.asm</FILE><LINE>292</LINE></dec_sec_r>
-  <dec_min_r><FILE>main.asm</FILE><LINE>298</LINE></dec_min_r>
-  <three_zero_blink><FILE>main.asm</FILE><LINE>354</LINE></three_zero_blink>
-  <s><FILE>main.asm</FILE><LINE>329</LINE></s>
-  <main_loop><FILE>main.asm</FILE><LINE>338</LINE></main_loop>
-  <print_string><FILE>main.asm</FILE><LINE>371</LINE></print_string>
-  <srend><FILE>main.asm</FILE><LINE>380</LINE></srend>
-  <end><FILE>main.asm</FILE><LINE>382</LINE></end>
+  <init_button><FILE>main.asm</FILE><LINE>245</LINE></init_button>
+  <init_int><FILE>main.asm</FILE><LINE>202</LINE></init_int>
+  <set_minutes><FILE>main.asm</FILE><LINE>39</LINE></set_minutes>
+  <sec_set><FILE>main.asm</FILE><LINE>74</LINE></sec_set>
+  <inc_min><FILE>main.asm</FILE><LINE>64</LINE></inc_min>
+  <dec_min><FILE>main.asm</FILE><LINE>69</LINE></dec_min>
+  <set_seconds><FILE>main.asm</FILE><LINE>78</LINE></set_seconds>
+  <init_main><FILE>main.asm</FILE><LINE>134</LINE></init_main>
+  <inc_sec><FILE>main.asm</FILE><LINE>103</LINE></inc_sec>
+  <dec_sec><FILE>main.asm</FILE><LINE>108</LINE></dec_sec>
+  <dec_sec_r_p><FILE>main.asm</FILE><LINE>113</LINE></dec_sec_r_p>
+  <pr_down><FILE>main.asm</FILE><LINE>130</LINE></pr_down>
+  <dec_sec_r><FILE>main.asm</FILE><LINE>117</LINE></dec_sec_r>
+  <dec_min_r><FILE>main.asm</FILE><LINE>123</LINE></dec_min_r>
+  <main_loop><FILE>main.asm</FILE><LINE>138</LINE></main_loop>
+  <blink><FILE>main.asm</FILE><LINE>155</LINE></blink>
+  <restart><FILE>main.asm</FILE><LINE>152</LINE></restart>
+  <blink_loop><FILE>main.asm</FILE><LINE>165</LINE></blink_loop>
+  <print_string><FILE>main.asm</FILE><LINE>179</LINE></print_string>
+  <reset_loop><FILE>main.asm</FILE><LINE>188</LINE></reset_loop>
  </LABELS>
 </ASSEMBLER_INFO>

@@ -289,3 +289,328 @@ lcd_delay_us_l1:
     brne    lcd_delay_us_l0
     pop	    r20
     ret
+
+print_minutes:
+    push r16
+    push r17
+    push r22
+    ldi r16, 0
+    mov r22, r20
+min_loop:
+    cpi r22, 10
+    brlo show_min
+    subi r22, 10
+    inc r16
+    jmp min_loop
+
+show_min:
+    ldi r17, 5
+    subi r16, -48
+    call show_char
+    inc r17
+    mov r16, r22
+    subi r16, -48
+    call show_char
+    pop r22
+    pop r17
+    pop r16
+    ret
+    
+print_seconds:
+    push r16
+    push r17
+    push r22
+    ldi r16, 0
+    mov r22, r21
+sec_loop:
+    cpi r22, 10
+    brlo show_sec
+    subi r22, 10
+    inc r16
+    jmp sec_loop
+
+show_sec:
+    ldi r17, 8
+    subi r16, -48
+    call show_char
+    inc r17
+    mov r16, r22
+    subi r16, -48
+    call show_char
+    pop r22
+    pop r17
+    pop r16
+    ret
+	
+is_right:
+    push r16
+    ldi r22, 0
+    call convert
+    lds r16, ADCH
+    swap r16
+    andi r16, 0b00001111
+    cpi r16, 0
+    breq is_succ
+    pop r16
+    ret
+    
+is_down:
+    push r16
+    ldi r22, 0
+    call convert
+    lds r16, ADCH
+    swap r16
+    andi r16, 0b00001111
+    cpi r16, 3
+    breq is_succ
+    pop r16
+    ret
+    
+is_up:
+    push r16
+    ldi r22, 0
+    call convert
+    lds r16, ADCH
+    swap r16
+    andi r16, 0b00001111
+    cpi r16, 1
+    breq is_succ
+    pop r16
+    ret
+    
+is_select:
+    push r16
+    ldi r22, 0
+    call convert
+    lds r16, ADCH
+    swap r16
+    andi r16, 0b00001111
+    cpi r16, 9
+    breq is_succ
+    pop r16
+    ret
+	
+is_free:
+	push r16
+	ldi r28, 0
+	call convert
+	lds r16, ADCH
+	swap r16
+	andi r16, 0b00001111
+	cpi r16, 15
+	breq free
+	pop r16
+	ret
+free:
+	ldi r28, 1
+	pop r16
+	ret
+is_succ:
+    ldi r22, 1
+    pop r16
+    ret
+convert:
+    push r16
+    push r17
+    lds r17, (1<<ADSC)
+    lds r16, ADCSRA
+    ori r16, (1<<ADSC)
+    sts ADCSRA, r16
+conv_wait:
+    lds r16, ADCSRA
+    and r17, r16
+    cpi r17, 0
+    brne conv_wait
+    pop r17
+    pop r16
+    ret
+	
+set_sel_btn_flag:
+    call is_select
+    cpi r22, 1
+    brne return2
+    ldi r24, 1
+    ret
+    
+set_up_btn_flag:
+    call is_up
+    cpi r22, 1
+    brne return2
+    ldi r24, 2
+    ret
+    
+set_down_btn_flag:
+    call is_down
+    cpi r22, 1
+    brne return2
+    ldi r24, 3
+    ret
+	
+set_right_btn_flag:
+	call is_right
+	cpi r22, 1
+	brne return2
+	ldi r24, 4
+	ret
+      
+return2: ret
+
+add_min:
+	inc r20
+	cpi r20, 60
+	brlo return2
+	subi r20, 60
+	ret
+	
+sub_min:
+	dec r20
+	cpi r20, 255
+	brne return2
+	ldi r20, 59
+	ret
+	
+add_sec:
+	inc r21
+	cpi r21, 60
+	brlo return2
+	subi r21, 60
+	ret
+	
+sub_sec:
+	dec r21
+	cpi r21, 255
+	brne return2
+	ldi r21, 59
+	ret
+	
+sec_print:
+    push r19
+    mov r19, r18
+    andi r19, 0b00000001
+    cpi r19, 0
+    breq sec_print_0
+    call print_seconds
+    pop r19
+    ret
+sec_print_0:
+    call print_empty_sec
+    pop r19
+    ret
+	
+min_print:
+    push r19
+    mov r19, r18
+    andi r19, 0b00000001
+    cpi r19, 0
+    breq min_print_0
+    call print_minutes
+    pop r19
+    ret
+min_print_0:
+    call print_empty_min
+    pop r19
+    ret
+	
+print_empty_min:
+    push r16
+    push r17
+    ldi r16, ' '
+    ldi r17, 5
+    call show_char
+    inc r17
+    call show_char
+    pop r17
+    pop r16
+    ret
+
+print_empty_sec:
+    push r16
+    push r17
+    ldi r16, ' '
+    ldi r17, 8
+    call show_char
+    inc r17
+    call show_char
+    pop r17
+    pop r16
+    ret
+	
+clear_down:
+	push r16
+	push r17
+	ldi r16, ' '
+	ldi r17, 69
+cl_loop:
+	call show_char
+	inc r17
+	cpi r17, 74
+	brne cl_loop
+	pop r17
+	pop r16
+	ret
+	
+print_down:
+	ldi r24, 0
+	push r16
+	push r17
+	call print_minutes_down
+	ldi r16, ':'
+	ldi r17, 71
+	call show_char
+	call print_seconds_down
+	pop r17
+	pop r16
+	ret
+	
+print_minutes_down:
+    push r16
+    push r17
+    push r22
+    ldi r16, 0
+    mov r22, r20
+mind_loop:
+    cpi r22, 10
+    brlo show_mind
+    subi r22, 10
+    inc r16
+    jmp mind_loop
+
+show_mind:
+    ldi r17, 69
+    subi r16, -48
+    call show_char
+    inc r17
+    mov r16, r22
+    subi r16, -48
+    call show_char
+    pop r22
+    pop r17
+    pop r16
+    ret
+    
+print_seconds_down:
+    push r16
+    push r17
+    push r22
+    ldi r16, 0
+    mov r22, r21
+secd_loop:
+    cpi r22, 10
+    brlo show_secd
+    subi r22, 10
+    inc r16
+    jmp secd_loop
+
+show_secd:
+    ldi r17, 72
+    subi r16, -48
+    call show_char
+    inc r17
+    mov r16, r22
+    subi r16, -48
+    call show_char
+    pop r22
+    pop r17
+    pop r16
+    ret
+	
